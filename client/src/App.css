@@ -1,0 +1,16 @@
+* {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  font-size: medium;
+  font-family: "Google Sans Text";
+}
+
+.header {
+  text-align: center;
+  color: #ffffff;
+  margin-bottom: 30px;
+}
+
+Table {
+  border: #ffffff;
+}
