@@ -1,0 +1,18 @@
+.profileBar {
+  width: 120px;
+  height: 40px;
+  border-radius: 15px;
+  background-color: #000000;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.profileBar:hover {
+  background-color: #333333;
+}
+
+.profileBar .icon {
+  background: none;
+  margin-right: 10px;
+  font-size: 20px;
+}

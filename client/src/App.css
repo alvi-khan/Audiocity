@@ -9,8 +9,28 @@
   text-align: center;
   color: #ffffff;
   margin-bottom: 30px;
+  margin-top: 10px;
 }
 
-Table {
-  border: #ffffff;
+.sidebar {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 200px;
+  position: fixed;
+  background-color: #151515;
+}
+
+.mainContent {
+  margin: 0px;
+  margin-left: 210px;
+}
+
+.footer {
+  background-color: #252525;
+  padding: 10px;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
