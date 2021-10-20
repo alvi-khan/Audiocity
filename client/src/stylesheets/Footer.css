@@ -1,3 +1,18 @@
+.footer {
+  background: #252525;
+  display: flex;
+}
+
+.nowPlayingContainer {
+  margin: auto 0px;
+  background: none;
+}
+
+.volumeContainer {
+  margin: auto 0px;
+  background: none;
+}
+
 .player {
   margin: auto;
   width: fit-content;

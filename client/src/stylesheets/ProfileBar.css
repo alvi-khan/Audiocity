@@ -1,6 +1,7 @@
 .profileBar {
   width: 120px;
   height: 40px;
+  margin-top: 10px;
   border-radius: 15px;
   background-color: #000000;
   font-size: 18px;

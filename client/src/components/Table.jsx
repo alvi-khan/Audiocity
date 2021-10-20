@@ -1,15 +1,8 @@
 import React, { useState, useEffect, Component } from "react";
-import DataTable from "react-data-table-component";
 import Axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
 import "../stylesheets/Table.css";
-
-let columns = [
-  { name: "Title", selector: (row) => row.title },
-  { name: "Artist", selector: (row) => row.artist },
-  { name: "Album", selector: (row) => row.album },
-  { name: "Uploader", selector: (row) => row.uploader },
-];
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 class Table extends React.Component {
   state = {
@@ -30,12 +23,36 @@ class Table extends React.Component {
   }
 
   render() {
-    if (this.state.loaded) {
-      return (
-        <DataTable theme="dark" columns={columns} data={this.state.data} />
-      );
-    }
-    return <DataTable columns={columns} data={[]} />;
+    return (
+      <div className="table">
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Title</th>
+              <th>Artist</th>
+              <th>Album</th>
+              <th>Uploader</th>
+            </tr>
+          </thead>
+          <tbody overflow>
+            {this.state.data.map((item) => {
+              return (
+                <tr key={item.title}>
+                  <td>
+                    <i class="icon bi bi-play-fill"></i>
+                  </td>
+                  <td class="title">{item.title}</td>
+                  <td>{item.artist}</td>
+                  <td>{item.album}</td>
+                  <td>{item.uploader}</td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    );
   }
 }
 

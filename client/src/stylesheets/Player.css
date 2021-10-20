@@ -21,7 +21,7 @@ button {
 .playButton {
   width: 40px;
   height: 40px;
-  background-image: url("./icons/player/play.png");
+  background-image: url("./icons/player/play.svg");
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -34,21 +34,59 @@ button {
   width: 12px;
   height: 12px;
   background: none;
-  background-image: url("./icons/player/prev.png");
+  background-image: url("./icons/player/prev.svg");
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+.prevButton:hover {
+  background-image: url("./icons/player/prev-hover.svg");
+}
+
+.nextButton:hover {
+  background-image: url("./icons/player/next-hover.svg");
 }
 
 .nextButton {
   width: 12px;
   height: 12px;
   background: none;
-  background-image: url("./icons/player/next.png");
+  background-image: url("./icons/player/next.svg");
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-input[type="range"] {
+.shuffleButton {
+  width: 14px;
+  height: 14px;
+  background: none;
+  background-image: url("./icons/player/shuffle.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.shuffleButton:hover {
+  background-image: url("./icons/player/shuffle-hover.svg");
+}
+
+.repeatButton {
+  width: 14px;
+  height: 14px;
+  background: none;
+  background-image: url("./icons/player/repeat.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.repeatButton:hover {
+  background-image: url("./icons/player/repeat-hover.svg");
+}
+
+.playingSlider {
+  background: none;
+}
+
+.playingSlider input[type="range"] {
   /*removes default webkit styles*/
   -webkit-appearance: none;
   /*required for proper track sizing in FF*/
@@ -57,14 +95,27 @@ input[type="range"] {
   margin: 5px;
   vertical-align: middle;
 }
-input[type="range"]::-webkit-slider-runnable-track {
-  width: 300px;
+.playingSlider input[type="range"]::-webkit-slider-runnable-track {
+  width: 400px;
   height: 5px;
   background: #333333;
   border: none;
   border-radius: 3px;
 }
-input[type="range"]::-webkit-slider-thumb {
+
+.playingSlider input[type="range"]::-moz-range-track {
+  width: 400px;
+  height: 5px;
+  background: #333333;
+  border: none;
+  border-radius: 3px;
+}
+
+.playingSlider input[type="range"]::-moz-range-progress {
+  background: #0f4271;
+}
+
+.playingSlider input[type="range"]::-webkit-slider-thumb {
   -webkit-appearance: none;
   border: none;
   height: 10px;
@@ -73,7 +124,26 @@ input[type="range"]::-webkit-slider-thumb {
   background: #0f4271;
   margin: -2.5px;
 }
-input[type="range"]:focus {
+
+.playingSlider input[type="range"]::-moz-range-thumb {
+  -webkit-appearance: none;
+  border: none;
+  height: 10px;
+  width: 15px;
+  border-radius: 5px;
+  background: #0f4271;
+  margin: -2.5px;
+}
+
+.playingSlider input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.playingSlider input[type="range"]::-moz-range-thumb:hover {
+  transform: scale(1.2);
+}
+
+.playingSlider input[type="range"]:focus {
   outline: none;
 }
 

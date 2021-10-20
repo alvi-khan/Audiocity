@@ -1,0 +1,37 @@
+.nowPlaying,
+.image,
+.details {
+  background: none;
+}
+
+.nowPlaying {
+  display: flex;
+  margin-left: 10px;
+}
+
+.details {
+  height: fit-content;
+  margin: auto;
+}
+
+.nowPlaying text {
+  display: block;
+  background: none;
+  margin: 5px 10px;
+  font-size: 14px;
+}
+
+.nowPlaying .artistName {
+  font-size: 12px;
+  color: #959595;
+}
+
+.nowPlaying .image {
+  width: 80px;
+  height: 80px;
+}
+
+.nowPlaying img {
+  max-width: 100%;
+  max-height: 100%;
+}
