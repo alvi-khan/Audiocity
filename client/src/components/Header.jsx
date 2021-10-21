@@ -6,8 +6,13 @@ import "../stylesheets/Header.css";
 class Header extends React.Component {
   render() {
     return (
-      <div class="profileDiv">
-        <ProfileBar />
+      <div class="headerContent">
+        <div class="searchBar">
+          <SearchBar onSearch={this.props.onSearch} />
+        </div>
+        <div class="profileDiv">
+          <ProfileBar />
+        </div>
       </div>
     );
   }

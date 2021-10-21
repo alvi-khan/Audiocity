@@ -3,8 +3,12 @@ import Table from './components/Table';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
+import React, { useState, useEffect } from 'react';
 
 function App() {
+
+  const [searchTerm, setSearchTerm] = useState("");
+
   return (
   <div className="App">
     <div className="topContent">
@@ -13,10 +17,10 @@ function App() {
       </div>
       <div className="mainContent">
         <div className="header">
-          <Header />
+          <Header onSearch={(text) => setSearchTerm(text)}/>
         </div>
         <div className="table">
-          <Table />
+          <Table searchTerm={searchTerm}/>
         </div>
       </div>
 

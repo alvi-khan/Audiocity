@@ -1,5 +1,5 @@
-.profileDiv {
-  margin-right: 0;
-  margin-left: auto;
-  width: fit-content;
+.headerContent {
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
 }

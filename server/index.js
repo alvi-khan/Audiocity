@@ -20,8 +20,11 @@ app.listen(3001, () => {
 })
 
 app.get("/api/query", (req, res) => {
-    const query = "SELECT * FROM music_files";
-    db.query(query, (error, results, fields) => {
+    const searchTerm = "%" + (req.query.searchTerm) + "%";
+
+    const query = "SELECT * FROM music_files WHERE ((title LIKE (?)) OR (artist LIKE (?)) OR (album LIKE (?)) OR (uploader LIKE (?)))"
+
+    db.query(query, [searchTerm, searchTerm, searchTerm, searchTerm], (error, results, fields) => {
         if (error) {
             return console.error(error.message);
         }

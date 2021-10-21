@@ -10,8 +10,10 @@ class Table extends React.Component {
     data: [],
   };
 
-  getData() {
-    Axios.get("http://localhost:3001/api/query")
+  getData(searchTerm) {
+    Axios.get("http://localhost:3001/api/query", {
+      params: { searchTerm: searchTerm },
+    })
       .then((response) => {
         this.setState({ data: response.data });
       })
@@ -20,6 +22,10 @@ class Table extends React.Component {
 
   componentDidMount() {
     this.getData();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.getData(nextProps.searchTerm);
   }
 
   render() {

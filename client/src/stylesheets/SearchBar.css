@@ -2,5 +2,12 @@ input {
   background-color: #ffffff;
   color: #1e1e1e;
   border-style: hidden;
-  height: 35px;
+  height: 40px;
+  width: 300px;
+  border-radius: 20px;
+  padding-left: 20px;
+}
+
+input:focus {
+  outline: none;
 }
