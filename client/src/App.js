@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
 function App() {
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [songID, setSongID] = useState(0);
 
   return (
   <div className="App">
@@ -20,13 +21,13 @@ function App() {
           <Header onSearch={(text) => setSearchTerm(text)}/>
         </div>
         <div className="table">
-          <Table searchTerm={searchTerm}/>
+          <Table searchTerm={searchTerm} onPlay={(songID) => setSongID(songID)}/>
         </div>
       </div>
 
     </div>
     <div className="footer">
-      <Footer />
+      <Footer songID={songID}/>
     </div>
   </div>
   )

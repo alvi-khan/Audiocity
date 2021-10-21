@@ -46,7 +46,13 @@ class Table extends React.Component {
               return (
                 <tr key={item.title}>
                   <td>
-                    <i class="icon bi bi-play-fill"></i>
+                    <i
+                      data-id={item.ID}
+                      onClick={(e) =>
+                        this.props.onPlay(e.target.getAttribute("data-id"))
+                      }
+                      class="icon bi bi-play-fill"
+                    ></i>
                   </td>
                   <td class="title">{item.title}</td>
                   <td>{item.artist}</td>

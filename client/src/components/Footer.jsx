@@ -12,7 +12,7 @@ class Footer extends React.Component {
           <NowPlaying />
         </div>
         <div class="player">
-          <Player />
+          <Player songID={this.props.songID} />
         </div>
         <div class="volumeContainer">
           <VolumeControl />
