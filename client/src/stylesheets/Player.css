@@ -18,12 +18,17 @@ button {
   vertical-align: middle;
 }
 
+.buttons .icon {
+  background: none;
+  color: #ffffff;
+  font-size: 24px;
+}
+
 .playButton {
   width: 40px;
   height: 40px;
-  background-image: url("./icons/player/play.svg");
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: #0f4271;
+  border-radius: 20px;
 }
 
 .playButton:hover {
@@ -87,13 +92,12 @@ button {
 }
 
 .playingSlider input[type="range"] {
-  /*removes default webkit styles*/
   -webkit-appearance: none;
-  /*required for proper track sizing in FF*/
   width: 400px;
   background: none;
   margin: 5px;
   vertical-align: middle;
+  padding: 0;
 }
 .playingSlider input[type="range"]::-webkit-slider-runnable-track {
   width: 400px;
@@ -113,6 +117,8 @@ button {
 
 .playingSlider input[type="range"]::-moz-range-progress {
   background: #0f4271;
+  height: 5px;
+  border-radius: 3px;
 }
 
 .playingSlider input[type="range"]::-webkit-slider-thumb {

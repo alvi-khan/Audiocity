@@ -1,3 +1,7 @@
+.muteButton {
+  margin: 0px;
+}
+
 .volumeSlider {
   margin: auto;
   display: block;
@@ -12,12 +16,17 @@
   color: #959595;
 }
 
+.volumeSlider .icon:hover {
+  color: #ffffff;
+}
+
 .volumeSlider input[type="range"] {
   -webkit-appearance: none;
   width: 100px;
   background: none;
   margin: 5px;
   vertical-align: middle;
+  padding: 0;
 }
 .volumeSlider input[type="range"]::-webkit-slider-runnable-track {
   width: 100px;
@@ -37,6 +46,8 @@
 
 .volumeSlider input[type="range"]::-moz-range-progress {
   background: #0f4271;
+  height: 5px;
+  border-radius: 3px;
 }
 
 .volumeSlider input[type="range"]::-webkit-slider-thumb {

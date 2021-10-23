@@ -46,3 +46,12 @@ app.get("/api/song", (req, res) => {
         fs.createReadStream(filePath).pipe(res);
     })
 })
+
+app.get("/api/metadata", (req, res) => {
+    const songID = req.query.songID;
+    const query = "SELECT title, artist FROM music_files WHERE ID = " + songID;
+    db.query(query, (error, results, fields) => {
+        if (error)  return console.error(error.message);
+        res.send(results);
+    })
+})
