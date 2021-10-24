@@ -4,8 +4,9 @@ import "../stylesheets/NowPlaying.css";
 
 class NowPlaying extends React.Component {
   state = {
-    songName: "Song Name",
-    artistName: "Artist Name",
+    songName: "",
+    artistName: "",
+    albumArt: "",
   };
 
   retrieveData(songID) {
@@ -19,15 +20,28 @@ class NowPlaying extends React.Component {
     });
   }
 
+  getAlbumArt(songID) {
+    Axios.get("http://localhost:3001/api/albumart", {
+      params: { songID: songID },
+    }).then((response) => {
+      this.setState({
+        albumArt: "http://localhost:3001/" + response.data[0].coverpath,
+      });
+    });
+  }
+
   componentWillReceiveProps(nextProps) {
-    if (nextProps.songID != 0) this.retrieveData(nextProps.songID);
+    if (nextProps.songID != 0) {
+      this.retrieveData(nextProps.songID);
+      this.getAlbumArt(nextProps.songID);
+    }
   }
 
   render() {
     return (
       <div class="nowPlaying">
         <div class="image">
-          <img src="https://www.glyric.com/modules/custom/glyrics_custom/images/player_default_cover.png" />
+          <img src={this.state.albumArt} />
         </div>
         <div class="details">
           <text class="songName">{this.state.songName}</text>

@@ -17,6 +17,9 @@ const db = mysql.createPool({
     database: "music_Streaming_service"
 })
 
+var albumArt = "Album Art";
+app.use(express.static(albumArt));
+
 app.listen(3001, () => {
     console.log("running on port 3001");
 })
@@ -24,7 +27,7 @@ app.listen(3001, () => {
 app.get("/api/query", (req, res) => {
     const searchTerm = "%" + (req.query.searchTerm) + "%";
 
-    const query = "SELECT ID, title, artist, album, uploader FROM music_files WHERE ((title LIKE (?)) OR (artist LIKE (?)) OR (album LIKE (?)) OR (uploader LIKE (?)))"
+    const query = "SELECT ID, title, artist, album, uploader, coverpath FROM music_files WHERE ((title LIKE (?)) OR (artist LIKE (?)) OR (album LIKE (?)) OR (uploader LIKE (?)))"
 
     db.query(query, [searchTerm, searchTerm, searchTerm, searchTerm], (error, results, fields) => {
         if (error) {
@@ -53,5 +56,14 @@ app.get("/api/metadata", (req, res) => {
     db.query(query, (error, results, fields) => {
         if (error)  return console.error(error.message);
         res.send(results);
+    })
+})
+
+app.get("/api/albumart", (req, res) => {
+    const songID = req.query.songID;
+    const query = "SELECT coverpath FROM music_files WHERE ID = " + songID;
+    db.query(query, (error, results, fields) => {
+        if (error)  return  console.error(error.message);
+        res.send(results)
     })
 })
