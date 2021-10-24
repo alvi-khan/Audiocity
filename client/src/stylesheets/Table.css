@@ -1,9 +1,17 @@
-.table {
-  padding: 10px;
+table {
+  width: fit-content;
+  margin: auto;
 }
 
-table {
-  width: 100%;
+thead {
+  display: block;
+}
+
+tbody {
+  display: block;
+  overflow-y: scroll;
+  height: 380px;
+  scrollbar-width: thin;
 }
 
 th {
@@ -44,11 +52,15 @@ td:hover {
 
 tr .icon {
   background: none;
-  margin-right: 10px;
   font-size: 20px;
   visibility: hidden;
 }
 
 tr:hover .icon {
   visibility: visible;
+}
+
+img {
+  max-width: 50px;
+  max-height: 50px;
 }
