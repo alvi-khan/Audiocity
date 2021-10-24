@@ -1,15 +1,18 @@
 .footer {
   background: #252525;
-  display: flex;
 }
 
 .nowPlayingContainer {
   margin: auto 0px;
+  margin-top: 5px;
+  float: left;
   background: none;
 }
 
 .volumeContainer {
   margin: auto 0px;
+  margin-top: 20px;
+  float: right;
   background: none;
 }
 

@@ -21,13 +21,6 @@ class Footer extends React.Component {
         <div class="nowPlayingContainer">
           <NowPlaying songID={this.props.songID} />
         </div>
-        <div class="player">
-          <Player
-            songID={this.props.songID}
-            volume={this.state.volume}
-            muted={this.state.muted}
-          />
-        </div>
         <div class="volumeContainer">
           <VolumeControl
             onVolumeChange={(volume) => this.setState({ volume: volume })}
@@ -35,6 +28,13 @@ class Footer extends React.Component {
             onMuteToggle={() => {
               this.toggleMute();
             }}
+          />
+        </div>
+        <div class="player">
+          <Player
+            songID={this.props.songID}
+            volume={this.state.volume}
+            muted={this.state.muted}
           />
         </div>
       </div>
