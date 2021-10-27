@@ -31,6 +31,8 @@ class Sidebar extends React.Component {
           Upload
         </button>
         <UploadDialog
+          onSearch={this.props.onSearch}
+          searchTerm={this.props.searchTerm}
           show={this.state.uploadDialogShown}
           onHide={() => {
             this.setState({ uploadDialogShown: false });

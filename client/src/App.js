@@ -14,7 +14,7 @@ function App() {
   <div className="App">
     <div className="topContent">
       <div className="sidebar">
-        <Sidebar />
+        <Sidebar onSearch={(text) => setSearchTerm(text)} searchTerm={searchTerm}/>
       </div>
       <div className="mainContent">
         <div className="header">

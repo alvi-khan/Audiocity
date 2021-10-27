@@ -79,6 +79,11 @@ class UploadDialog extends React.Component {
         setTimeout(() => {
           toast.dismiss(toastId);
         }, 2000);
+        var searchTerm = this.props.searchTerm;
+        this.props.onSearch("");
+        setTimeout(() => {
+          this.props.onSearch(searchTerm);
+        }, 500);
       })
       .catch((err) => {
         toast.update(toastId, {
