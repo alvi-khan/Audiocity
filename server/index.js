@@ -72,6 +72,12 @@ app.get("/api/albumart", (req, res) => {
 var fileName = "";
 var extensions = [];
 
+function generateFileName() {
+  var newName = nanoid();
+  while (fs.existsSync('./Music Files/' + newName + '.mp3') || fs.existsSync('./MusicFiles/' + newName + '.flac'))  newName = nanoid();
+  fileName = newName;
+}
+
 function getDestination(file) {
   var extension = file.originalname.split('.');
   extension = extension[extension.length - 1];
@@ -92,9 +98,9 @@ var storage = multer.diskStorage({
 var upload = multer({ storage: storage }).fields([{ name: 'song', maxCount: 1 }, {name: 'image', maxCount: 1 }]);
 
 app.post("/api/upload", function (req, res) {
+  generateFileName();
   extensions = [];
   var title, artist, album, uploader, filePath, coverpath = "";
-  fileName = nanoid();
   upload(req, res, function (err) {
     if (err)  return res.status(500).json(err);
     title = req.body.title;
