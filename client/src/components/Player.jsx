@@ -40,6 +40,8 @@ class Player extends React.Component {
     });
     this.audio.addEventListener("ended", () => {
       this.stopAudioSlider();
+      this.setState({ playing: false });
+      this.reset();
     });
     this.audio.play();
   }
