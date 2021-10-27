@@ -96,3 +96,11 @@
   margin: 5px 75px 5px 75px;
   display: inline-block;
 }
+
+:root {
+  --toastify-color-light: #252525;
+  --toastify-toast-background: #66d9ee;
+  --toastify-font-family: "Google Sans Text";
+  --toastify-color-success: #2aca7c;
+  --toastify-color-progress-light: #2aca7c;
+}
