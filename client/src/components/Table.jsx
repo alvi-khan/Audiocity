@@ -32,6 +32,11 @@ class Table extends React.Component {
     return image;
   }
 
+  play = (songID) => {
+    if (this.props.songID === songID) this.props.onPlay(0);
+    else this.props.onPlay(songID);
+  };
+
   render() {
     return (
       <div className="table">
@@ -54,7 +59,7 @@ class Table extends React.Component {
                     <i
                       data-id={item.ID}
                       onClick={(e) =>
-                        this.props.onPlay(e.target.getAttribute("data-id"))
+                        this.play(e.target.getAttribute("data-id"))
                       }
                       class="icon bi bi-play-fill"
                     ></i>

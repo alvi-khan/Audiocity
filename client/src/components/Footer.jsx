@@ -32,6 +32,7 @@ class Footer extends React.Component {
         </div>
         <div class="player">
           <Player
+            setSong={this.props.setSong}
             songID={this.props.songID}
             volume={this.state.volume}
             muted={this.state.muted}

@@ -56,10 +56,19 @@ class Player extends React.Component {
     this.setState({ playing: true });
   }
 
+  reset() {
+    this.setState({ currentPosition: 0 });
+    this.audio.currentTime = 0;
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.songID != this.state.currentSong) {
       this.setState({ currentSong: nextProps.songID });
       this.play(nextProps.songID);
+    }
+    if (nextProps.songID === 0) {
+      this.props.setSong(this.state.currentSong);
+      this.reset();
     }
     this.audio.volume = nextProps.volume / 100;
     this.audio.muted = nextProps.muted;

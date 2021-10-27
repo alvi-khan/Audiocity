@@ -21,13 +21,13 @@ function App() {
           <Header onSearch={(text) => setSearchTerm(text)}/>
         </div>
         <div>
-          <Table searchTerm={searchTerm} onPlay={(songID) => setSongID(songID)}/>
+          <Table songID={songID} searchTerm={searchTerm} onPlay={(songID) => setSongID(songID)}/>
         </div>
       </div>
 
     </div>
     <div className="footer">
-      <Footer songID={songID}/>
+      <Footer setSong={(songID) => setSongID(songID)} songID={songID}/>
     </div>
   </div>
   )
