@@ -8,7 +8,10 @@ class Header extends React.Component {
     return (
       <div class="headerContent">
         <div class="searchBar">
-          <SearchBar onSearch={this.props.onSearch} />
+          <SearchBar
+            onSearch={this.props.onSearch}
+            searchTerm={this.props.searchTerm}
+          />
         </div>
         <div class="profileDiv">
           <ProfileBar />

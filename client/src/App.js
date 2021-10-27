@@ -18,10 +18,10 @@ function App() {
       </div>
       <div className="mainContent">
         <div className="header">
-          <Header onSearch={(text) => setSearchTerm(text)}/>
+          <Header onSearch={(text) => setSearchTerm(text)} searchTerm={searchTerm}/>
         </div>
         <div>
-          <Table songID={songID} searchTerm={searchTerm} onPlay={(songID) => setSongID(songID)}/>
+          <Table onSearch={(text) => setSearchTerm(text)} songID={songID} searchTerm={searchTerm} onPlay={(songID) => setSongID(songID)}/>
         </div>
       </div>
 

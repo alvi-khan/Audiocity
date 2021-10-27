@@ -28,6 +28,10 @@ tr {
   font-weight: 600;
 }
 
+.title:hover {
+  text-decoration: none;
+}
+
 tr:hover td {
   background-color: #333333;
   cursor: pointer;

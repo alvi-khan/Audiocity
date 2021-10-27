@@ -14,6 +14,10 @@ class SearchBar extends React.Component {
     this.setState({ searchTerm: text });
   };
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({ searchTerm: nextProps.searchTerm });
+  }
+
   render() {
     return (
       <input
@@ -22,6 +26,7 @@ class SearchBar extends React.Component {
             this.search();
           }
         }}
+        value={this.state.searchTerm}
         onChange={(e) => this.inputChange(e.target.value)}
         placeholder="Search..."
       />

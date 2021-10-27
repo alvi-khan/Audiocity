@@ -10,6 +10,7 @@ class Table extends React.Component {
   };
 
   getData(searchTerm) {
+    this.setState({ data: [] });
     Axios.get("http://localhost:3001/api/query", {
       params: { searchTerm: searchTerm },
     }).then((response) => {
@@ -70,9 +71,30 @@ class Table extends React.Component {
                   <td style={{ width: 250 + "px" }} class="title">
                     {item.title}
                   </td>
-                  <td style={{ width: 250 + "px" }}>{item.artist}</td>
-                  <td style={{ width: 250 + "px" }}>{item.album}</td>
-                  <td style={{ width: 150 + "px" }}>{item.uploader}</td>
+                  <td
+                    onClick={(event) =>
+                      this.props.onSearch(event.target.textContent)
+                    }
+                    style={{ width: 250 + "px" }}
+                  >
+                    {item.artist}
+                  </td>
+                  <td
+                    onClick={(event) =>
+                      this.props.onSearch(event.target.textContent)
+                    }
+                    style={{ width: 250 + "px" }}
+                  >
+                    {item.album}
+                  </td>
+                  <td
+                    onClick={(event) =>
+                      this.props.onSearch(event.target.textContent)
+                    }
+                    style={{ width: 150 + "px" }}
+                  >
+                    {item.uploader}
+                  </td>
                 </tr>
               );
             })}
