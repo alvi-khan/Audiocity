@@ -25,6 +25,13 @@ class Table extends React.Component {
     this.getData(nextProps.searchTerm);
   }
 
+  getImage(item) {
+    var image = item.coverpath;
+    if (image === "") image = "default.jpg";
+    else image = "http://localhost:3001/" + image;
+    return image;
+  }
+
   render() {
     return (
       <div className="table">
@@ -53,7 +60,7 @@ class Table extends React.Component {
                     ></i>
                   </td>
                   <td style={{ width: 70 + "px" }} class="img">
-                    <img src={"http://localhost:3001/" + item.coverpath} />
+                    <img src={this.getImage(item)} />
                   </td>
                   <td style={{ width: 250 + "px" }} class="title">
                     {item.title}

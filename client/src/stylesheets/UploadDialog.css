@@ -1,0 +1,98 @@
+.Modal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 900px;
+  height: fit-content;
+  padding: 50px;
+  border: 2px solid white;
+  border-radius: 10px;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(30, 30, 30, 0.8);
+}
+
+.Modal .text {
+  display: inline-block;
+  width: 370px;
+  text-align: right;
+  margin: 10px;
+}
+
+.Modal div {
+  display: inline-block;
+  width: 370px;
+  text-align: right;
+  margin: 10px;
+}
+
+.Modal input {
+  padding: 5px;
+  height: 40px;
+  margin: 5px;
+  border-radius: 5px;
+  width: 220px;
+}
+
+.Modal .button input[type="file"] {
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+}
+
+.Modal .button {
+  width: 120px;
+  background-color: #3e3e3e;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+}
+
+.Modal .button:hover {
+  background-color: #666666;
+}
+
+.Modal input[type="submit"] {
+  width: 120px;
+  background-color: #3e3e3e;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  margin: 5px;
+  color: white;
+}
+
+.Modal input[type="submit"]:hover {
+  background-color: #666666;
+}
+
+.Modal button {
+  width: 120px;
+  background-color: #3e3e3e;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+  margin: 5px;
+}
+
+.Modal button:hover {
+  background-color: #666666;
+}
+
+.Modal img {
+  border: 1px solid white;
+  width: 200px;
+  height: 200px;
+  margin: 5px 75px 5px 75px;
+  display: inline-block;
+}
