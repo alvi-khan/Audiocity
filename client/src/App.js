@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
 import React, { useState, useEffect } from 'react';
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
 
 function App() {
 
@@ -11,7 +12,8 @@ function App() {
   const [songID, setSongID] = useState(0);
 
   return (
-  <div className="App">
+  <Router>
+    <div className="App">
     <div className="topContent">
       <div className="sidebar">
         <Sidebar onSearch={(text) => setSearchTerm(text)} searchTerm={searchTerm}/>
@@ -21,7 +23,14 @@ function App() {
           <Header onSearch={(text) => setSearchTerm(text)} searchTerm={searchTerm}/>
         </div>
         <div>
-          <Table onSearch={(text) => setSearchTerm(text)} songID={songID} searchTerm={searchTerm} onPlay={(songID) => setSongID(songID)}/>
+          <Switch>
+            <Route path="/search">
+            <Table onSearch={(text) => setSearchTerm(text)} songID={songID} searchTerm={searchTerm} onPlay={(songID) => setSongID(songID)}/>
+            </Route>
+            <Route path="/">
+              <div><h1>Hello World!</h1></div>
+            </Route>
+          </Switch>
         </div>
       </div>
 
@@ -30,6 +39,7 @@ function App() {
       <Footer setSong={(songID) => setSongID(songID)} songID={songID}/>
     </div>
   </div>
+  </Router>
   )
 }
 

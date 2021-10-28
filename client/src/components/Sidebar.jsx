@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../stylesheets/Sidebar.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import UploadDialog from "./UploadDialog";
+import { Link } from "react-router-dom";
 
 class Sidebar extends React.Component {
   state = {
@@ -13,12 +14,17 @@ class Sidebar extends React.Component {
         <div>
           <h3>Music Player</h3>
         </div>
-        <button>
-          <i class="icon bi bi-house"></i>Home
-        </button>
-        <button>
-          <i class="icon bi bi-search"></i>Search
-        </button>
+        <Link class="link" to="/">
+          <button>
+            <i class="icon bi bi-house"></i>Home
+          </button>
+        </Link>
+
+        <Link class="link" to="/search">
+          <button>
+            <i class="icon bi bi-search"></i>Search
+          </button>
+        </Link>
         <button>
           <i class="icon bi bi-file-earmark-music"></i>Playlists
         </button>
