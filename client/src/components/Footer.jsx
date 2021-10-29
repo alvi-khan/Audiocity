@@ -17,7 +17,7 @@ class Footer extends React.Component {
 
   render() {
     return (
-      <div class="footer">
+      <div>
         <div class="nowPlayingContainer">
           <NowPlaying songID={this.props.songID} />
         </div>

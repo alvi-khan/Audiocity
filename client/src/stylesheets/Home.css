@@ -1,0 +1,21 @@
+.home {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+
+.artist {
+  border-radius: 20px;
+  width: 400px;
+  height: 200px;
+  margin: 30px auto;
+  font-size: 32px;
+  padding: 50px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+  transition: 0.3s;
+}
+
+.artist:hover {
+  transform: scale(1.1);
+}

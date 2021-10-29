@@ -3,11 +3,18 @@ import Axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
 import "../stylesheets/Table.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { Link } from "react-router-dom";
 
 class Table extends React.Component {
   state = {
     data: [],
   };
+
+  getSearchTerm() {
+    var url = window.location.href;
+    var searchTerm = url.substring("http://localhost:3000/search?".length);
+    return decodeURI(searchTerm);
+  }
 
   getData(searchTerm) {
     this.setState({ data: [] });
@@ -19,11 +26,11 @@ class Table extends React.Component {
   }
 
   componentDidMount() {
-    this.getData();
+    this.getData(this.getSearchTerm());
   }
 
   componentWillReceiveProps(nextProps) {
-    this.getData(nextProps.searchTerm);
+    this.getData(this.getSearchTerm());
   }
 
   getImage(item) {
@@ -77,7 +84,9 @@ class Table extends React.Component {
                     }
                     style={{ width: 250 + "px" }}
                   >
-                    {item.artist}
+                    <Link class="link" to={"/search?" + item.artist}>
+                      {item.artist}
+                    </Link>
                   </td>
                   <td
                     onClick={(event) =>
@@ -85,7 +94,9 @@ class Table extends React.Component {
                     }
                     style={{ width: 250 + "px" }}
                   >
-                    {item.album}
+                    <Link class="link" to={"/search?" + item.album}>
+                      {item.album}
+                    </Link>
                   </td>
                   <td
                     onClick={(event) =>
@@ -93,7 +104,9 @@ class Table extends React.Component {
                     }
                     style={{ width: 150 + "px" }}
                   >
-                    {item.uploader}
+                    <Link class="link" to={"/search?" + item.uploader}>
+                      {item.uploader}
+                    </Link>
                   </td>
                 </tr>
               );

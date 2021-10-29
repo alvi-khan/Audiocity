@@ -69,6 +69,14 @@ app.get("/api/albumart", (req, res) => {
     })
 })
 
+app.get("/api/artists", (req, res) => {
+  const query = "SELECT artist, coverpath FROM music_files GROUP BY artist";
+  db.query(query, (error, results, fields) => {
+    if (error)  return console.error(error.message);
+    res.send(results);
+  })
+})
+
 var fileName = "";
 var extensions = [];
 

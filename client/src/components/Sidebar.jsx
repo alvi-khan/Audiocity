@@ -20,8 +20,8 @@ class Sidebar extends React.Component {
           </button>
         </Link>
 
-        <Link class="link" to="/search">
-          <button>
+        <Link class="link" to="/search?">
+          <button onClick={() => this.props.onSearch("")}>
             <i class="icon bi bi-search"></i>Search
           </button>
         </Link>

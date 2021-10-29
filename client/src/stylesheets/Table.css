@@ -1,5 +1,9 @@
+.table {
+  padding-left: 10px;
+}
+
 table {
-  width: fit-content;
+  width: 100%;
   margin: auto;
 }
 
@@ -67,4 +71,14 @@ tr:hover .icon {
 img {
   max-width: 50px;
   max-height: 50px;
+}
+
+.link {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+.link:hover {
+  color: #ffffff;
 }
