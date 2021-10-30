@@ -124,6 +124,22 @@ class UploadDialog extends React.Component {
     }
   };
 
+  handleDrop = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+    if (event.dataTransfer.files && event.dataTransfer.files[0]) {
+      var file = event.dataTransfer.files[0];
+      if (file.type.startsWith("image/")) {
+        this.setState({ imageUrl: URL.createObjectURL(file), image: file });
+      }
+    }
+  };
+
+  handleDragOver = (event) => {
+    event.stopPropagation();
+    event.preventDefault();
+  };
+
   getImageContent() {
     if (this.state.imageUrl != "") {
       return <img src={this.state.imageUrl} />;
@@ -153,7 +169,11 @@ class UploadDialog extends React.Component {
           overlayClassName="Overlay"
         >
           <div class="upload">
-            <label class="image">
+            <label
+              onDragOver={(event) => this.handleDragOver(event)}
+              onDrop={(event) => this.handleDrop(event)}
+              class="image"
+            >
               <input
                 name="image"
                 type="file"
