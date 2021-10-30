@@ -2,28 +2,30 @@ import React, { Component } from "react";
 import SearchBar from "./SearchBar";
 import ProfileBar from "./ProfileBar";
 import "../stylesheets/Header.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class Header extends React.Component {
+  getSearchBar() {
+    if (this.props.location.pathname === "/search") {
+      return (
+        <SearchBar
+          onSearch={this.props.onSearch}
+          searchTerm={this.props.searchTerm}
+        />
+      );
+    }
+  }
+
   render() {
     return (
-      <Router>
-        <div class="headerContent">
-          <div class="searchBar">
-            <Route path="/search">
-              <SearchBar
-                onSearch={this.props.onSearch}
-                searchTerm={this.props.searchTerm}
-              />
-            </Route>
-          </div>
-          <div class="profileDiv">
-            <ProfileBar />
-          </div>
+      <div class="headerContent">
+        <div class="searchBar">{this.getSearchBar()}</div>
+        <div class="profileDiv">
+          <ProfileBar />
         </div>
-      </Router>
+      </div>
     );
   }
 }
 
-export default Header;
+export default withRouter(Header);
