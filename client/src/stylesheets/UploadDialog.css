@@ -1,3 +1,5 @@
+/* Modal Container */
+
 .Modal {
   position: absolute;
   top: 0;
@@ -5,7 +7,7 @@
   right: 0;
   bottom: 0;
   margin: auto;
-  width: 900px;
+  width: fit-content;
   height: fit-content;
   padding: 50px;
   border: 2px solid white;
@@ -21,81 +23,190 @@
   background-color: rgba(30, 30, 30, 0.8);
 }
 
-.Modal .text {
-  display: inline-block;
-  width: 370px;
-  text-align: right;
-  margin: 10px;
+.Modal .upload {
+  display: grid;
+  width: 600px;
+  height: 400px;
+  grid-template-columns: 300px auto;
+  grid-template-rows: auto 50px;
 }
 
-.Modal div {
-  display: inline-block;
-  width: 370px;
-  text-align: right;
-  margin: 10px;
+/* Modal Container */
+
+/* Dialog Elements */
+
+.upload .image {
+  margin: 25px;
+  width: 250px;
+  height: 250px;
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+  border: 1px solid white;
 }
 
-.Modal input {
+.upload .form {
+  width: fit-content;
+  grid-row: 1 / 2;
+  grid-column: 2 / 2;
+  padding-left: 10px;
+}
+
+.upload .buttons {
+  height: fit-content;
+  grid-row: 2 / 2;
+  grid-column: 2 / 2;
+  display: inline;
+}
+
+/* Dialog Elements */
+
+/* Image Section */
+
+.upload .image input {
+  visibility: hidden;
+  height: 0px;
+  width: 0px;
+}
+
+.upload .image {
+  margin: 50px 50px 0px 0px;
+  width: 250px;
+  height: 250px;
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+  border: 2px dashed #fff;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.upload .image:active {
+  border: 2px solid #fff;
+}
+.upload .image .icon {
+  font-size: 60px;
+  color: #fff;
+}
+.upload .image header {
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+}
+
+.upload .image .button {
+  width: 120px;
+  background-color: #3e3e3e;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.upload .image .button:hover {
+  background-color: #666666;
+  transform: scale(1.02);
+}
+
+.upload .image img {
+  width: 250px;
+  height: 250px;
+  max-width: 250px;
+  max-height: 250px;
+  object-fit: cover;
+  border-radius: 5px;
+}
+
+/* Image Section */
+
+/* Form Elements */
+
+.upload .form .text {
+  margin: 5px auto;
+  font-size: 14px;
+}
+
+.upload .form .text input {
   padding: 5px;
   height: 40px;
-  margin: 5px;
+  margin: 5px 0px;
+  width: 280px;
   border-radius: 5px;
-  width: 220px;
 }
 
-.Modal .button input[type="file"] {
-  opacity: 0;
-  width: 0.1px;
-  height: 0.1px;
-  position: absolute;
+.upload .form .text input:focus {
+  border: 2px solid blue;
 }
 
-.Modal .button {
-  width: 120px;
-  background-color: #3e3e3e;
+/* Audio Upload Field */
+.upload .form .button {
+  border: 2px solid white;
+  background: white;
+  margin-top: 25px;
   border-radius: 5px;
-  padding: 10px;
-  text-align: center;
+  width: 280px;
+  height: fit-content;
+  cursor: pointer;
+  display: flex;
 }
 
-.Modal .button:hover {
-  background-color: #666666;
+.upload .form .button:hover {
+  border: 2px solid blue;
 }
 
-.Modal input[type="submit"] {
-  width: 120px;
-  background-color: #3e3e3e;
-  border-radius: 5px;
-  padding: 10px;
-  text-align: center;
-  margin: 5px;
+.upload .form .button input {
+  visibility: hidden;
+  height: 0px;
+  width: 0px;
+  flex: 0 1 0px;
+}
+
+.upload .form .button::before {
+  content: "Select Audio";
+  height: 40px;
   color: white;
+  background: #151515;
+  border-radius: 3px 0px 0px 3px;
+  padding: 10px 8px 5px 8px;
+  font-size: 11pt;
+  flex: 0 1 auto;
 }
 
-.Modal input[type="submit"]:hover {
-  background-color: #666666;
+.upload .form .button:active::before {
+  background: #252525;
 }
 
-.Modal button {
+.upload .form .button::after {
+  content: attr(filename);
+  height: 40px;
+  color: black;
+  padding: 10px 8px 5px 8px;
+  font-size: 11pt;
+  flex: 1 1 auto;
+}
+
+/* Audio Upload Field */
+
+/* Form Elements */
+
+/* Main Action Buttons */
+
+.upload button {
   width: 120px;
   background-color: #3e3e3e;
   border-radius: 5px;
   padding: 10px;
-  text-align: center;
   margin: 5px;
 }
 
-.Modal button:hover {
+.upload button:hover {
   background-color: #666666;
+  transform: scale(1.02);
 }
 
-.Modal img {
-  border: 1px solid white;
-  width: 200px;
-  height: 200px;
-  margin: 5px 75px 5px 75px;
-  display: inline-block;
-}
+/* Main Action Buttons */
+
+/* Toast Message */
 
 :root {
   --toastify-color-light: #252525;
@@ -104,3 +215,5 @@
   --toastify-color-success: #2aca7c;
   --toastify-color-progress-light: #2aca7c;
 }
+
+/* Toast Message */

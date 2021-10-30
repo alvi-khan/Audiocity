@@ -4,6 +4,7 @@ import ReactModal from "react-modal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../stylesheets/UploadDialog.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 class UploadDialog extends React.Component {
   state = {
@@ -123,6 +124,24 @@ class UploadDialog extends React.Component {
     }
   };
 
+  getImageContent() {
+    if (this.state.imageUrl != "") {
+      return <img src={this.state.imageUrl} />;
+    } else {
+      return (
+        <React.Fragment>
+          <div>
+            <i class="icon bi bi-image"></i>
+          </div>
+          <header>{"Drag & Drop"}</header>
+          <header>{"to Upload Image"}</header>
+          <header>{"or"}</header>
+          <div class="button">Browser Files</div>
+        </React.Fragment>
+      );
+    }
+  }
+
   render() {
     return (
       <React.Fragment>
@@ -130,34 +149,46 @@ class UploadDialog extends React.Component {
         <ReactModal
           isOpen={this.props.show}
           onRequestClose={this.handleClose}
-          className="Modal"
+          className="Modal upload"
           overlayClassName="Overlay"
         >
-          <form>
-            <label class="text">
-              Title:
+          <div class="upload">
+            <label class="image">
               <input
-                name="title"
-                onChange={this.textChanged}
-                type="text"
-                required
+                name="image"
+                type="file"
+                accept=".png, .jpg"
+                onChange={this.fileUpload}
               />
+              {this.getImageContent()}
             </label>
-            <label class="text">
-              Artist:
-              <input
-                name="artist"
-                onChange={this.textChanged}
-                type="text"
-                required
-              />
-            </label>
-            <label class="text">
-              Album:
-              <input name="album" onChange={this.textChanged} type="text" />
-            </label>
-            <div>
-              <label for="song" class="button">
+            <form class="form">
+              <label class="text">
+                Title:
+                <input
+                  name="title"
+                  onChange={this.textChanged}
+                  type="text"
+                  required
+                />
+              </label>
+              <label class="text">
+                Artist:
+                <input
+                  name="artist"
+                  onChange={this.textChanged}
+                  type="text"
+                  required
+                />
+              </label>
+              <label class="text">
+                Album:
+                <input name="album" onChange={this.textChanged} type="text" />
+              </label>
+              <label
+                class="button"
+                filename={this.state.filename || "Nothing Selected!"}
+              >
                 <input
                   id="song"
                   name="song"
@@ -166,33 +197,13 @@ class UploadDialog extends React.Component {
                   onChange={this.fileUpload}
                   required
                 />
-                Upload Song
               </label>
-              <input
-                id="song"
-                name="song"
-                type="text"
-                value={this.state.filename}
-                readOnly
-              />
-            </div>
-            <div>
-              <label class="button">
-                <input
-                  name="image"
-                  type="file"
-                  accept=".png, .jpg"
-                  onChange={this.fileUpload}
-                />
-                Upload Cover
-              </label>
-              <img src={this.state.imageUrl} />
-            </div>
-            <div>
-              <input type="submit" onClick={this.handleSubmit} value="Upload" />
+            </form>
+            <div class="buttons">
+              <button onClick={this.handleSubmit}>Upload</button>
               <button onClick={this.handleClose}>Cancel</button>
             </div>
-          </form>
+          </div>
         </ReactModal>
       </React.Fragment>
     );
