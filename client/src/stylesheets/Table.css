@@ -15,7 +15,7 @@ tbody {
   display: block;
   overflow-y: scroll;
   height: 380px;
-  scrollbar-width: thin;
+  scrollbar-width: none;
 }
 
 th {

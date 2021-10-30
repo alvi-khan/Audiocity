@@ -4,6 +4,7 @@
 
 .volumeSlider {
   margin: auto;
+  margin-right: 30px;
   display: block;
   max-height: fit-content;
   background: none;

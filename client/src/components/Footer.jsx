@@ -17,7 +17,7 @@ class Footer extends React.Component {
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <div class="nowPlayingContainer">
           <NowPlaying songID={this.props.songID} />
         </div>
@@ -38,7 +38,7 @@ class Footer extends React.Component {
             muted={this.state.muted}
           />
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }
