@@ -2,27 +2,48 @@ import React, { Component } from "react";
 import Axios from "axios";
 import "../stylesheets/Home.css";
 import { Link } from "react-router-dom";
+import { prominent, average } from "color.js";
 
 class Home extends React.Component {
   state = {
     artists: [],
     covers: [],
+    backgrounds: [],
   };
 
   retrieveArtists() {
     Axios.get("http://localhost:3001/api/artists").then((response) => {
       var artists = [];
       var covers = [];
-      response.data.map((element) => {
+      response.data.map((element, index) => {
         artists.push(element.artist);
         covers.push("http://localhost:3001/" + element.coverpath);
+        this.getBackgroundImage(covers[index], index);
       });
-      this.setState({ artists: artists, covers: covers });
+      this.setState({
+        artists: artists,
+        covers: covers,
+      });
     });
   }
 
   componentDidMount() {
     this.retrieveArtists();
+  }
+
+  getBackgroundImage(image, index) {
+    average(image, { amount: 1, sample: 50, group: 30 }).then((color) => {
+      this.updateBackground(image, index, color[0], color[1], color[2]);
+    });
+  }
+
+  updateBackground(image, index, r, g, b) {
+    var style = `linear-gradient(to right, rgba(${r}, ${g}, ${b}, 1), rgba(${r}, ${g}, ${b}, 1), rgba(${r}, ${g}, ${b}, 1), rgba(${r}, ${g}, ${b}, 0.5), rgba(${r}, ${g}, ${b}, 0.3)), url(${image})`;
+    var backgrounds = [...this.state.backgrounds];
+    var background = { ...backgrounds[index] };
+    background = style;
+    backgrounds[index] = background;
+    this.setState({ backgrounds });
   }
 
   render() {
@@ -33,7 +54,7 @@ class Home extends React.Component {
             <Link class="link" to={"/search?" + artist}>
               <div
                 style={{
-                  backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.1)), url(${this.state.covers[index]})`,
+                  backgroundImage: this.state.backgrounds[index],
                 }}
                 class="artist"
               >
