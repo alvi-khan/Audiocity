@@ -30,7 +30,7 @@ class Table extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.getData(this.getSearchTerm());
+    this.getData(nextProps.searchTerm);
   }
 
   getImage(item) {

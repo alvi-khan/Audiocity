@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "../stylesheets/SearchBar.css";
+import { withRouter } from "react-router-dom";
 
 class SearchBar extends React.Component {
   state = {
@@ -8,6 +9,7 @@ class SearchBar extends React.Component {
 
   search = () => {
     this.props.onSearch(this.state.searchTerm);
+    this.props.history.push("/search?" + this.state.searchTerm);
   };
 
   inputChange = (text) => {
@@ -34,4 +36,4 @@ class SearchBar extends React.Component {
   }
 }
 
-export default SearchBar;
+export default withRouter(SearchBar);
