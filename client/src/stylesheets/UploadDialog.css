@@ -234,15 +234,16 @@
 
 /* Main Action Buttons */
 
-.upload button {
+.upload .buttons .button {
   width: 120px;
   background-color: #3e3e3e;
   border-radius: 5px;
   padding: 10px;
   margin: 5px;
+  text-align: center;
 }
 
-.upload button:hover {
+.upload .buttons .button:hover {
   background-color: #666666;
   transform: scale(1.02);
 }

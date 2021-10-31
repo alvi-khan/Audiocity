@@ -245,10 +245,20 @@ class UploadDialog extends React.Component {
                     required
                   />
                 </label>
+                <input
+                  type="submit"
+                  onSubmit={this.handleSubmit}
+                  id="formSubmit"
+                  hidden
+                />
               </form>
               <div class="buttons">
-                <button onClick={this.handleSubmit}>Upload</button>
-                <button onClick={this.handleClose}>Cancel</button>
+                <label class="button" for="formSubmit">
+                  Upload
+                </label>
+                <label class="button" onClick={this.handleClose}>
+                  Cancel
+                </label>
               </div>
             </div>
           </div>
