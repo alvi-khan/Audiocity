@@ -16,6 +16,7 @@ class UploadDialog extends React.Component {
     song: null,
     filename: "",
     uploader: "Admin",
+    overlay: "hidden",
   };
 
   toast = {
@@ -107,38 +108,51 @@ class UploadDialog extends React.Component {
     if (event.target.value) this.setState({ [field]: event.target.value });
   };
 
+  saveFile(file) {
+    if (file.type.startsWith("image/"))
+      this.setState({ imageUrl: URL.createObjectURL(file), image: file });
+    else if (file.type.startsWith("audio/"))
+      this.setState({ filename: file.name, song: file });
+  }
+
   fileUpload = (event) => {
     if (event.target.files && event.target.files[0]) {
-      var field = event.target.name;
-      var file = event.target.files[0];
-      if (field === "image") {
-        if (!(file.name.endsWith(".png") || file.name.endsWith(".jpg"))) return;
-        this.setState({ imageUrl: URL.createObjectURL(file) });
-      }
-      if (field === "song") {
-        if (!(file.name.endsWith(".flac") || file.name.endsWith(".mp3")))
-          return;
-        this.setState({ filename: file.name });
-      }
-      this.setState({ [field]: file });
+      var uploadSite = event.target.name;
+      var fileType = event.target.files[0].type;
+      if (fileType.startsWith(uploadSite)) this.saveFile(event.target.files[0]);
     }
   };
 
   handleDrop = (event) => {
+    this.setState({ overlay: "hidden" });
     event.stopPropagation();
     event.preventDefault();
-    if (event.dataTransfer.files && event.dataTransfer.files[0]) {
-      var file = event.dataTransfer.files[0];
-      if (file.type.startsWith("image/")) {
-        this.setState({ imageUrl: URL.createObjectURL(file), image: file });
-      }
-    }
+    if (event.dataTransfer.files && event.dataTransfer.files[0])
+      this.saveFile(event.dataTransfer.files[0]);
   };
 
   handleDragOver = (event) => {
+    if (this.state.overlay === "hidden") this.setState({ overlay: "visible" });
     event.stopPropagation();
     event.preventDefault();
   };
+
+  handleDragEnter = (event) => {
+    this.setState({ overlay: "visible" });
+    event.stopPropagation();
+    event.preventDefault();
+  };
+
+  handleDragExit = (event) => {
+    this.setState({ overlay: "hidden" });
+    event.stopPropagation();
+    event.preventDefault();
+  };
+
+  getDraggableClass() {
+    if (this.state.overlay === "visible") return " mouseHide";
+    else return "";
+  }
 
   getImageContent() {
     if (this.state.imageUrl != "") {
@@ -168,60 +182,67 @@ class UploadDialog extends React.Component {
           className="Modal upload"
           overlayClassName="Overlay"
         >
-          <div class="upload">
-            <label
-              onDragOver={(event) => this.handleDragOver(event)}
-              onDrop={(event) => this.handleDrop(event)}
-              class="image"
-            >
-              <input
-                name="image"
-                type="file"
-                accept=".png, .jpg"
-                onChange={this.fileUpload}
-              />
-              {this.getImageContent()}
-            </label>
-            <form class="form">
-              <label class="text">
-                Title:
+          <div
+            onDragOver={(event) => this.handleDragOver(event)}
+            onDragEnter={(event) => this.handleDragEnter(event)}
+            onDragLeave={(event) => this.handleDragExit(event)}
+            onDrop={(event) => this.handleDrop(event)}
+            class="uploadContainer"
+          >
+            <div class="overlay" style={{ visibility: this.state.overlay }}>
+              <i class="icon bi bi-cloud-upload"></i>
+              <header>{"Release to upload"}</header>
+            </div>
+            <div class={"upload" + this.getDraggableClass()}>
+              <label class="image">
                 <input
-                  name="title"
-                  onChange={this.textChanged}
-                  type="text"
-                  required
-                />
-              </label>
-              <label class="text">
-                Artist:
-                <input
-                  name="artist"
-                  onChange={this.textChanged}
-                  type="text"
-                  required
-                />
-              </label>
-              <label class="text">
-                Album:
-                <input name="album" onChange={this.textChanged} type="text" />
-              </label>
-              <label
-                class="button"
-                filename={this.state.filename || "Nothing Selected!"}
-              >
-                <input
-                  id="song"
-                  name="song"
+                  name="image"
                   type="file"
-                  accept=".mp3, .flac"
+                  accept=".png, .jpg"
                   onChange={this.fileUpload}
-                  required
                 />
+                {this.getImageContent()}
               </label>
-            </form>
-            <div class="buttons">
-              <button onClick={this.handleSubmit}>Upload</button>
-              <button onClick={this.handleClose}>Cancel</button>
+              <form class="form">
+                <label class="text">
+                  Title:
+                  <input
+                    name="title"
+                    onChange={this.textChanged}
+                    type="text"
+                    required
+                  />
+                </label>
+                <label class="text">
+                  Artist:
+                  <input
+                    name="artist"
+                    onChange={this.textChanged}
+                    type="text"
+                    required
+                  />
+                </label>
+                <label class="text">
+                  Album:
+                  <input name="album" onChange={this.textChanged} type="text" />
+                </label>
+                <label
+                  class="button"
+                  filename={this.state.filename || "Nothing Selected!"}
+                >
+                  <input
+                    name="audio"
+                    type="file"
+                    accept=".mp3, .flac"
+                    onChange={this.fileUpload}
+                    required
+                  />
+                </label>
+              </form>
+              <div class="buttons">
+                <button onClick={this.handleSubmit}>Upload</button>
+                <button onClick={this.handleClose}>Cancel</button>
+              </div>
             </div>
           </div>
         </ReactModal>
