@@ -211,6 +211,7 @@ class UploadDialog extends React.Component {
                     onChange={this.textChanged}
                     type="text"
                     required
+                    autocomplete="off"
                   />
                 </label>
                 <label class="text">
@@ -220,11 +221,17 @@ class UploadDialog extends React.Component {
                     onChange={this.textChanged}
                     type="text"
                     required
+                    autocomplete="off"
                   />
                 </label>
                 <label class="text">
                   Album:
-                  <input name="album" onChange={this.textChanged} type="text" />
+                  <input
+                    name="album"
+                    onChange={this.textChanged}
+                    type="text"
+                    autocomplete="off"
+                  />
                 </label>
                 <label
                   class="button"
