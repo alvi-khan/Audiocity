@@ -76,6 +76,40 @@ app.get("/api/song", (req, res) => {
     })
 })
 
+app.post("/api/unfavorite", (req, res) => {
+  var query = "SELECT ID FROM playlists WHERE name = 'Favorites' AND owner = (?)"
+  db.query(query, [req.body.params.user], (error, results, fields) => {
+    if(error) return console.error(error.message);
+    query = "DELETE FROM playlist_songs WHERE playlist_id = (?) AND song_id = (?)"
+    db.query(query, [results[0].ID, req.body.params.songID], (error, results, fields) => {
+      if(error) return console.error(error.message);
+    })
+  })
+})
+
+app.post("/api/favorite", (req, res) => {
+  var query = "SELECT ID FROM playlists WHERE name = 'Favorites' AND owner = (?)"
+  db.query(query, [req.body.params.user], (error, results, fields) => {
+    if (error)  return console.error(error.message);
+    query = "INSERT INTO playlist_songs VALUES (?, ?)"
+    db.query(query, [results[0].ID, req.body.params.songID], (error, results, fields) => {
+      if (error)  return console.error(error.message);
+    })
+  })
+})
+
+app.get("/api/checkfavorite", (req, res) => {
+  var query = "SELECT ID FROM playlists WHERE name = 'Favorites' AND owner = (?)"
+  db.query(query, [req.query.user], (error, results, fields) => {
+    if (error)  return console.error(error.message);
+    query = "SELECT * FROM playlist_songs WHERE playlist_id = (?) AND song_id = (?)"
+    db.query(query, [results[0].ID, req.query.songID], (error, results, fields) => {
+      if (error)  return console.error(error.message);
+      res.send(!(results[0] === undefined));
+    })
+  })
+})
+
 app.get("/api/metadata", (req, res) => {
     const songID = req.query.songID;
     const query = "SELECT title, artist FROM music_files WHERE ID = " + songID;

@@ -37,7 +37,7 @@ function App() {
         </Switch>
       </div>
       <div className="footer">
-        <Footer setSong={(songID) => setSongID(songID)} songID={songID}/>
+        <Footer setSong={(songID) => setSongID(songID)} songID={songID} user={user}/>
       </div>
     </div>
   </Router>
