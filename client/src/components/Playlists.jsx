@@ -40,27 +40,25 @@ class Playlist extends React.Component {
 
   render() {
     return (
-      <Router>
-        <div class="playlists">
-          {this.state.playlists.map((playlist) => {
-            return (
-              <button class="button">
-                <Link class="link" to={"/playlist/" + playlist.ID}>
-                  <h2>{playlist.name}</h2>
-                </Link>
-                <Route path={"/playlist/" + playlist.ID} exact={true}>
-                  <PlaylistContent
-                    onSearch={(text) => this.props.onSearch(text)}
-                    onPlay={(songID) => this.props.onPlay(songID)}
-                    id={playlist.ID}
-                    onQueueChange={(queue) => this.props.onQueueChange(queue)}
-                  />
-                </Route>
-              </button>
-            );
-          })}
-        </div>
-      </Router>
+      <div class="playlists">
+        {this.state.playlists.map((playlist) => {
+          return (
+            <button class="button">
+              <Link class="link" to={"/playlist/" + playlist.ID}>
+                <h2>{playlist.name}</h2>
+              </Link>
+              <Route path={"/playlist/" + playlist.ID} exact={true}>
+                <PlaylistContent
+                  onSearch={(text) => this.props.onSearch(text)}
+                  onPlay={(songID) => this.props.onPlay(songID)}
+                  id={playlist.ID}
+                  onQueueChange={(queue) => this.props.onQueueChange(queue)}
+                />
+              </Route>
+            </button>
+          );
+        })}
+      </div>
     );
   }
 }
