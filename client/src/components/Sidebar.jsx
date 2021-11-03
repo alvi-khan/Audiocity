@@ -25,9 +25,11 @@ class Sidebar extends React.Component {
             <i class="icon bi bi-search"></i>Search
           </button>
         </Link>
-        <button>
-          <i class="icon bi bi-file-earmark-music"></i>Playlists
-        </button>
+        <Link class="link" to="/playlist">
+          <button>
+            <i class="icon bi bi-file-earmark-music"></i>Playlists
+          </button>
+        </Link>
         <button
           onClick={() => {
             this.setState({ uploadDialogShown: true });
