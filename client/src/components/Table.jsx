@@ -41,6 +41,11 @@ class Table extends React.Component {
   }
 
   play = (songID) => {
+    var queue = [];
+    this.state.data.map((item) => {
+      queue.push(item.ID);
+    });
+    this.props.onQueueChange(queue);
     if (this.props.songID === songID) this.props.onPlay(0);
     else this.props.onPlay(songID);
   };

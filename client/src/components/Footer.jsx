@@ -36,6 +36,7 @@ class Footer extends React.Component {
             songID={this.props.songID}
             volume={this.state.volume}
             muted={this.state.muted}
+            queue={this.props.queue}
           />
         </div>
       </React.Fragment>

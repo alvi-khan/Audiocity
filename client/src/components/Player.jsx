@@ -6,10 +6,11 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 class Player extends React.Component {
   state = {
     playing: false,
-    currentSong: 0,
+    currentSong: Number(0),
     currentPosition: 0,
     audioSliderUpdateInterval: 1000,
     interval: null,
+    queue: [],
   };
   audio = new Audio();
 
@@ -39,9 +40,7 @@ class Player extends React.Component {
       this.startAudioSlider();
     });
     this.audio.addEventListener("ended", () => {
-      this.stopAudioSlider();
-      this.setState({ playing: false });
-      this.reset();
+      this.nextSong();
     });
     this.audio.play();
   }
@@ -65,7 +64,7 @@ class Player extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.songID != this.state.currentSong) {
-      this.setState({ currentSong: nextProps.songID });
+      this.setState({ currentSong: Number(nextProps.songID) });
       this.play(nextProps.songID);
     }
     if (nextProps.songID === 0) {
@@ -74,6 +73,9 @@ class Player extends React.Component {
     }
     this.audio.volume = nextProps.volume / 100;
     this.audio.muted = nextProps.muted;
+    this.setState({
+      queue: nextProps.queue,
+    });
   }
 
   togglePlay = () => {
@@ -105,16 +107,54 @@ class Player extends React.Component {
     return className;
   }
 
+  nextSong = () => {
+    var currentIndex = this.state.queue.indexOf(Number(this.state.currentSong));
+    if (currentIndex + 1 < this.state.queue.length) {
+      var nextSong = this.state.queue[currentIndex + 1];
+      this.setState(
+        {
+          currentSong: nextSong,
+        },
+        () => {
+          this.play(this.state.currentSong);
+          this.props.setSong(this.state.currentSong);
+        }
+      );
+    } else {
+      this.pause();
+      this.reset();
+    }
+  };
+
+  previousSong = () => {
+    var currentIndex = this.state.queue.indexOf(Number(this.state.currentSong));
+    if (currentIndex - 1 >= 0) {
+      var prevSong = this.state.queue[currentIndex - 1];
+      this.setState(
+        {
+          currentSong: prevSong,
+        },
+        () => {
+          this.play(this.state.currentSong);
+          this.props.setSong(this.state.currentSong);
+        }
+      );
+    } else {
+      this.pause();
+      this.reset();
+    }
+  };
+
   render() {
     return (
       <div class="main">
         <div class="buttons">
           <button class="shuffleButton"></button>
-          <button class="prevButton"></button>
+          <button onClick={this.previousSong} class="prevButton"></button>
           <button onClick={this.togglePlay} class="playButton">
             <i class={this.getPlayIcon()}></i>
           </button>
-          <button class="nextButton"></button>
+          <button onClick={this.nextSong} class="nextButton"></button>
           <button class="repeatButton"></button>
         </div>
         <div class="playingSlider">

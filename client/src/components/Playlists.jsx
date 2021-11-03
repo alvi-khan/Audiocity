@@ -53,6 +53,7 @@ class Playlist extends React.Component {
                     onSearch={(text) => this.props.onSearch(text)}
                     onPlay={(songID) => this.props.onPlay(songID)}
                     id={playlist.ID}
+                    onQueueChange={(queue) => this.props.onQueueChange(queue)}
                   />
                 </Route>
               </button>

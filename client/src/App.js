@@ -13,6 +13,7 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [songID, setSongID] = useState(0);
   const [user, setUser] = useState("admin");
+  const [queue, setQueue] = useState([]);
 
   return (
   <Router>
@@ -26,10 +27,10 @@ function App() {
       <div className="body">
         <Switch>
           <Route path="/search">
-            <Table onSearch={(text) => setSearchTerm(text)} songID={songID} searchTerm={searchTerm} onPlay={(songID) => setSongID(songID)}/>
+            <Table onSearch={(text) => setSearchTerm(text)} songID={songID} searchTerm={searchTerm} onPlay={(songID) => setSongID(songID)} onQueueChange={(queue) => setQueue(queue)}/>
           </Route>
           <Route path="/playlist">
-            <Playlists onSearch={(text) => setSearchTerm(text)} onPlay={(songID) => setSongID(songID)} user={user}/>
+            <Playlists onSearch={(text) => setSearchTerm(text)} onPlay={(songID) => setSongID(songID)} user={user} onQueueChange={(queue) => setQueue(queue)}/>
           </Route>
           <Route path="/">
             <Home onArtistSelect={(artist) => setSearchTerm(artist)}/>
@@ -37,7 +38,7 @@ function App() {
         </Switch>
       </div>
       <div className="footer">
-        <Footer setSong={(songID) => setSongID(songID)} songID={songID} user={user}/>
+        <Footer setSong={(songID) => setSongID(songID)} songID={songID} user={user} queue={queue}/>
       </div>
     </div>
   </Router>
