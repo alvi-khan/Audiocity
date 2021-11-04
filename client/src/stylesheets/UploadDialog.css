@@ -277,11 +277,14 @@
 /* Toast Message */
 
 :root {
-  --toastify-color-light: #252525;
-  --toastify-toast-background: #66d9ee;
-  --toastify-font-family: "Google Sans Text";
+  --toastify-color-light: transparent;
   --toastify-color-success: #2aca7c;
   --toastify-color-progress-light: #2aca7c;
+}
+
+.toasttext {
+  background-color: transparent;
+  display: flex;
 }
 
 /* Toast Message */

@@ -83,6 +83,7 @@ class UploadDialog extends React.Component {
                 progress: progress,
                 type: toast.TYPE.DEFAULT,
                 closeButton: false,
+                bodyClassName: "toasttext",
               },
               this.toast
             );
