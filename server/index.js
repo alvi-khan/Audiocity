@@ -132,6 +132,7 @@ app.get("/api/checkfavorite", (req, res) => {
   var query = "SELECT ID FROM playlists WHERE name = 'Favorites' AND owner = (?)"
   db.query(query, [req.query.user], (error, results, fields) => {
     if (error)  return console.error(error.message);
+    if (results.length === 0) return;
     query = "SELECT * FROM playlist_songs WHERE playlist_id = (?) AND song_id = (?)"
     db.query(query, [results[0].ID, req.query.songID], (error, results, fields) => {
       if (error)  return console.error(error.message);
