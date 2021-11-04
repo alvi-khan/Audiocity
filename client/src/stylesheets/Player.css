@@ -21,14 +21,14 @@ button {
 .buttons .icon {
   background: none;
   color: #ffffff;
-  font-size: 24px;
+  font-size: 35px;
 }
 
 .playButton {
   width: 40px;
   height: 40px;
-  background-color: #0f4271;
-  border-radius: 20px;
+  /* background-color: #0f4271; */
+  /* border-radius: 20px; */
 }
 
 .playButton:hover {

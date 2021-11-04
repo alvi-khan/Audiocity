@@ -58,10 +58,10 @@ class Table extends React.Component {
             <tr>
               <th style={{ width: 40 + "px" }}></th>
               <th style={{ width: 70 + "px" }}></th>
-              <th style={{ width: 250 + "px" }}>Title</th>
-              <th style={{ width: 250 + "px" }}>Artist</th>
-              <th style={{ width: 250 + "px" }}>Album</th>
-              <th style={{ width: 100 + "px" }}>Uploader</th>
+              <th style={{ width: 250 + "px" }}>TITLE</th>
+              <th style={{ width: 250 + "px" }}>ARTIST</th>
+              <th style={{ width: 250 + "px" }}>ALBUM</th>
+              <th style={{ width: 100 + "px" }}>UPLOADER</th>
             </tr>
           </thead>
           <tbody overflow>
@@ -88,6 +88,7 @@ class Table extends React.Component {
                       this.props.onSearch(event.target.textContent)
                     }
                     style={{ width: 250 + "px" }}
+                    // class="artist"
                   >
                     <Link class="link" to={"/search?" + item.artist}>
                       {item.artist}

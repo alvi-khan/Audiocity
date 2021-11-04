@@ -1,5 +1,5 @@
 * {
-  background-color: #1e1e1e;
+  background-color: #0c0c0d;
   color: #ffffff;
   font-size: medium;
   font-family: "Google Sans Text";
@@ -36,6 +36,6 @@
 .footer {
   grid-row: 3 / 3;
   grid-column: 1 / 3;
-  background-color: #151515;
+  background-color: #19191a;
   padding-top: 10px;
 }

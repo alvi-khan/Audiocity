@@ -102,7 +102,7 @@ class Player extends React.Component {
 
   getPlayIcon() {
     var className = "icon bi bi-";
-    className += this.state.playing ? "pause" : "play";
+    className += this.state.playing ? "pause-circle" : "play-circle";
     className += "-fill";
     return className;
   }
