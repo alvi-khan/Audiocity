@@ -25,6 +25,22 @@ app.listen(3001, () => {
     console.log("running on port 3001");
 })
 
+app.get("/api/checkuser", (req, res) => {
+  const query = "SELECT email FROM users WHERE email=(?)"
+  db.query(query, [req.query.userEmail], (error, results, fields) => {
+    if (error)  return console.error(error.message);
+    res.send(results);
+  })
+})
+
+app.post("/api/register", (req, res) => {
+  const query = "INSERT INTO users VALUES (?, ?)";
+  db.query(query, [req.body.params.userEmail, req.body.params.userPassword], (error, results, fields) => {
+    if (error)  return console.error(error.message);
+    res.send("Done");
+  })
+})
+
 app.get("/api/query", (req, res) => {
     const searchTerm = "%" + (req.query.searchTerm) + "%";
 

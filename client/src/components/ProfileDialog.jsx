@@ -12,6 +12,7 @@ class ProfileDialog extends React.Component {
     submitButtonText: "Log In",
     dialogSwitchPromptText: "Don't have an account?",
     dialogSwitchButtonText: "Sign up",
+    loggedInUser: "",
   };
 
   handleClose = () => {
@@ -41,12 +42,39 @@ class ProfileDialog extends React.Component {
   };
 
   getUserPassword = (event) => {
-    this.setState({ userEmail: event.target.value });
+    this.setState({ userPassword: event.target.value });
   };
 
-  handleLogin = (event) => {
+  register() {
+    axios
+      .get("http://localhost:3001/api/checkuser", {
+        params: { userEmail: this.state.userEmail },
+      })
+      .then((response) => {
+        if (response.data.length === 0) {
+          axios
+            .post("http://localhost:3001/api/register", {
+              params: {
+                userEmail: this.state.userEmail,
+                userPassword: this.state.userPassword,
+              },
+            })
+            .then((response, error) => {
+              this.setState({ loggedInUser: this.state.userEmail });
+              console.log("done");
+            });
+        } else {
+          console.log("user exists");
+        }
+      });
+  }
+
+  login() {}
+
+  handleSubmit = (event) => {
     event.preventDefault();
-    console.log("called");
+    if (this.state.showLogIn) this.login();
+    else this.register();
   };
 
   render() {
@@ -59,7 +87,7 @@ class ProfileDialog extends React.Component {
       >
         <div class="profileDialogContainer">
           <h1 class="appTitle">Music Player</h1>
-          <form onSubmit={(event) => this.handleLogin(event)}>
+          <form onSubmit={(event) => this.handleSubmit(event)}>
             <div>
               <label class="profileFormLabel">
                 Email
@@ -85,7 +113,7 @@ class ProfileDialog extends React.Component {
             </label>
             <input
               type="submit"
-              onSubmit={(event) => this.handleLogin(event)}
+              onSubmit={(event) => this.handleSubmit(event)}
               id="profileFormSubmit"
               hidden
             />
