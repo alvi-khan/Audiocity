@@ -3,37 +3,46 @@
 }
 .sidebarButtons button {
   background: none;
-  border: none;
-  border-radius: 10px;
-  padding: 20px;
+  /* border-radius: 10px; */
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 12px;
+  padding-bottom: 12px;
   text-align: left;
   display: block;
-  margin: auto;
-  width: 170px;
-  font-size: 18px;
+  width: 200px;
+  font-size: 14px;
   font-weight: 700;
+  font-family: sans-serif;
+  color: #bbbbbc;
+  margin: 0px;
 }
 
 .sidebarButtons button:hover {
-  background-color: #333333;
+  background-color: #202122;
+  color: white;
 }
 .sidebarButtons {
-  padding: 10px;
   background: none;
+  padding: 0px;
+  /* border: 1px solid green; */
 }
 
 .sidebarButtons .icon {
   background: none;
-  margin-right: 15px;
+  margin-right: 20px;
   font-size: 18px;
 }
 
 h3 {
-  padding: 5px;
-  background: #151515;
+  padding: 30px;
+  background: #000006;
+  /* background: #151515; */
 
   font-weight: 700;
   text-align: center;
+  font-size: 25px;
+  margin: 0px;
 }
 
 .sidebarButtons .optional {

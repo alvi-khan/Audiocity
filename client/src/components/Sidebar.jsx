@@ -18,7 +18,7 @@ class Sidebar extends React.Component {
     return (
       <div class="sidebarButtons">
         <div>
-          <h3>Music Player</h3>
+          <h3>Audiocity</h3>
         </div>
         <Link class="link" to="/">
           <button>
@@ -34,7 +34,7 @@ class Sidebar extends React.Component {
         <div class={"optional " + this.optionalDivStyle()}>
           <Link class="link" to="/playlist">
             <button>
-              <i class="icon bi bi-file-earmark-music"></i>Playlists
+              <i class="icon bi bi-music-note-list"></i>Playlists
             </button>
           </Link>
           <button
