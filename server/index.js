@@ -25,10 +25,18 @@ app.listen(3001, () => {
     console.log("running on port 3001");
 })
 
+app.get("/api/validateuser", (req, res) => {
+  const query = "SELECT email FROM users WHERE email=(?) AND password=(?)"
+  db.query(query, [req.query.userEmail, req.query.userPassword], (error, results, fields) => {
+    if (error)  return console.error(error.message);
+    res.send(results);
+  })
+})
+
 app.get("/api/playlists", (req, res) => {
   const query = "SELECT ID, name FROM playlists WHERE owner = (?)";
   db.query(query, [req.query.owner], (error, results, fields) => {
-      if (error)  return console.error(error.message);
+    if (error)  return console.error(error.message);
     res.send(results);
   })
 })

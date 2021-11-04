@@ -17,6 +17,10 @@ class UploadDialog extends React.Component {
     filename: "",
     uploader: "Admin",
     overlay: "hidden",
+    titleError: "",
+    artistError: "",
+    fileError: "",
+    imageError: "",
   };
 
   toast = {
@@ -40,10 +44,27 @@ class UploadDialog extends React.Component {
     });
   };
 
+  checkErrors() {
+    if (this.state.title == "") {
+      this.setState({ titleError: "Please enter song title." });
+      return false;
+    } else this.setState({ titleError: "" });
+    if (this.state.artist == "") {
+      this.setState({ artistError: "Please enter artist name." });
+      return false;
+    } else this.setState({ artistError: "" });
+    if (this.state.song == null) {
+      this.setState({ fileError: "Please select a .mp3/.flac file." });
+      return false;
+    } else this.setState({ fileError: "" });
+    return true;
+  }
+
   handleSubmit = (event) => {
+    event.preventDefault();
+    if (!this.checkErrors()) return;
     this.props.onHide();
     var toastId = null;
-    event.preventDefault();
     var data = new FormData();
     data.append("image", this.state.image);
     data.append("song", this.state.song);
@@ -110,9 +131,13 @@ class UploadDialog extends React.Component {
 
   saveFile(file) {
     if (file.type.startsWith("image/"))
-      this.setState({ imageUrl: URL.createObjectURL(file), image: file });
+      this.setState({
+        imageUrl: URL.createObjectURL(file),
+        image: file,
+        imageError: "",
+      });
     else if (file.type.startsWith("audio/"))
-      this.setState({ filename: file.name, song: file });
+      this.setState({ filename: file.name, song: file, fileError: "" });
   }
 
   fileUpload = (event) => {
@@ -120,6 +145,12 @@ class UploadDialog extends React.Component {
       var uploadSite = event.target.name;
       var fileType = event.target.files[0].type;
       if (fileType.startsWith(uploadSite)) this.saveFile(event.target.files[0]);
+      else {
+        if (uploadSite === "image")
+          this.setState({ imageError: "Please select a .jpg/.png file." });
+        else if (uploadSite === "audio")
+          this.setState({ fileError: "Please select a .mp3/.flac file." });
+      }
     }
   };
 
@@ -194,15 +225,18 @@ class UploadDialog extends React.Component {
               <header>{"Release to upload"}</header>
             </div>
             <div class={"upload" + this.getDraggableClass()}>
-              <label class="image">
-                <input
-                  name="image"
-                  type="file"
-                  accept=".png, .jpg"
-                  onChange={this.fileUpload}
-                />
-                {this.getImageContent()}
-              </label>
+              <div class="imageContainer">
+                <label class="image">
+                  <input
+                    name="image"
+                    type="file"
+                    accept=".png, .jpg"
+                    onChange={this.fileUpload}
+                  />
+                  {this.getImageContent()}
+                </label>
+                <p class="error">{this.state.imageError}</p>
+              </div>
               <form onSubmit={this.handleSubmit} class="form">
                 <label class="text">
                   Title:
@@ -210,9 +244,9 @@ class UploadDialog extends React.Component {
                     name="title"
                     onChange={this.textChanged}
                     type="text"
-                    required
                     autocomplete="off"
                   />
+                  <p class="error">{this.state.titleError}</p>
                 </label>
                 <label class="text">
                   Artist:
@@ -220,9 +254,9 @@ class UploadDialog extends React.Component {
                     name="artist"
                     onChange={this.textChanged}
                     type="text"
-                    required
                     autocomplete="off"
                   />
+                  <p class="error">{this.state.artistError}</p>
                 </label>
                 <label class="text">
                   Album:
@@ -242,9 +276,9 @@ class UploadDialog extends React.Component {
                     type="file"
                     accept=".mp3, .flac"
                     onChange={this.fileUpload}
-                    required
                   />
                 </label>
+                <p class="error">{this.state.fileError}</p>
                 <input
                   type="submit"
                   onSubmit={this.handleSubmit}

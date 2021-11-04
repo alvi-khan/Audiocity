@@ -13,6 +13,8 @@ class ProfileDialog extends React.Component {
     dialogSwitchPromptText: "Don't have an account?",
     dialogSwitchButtonText: "Sign up",
     loggedInUser: "",
+    emailError: "",
+    passwordError: "",
   };
 
   handleClose = () => {
@@ -20,6 +22,7 @@ class ProfileDialog extends React.Component {
   };
 
   handleDialogSwitch() {
+    this.setState({ emailError: "", passwordError: "" });
     if (this.state.showLogIn == false) {
       this.setState({
         showLogIn: true,
@@ -38,11 +41,11 @@ class ProfileDialog extends React.Component {
   }
 
   getUserEmail = (event) => {
-    this.setState({ userEmail: event.target.value });
+    this.setState({ userEmail: event.target.value, emailError: "" });
   };
 
   getUserPassword = (event) => {
-    this.setState({ userPassword: event.target.value });
+    this.setState({ userPassword: event.target.value, passwordError: "" });
   };
 
   register() {
@@ -61,21 +64,64 @@ class ProfileDialog extends React.Component {
             })
             .then((response, error) => {
               this.setState({ loggedInUser: this.state.userEmail });
-              console.log("done");
+              this.handleClose();
             });
         } else {
-          console.log("user exists");
+          this.setState({ emailError: "Email already in use." });
         }
       });
   }
 
-  login() {}
+  login() {
+    axios
+      .get("http://localhost:3001/api/checkuser", {
+        params: { userEmail: this.state.userEmail },
+      })
+      .then((response) => {
+        if (response.data.length != 0) {
+          axios
+            .get("http://localhost:3001/api/validateuser", {
+              params: {
+                userEmail: this.state.userEmail,
+                userPassword: this.state.userPassword,
+              },
+            })
+            .then((response) => {
+              if (response.data.length != 0) {
+                this.setState({ loggedInUser: this.state.userEmail });
+                this.handleClose();
+                localStorage.setItem("user", this.state.loggedInUser);
+              } else {
+                this.setState({ passwordError: "Invalid password." });
+              }
+            });
+        } else {
+          this.setState({ emailError: "Invalid email address." });
+        }
+      });
+  }
 
   handleSubmit = (event) => {
     event.preventDefault();
+
+    var emailFormat = new RegExp(".+@.+..+");
+    if (this.state.userEmail == "" || !emailFormat.test(this.state.userEmail)) {
+      this.setState({ emailError: "Please enter an email address." });
+      return;
+    }
+    if (this.state.userPassword == "") {
+      this.setState({ passwordError: "Please enter a password." });
+      return;
+    }
+
     if (this.state.showLogIn) this.login();
     else this.register();
   };
+
+  componentDidMount() {
+    var user = localStorage.getItem("user");
+    this.setState({ loggedInUser: user });
+  }
 
   render() {
     return (
@@ -87,6 +133,7 @@ class ProfileDialog extends React.Component {
       >
         <div class="profileDialogContainer">
           <h1 class="appTitle">Music Player</h1>
+          <p>{this.state.loggedInUser}</p>
           <form onSubmit={(event) => this.handleSubmit(event)}>
             <div>
               <label class="profileFormLabel">
@@ -95,9 +142,9 @@ class ProfileDialog extends React.Component {
                   class="inputProfileInfo"
                   name="email"
                   type="text"
-                  required
                   onChange={(event) => this.getUserEmail(event)}
                 />
+                <p class="error">{this.state.emailError}</p>
               </label>
             </div>
             <label class="profileFormLabel">
@@ -106,10 +153,10 @@ class ProfileDialog extends React.Component {
                 class="inputProfileInfo"
                 name="password"
                 type="password"
-                required
                 autoComplete="off"
                 onChange={(event) => this.getUserPassword(event)}
               />
+              <p class="error">{this.state.passwordError}</p>
             </label>
             <input
               type="submit"

@@ -24,7 +24,7 @@
 }
 
 .Modal .uploadContainer {
-  padding: 50px;
+  padding: 70px;
   background-color: transparent;
   border-radius: 5px;
 }
@@ -173,12 +173,14 @@
   padding: 5px;
   height: 40px;
   margin: 5px 0px;
-  width: 280px;
+  border: 2px solid white;
   border-radius: 5px;
+  background-color: #151515;
 }
 
 .upload .form .text input:focus {
-  border: 2px solid blue;
+  border: none;
+  outline: 4px solid #4433ff;
 }
 
 /* Audio Upload Field */
@@ -187,14 +189,14 @@
   background: white;
   margin-top: 25px;
   border-radius: 5px;
-  width: 280px;
   height: fit-content;
   cursor: pointer;
   display: flex;
 }
 
 .upload .form .button:hover {
-  border: 2px solid blue;
+  outline: 2px solid #4433ff;
+  border: 2px solid #4433ff;
 }
 
 .upload .form .button input {
@@ -249,6 +251,28 @@
 }
 
 /* Main Action Buttons */
+
+/* Error Messages */
+
+.uploadContainer .error {
+  font-size: 12px;
+  color: #ff0033;
+  margin-top: 5px;
+  margin-bottom: 0px;
+  height: 20px;
+  display: block;
+  text-align: right;
+}
+
+.uploadContainer .imageContainer {
+  margin-right: 50px;
+}
+
+.uploadContainer .imageContainer .error {
+  text-align: center;
+}
+
+/* Error Messages */
 
 /* Toast Message */
 
