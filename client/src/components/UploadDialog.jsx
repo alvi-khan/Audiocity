@@ -203,7 +203,7 @@ class UploadDialog extends React.Component {
                 />
                 {this.getImageContent()}
               </label>
-              <form class="form">
+              <form onSubmit={this.handleSubmit} class="form">
                 <label class="text">
                   Title:
                   <input

@@ -28,6 +28,14 @@ app.listen(3001, () => {
 app.get("/api/playlists", (req, res) => {
   const query = "SELECT ID, name FROM playlists WHERE owner = (?)";
   db.query(query, [req.query.owner], (error, results, fields) => {
+      if (error)  return console.error(error.message);
+    res.send(results);
+  })
+})
+
+app.get("/api/checkuser", (req, res) => {
+  const query = "SELECT email FROM users WHERE email=(?)"
+  db.query(query, [req.query.userEmail], (error, results, fields) => {
     if (error)  return console.error(error.message);
     res.send(results);
   })
@@ -47,7 +55,14 @@ app.get("/api/playlistcontent", (req, res) => {
       res.send(results);
     })
   })
+})
   
+app.post("/api/register", (req, res) => {
+  const query = "INSERT INTO users VALUES (?, ?)";
+  db.query(query, [req.body.params.userEmail, req.body.params.userPassword], (error, results, fields) => {
+    if (error)  return console.error(error.message);
+    res.send("Done");
+  })
 })
 
 app.get("/api/query", (req, res) => {
