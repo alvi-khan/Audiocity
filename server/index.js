@@ -95,9 +95,8 @@ app.get("/api/query", (req, res) => {
 })
 
 app.get("/api/song", (req, res) => {
-    const songID = req.query.songID;
-    const query = "SELECT filepath FROM music_files WHERE ID = " + songID;
-    db.query(query, (error, results, fields) => {
+    const query = "SELECT filepath FROM music_files WHERE ID = (?)";
+    db.query(query, [req.query.songID], (error, results, fields) => {
         if (error) {
             return console.error(error.message);
         }
@@ -133,6 +132,7 @@ app.get("/api/checkfavorite", (req, res) => {
   var query = "SELECT ID FROM playlists WHERE name = 'Favorites' AND owner = (?)"
   db.query(query, [req.query.user], (error, results, fields) => {
     if (error)  return console.error(error.message);
+    if (results.length === 0) return;
     query = "SELECT * FROM playlist_songs WHERE playlist_id = (?) AND song_id = (?)"
     db.query(query, [results[0].ID, req.query.songID], (error, results, fields) => {
       if (error)  return console.error(error.message);
@@ -142,18 +142,16 @@ app.get("/api/checkfavorite", (req, res) => {
 })
 
 app.get("/api/metadata", (req, res) => {
-    const songID = req.query.songID;
-    const query = "SELECT title, artist FROM music_files WHERE ID = " + songID;
-    db.query(query, (error, results, fields) => {
+    const query = "SELECT title, artist FROM music_files WHERE ID = (?)";
+    db.query(query, [req.query.songID], (error, results, fields) => {
         if (error)  return console.error(error.message);
         res.send(results);
     })
 })
 
 app.get("/api/albumart", (req, res) => {
-    const songID = req.query.songID;
-    const query = "SELECT coverpath FROM music_files WHERE ID = " + songID;
-    db.query(query, (error, results, fields) => {
+    const query = "SELECT coverpath FROM music_files WHERE ID = (?)";
+    db.query(query, [req.query.songID], (error, results, fields) => {
         if (error)  return  console.error(error.message);
         res.send(results)
     })

@@ -78,7 +78,7 @@ class ProfileDialog extends React.Component {
               this.handleClose();
             });
         } else {
-          this.setState({ emailError: "Email already in use." });
+          this.setState({ emailError: "Username already in use." });
         }
       });
   }
@@ -108,7 +108,7 @@ class ProfileDialog extends React.Component {
               }
             });
         } else {
-          this.setState({ emailError: "Invalid email address." });
+          this.setState({ emailError: "Invalid username." });
         }
       });
   }
@@ -116,9 +116,8 @@ class ProfileDialog extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    var emailFormat = new RegExp(".+@.+..+");
-    if (this.state.userEmail == "" || !emailFormat.test(this.state.userEmail)) {
-      this.setState({ emailError: "Please enter an email address." });
+    if (this.state.userEmail == "") {
+      this.setState({ emailError: "Please enter a username." });
       return;
     }
     if (this.state.userPassword == "") {
@@ -144,11 +143,10 @@ class ProfileDialog extends React.Component {
       >
         <div class="profileDialogContainer">
           <h1 class="appTitle">Music Player</h1>
-          <p>{this.state.loggedInUser}</p>
           <form onSubmit={(event) => this.handleSubmit(event)}>
             <div>
               <label class="profileFormLabel">
-                Email
+                Username
                 <input
                   class="inputProfileInfo"
                   name="email"
