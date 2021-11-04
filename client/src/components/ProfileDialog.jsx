@@ -3,6 +3,7 @@ import axios from "axios";
 import ReactModal from "react-modal";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "../stylesheets/ProfileDialog.css";
+import md5 from "md5";
 
 class ProfileDialog extends React.Component {
   state = {
@@ -51,7 +52,8 @@ class ProfileDialog extends React.Component {
   };
 
   getUserPassword = (event) => {
-    this.setState({ userPassword: event.target.value, passwordError: "" });
+    var password = md5(event.target.value);
+    this.setState({ userPassword: password, passwordError: "" });
   };
 
   register() {
