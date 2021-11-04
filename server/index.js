@@ -49,6 +49,22 @@ app.get("/api/checkuser", (req, res) => {
   })
 })
 
+app.get("/api/playlistcontent", (req, res) => {
+  var query = "SELECT song_id FROM playlist_songs WHERE playlist_id = (?)";
+  var songs = [];
+  db.query(query, [req.query.playlistID], (error, results, fields) => {
+    if (error)  return console.error(error.message);
+    results.forEach(element => {
+      songs.push('"' + element.song_id + '"');
+    });
+    query = "SELECT ID, title, artist, album, uploader, coverpath FROM music_files WHERE ID IN (" + songs + ")";
+    db.query(query, [songs], (error, results, fields) => {
+      if (error)  return console.error(error.message);
+      res.send(results);
+    })
+  })
+})
+  
 app.post("/api/register", (req, res) => {
   const query = "INSERT INTO users VALUES (?, ?)";
   db.query(query, [req.body.params.userEmail, req.body.params.userPassword], (error, results, fields) => {
@@ -81,6 +97,40 @@ app.get("/api/song", (req, res) => {
         res.setHeader("content-type", "audio/mpeg");
         fs.createReadStream(filePath).pipe(res);
     })
+})
+
+app.post("/api/unfavorite", (req, res) => {
+  var query = "SELECT ID FROM playlists WHERE name = 'Favorites' AND owner = (?)"
+  db.query(query, [req.body.params.user], (error, results, fields) => {
+    if(error) return console.error(error.message);
+    query = "DELETE FROM playlist_songs WHERE playlist_id = (?) AND song_id = (?)"
+    db.query(query, [results[0].ID, req.body.params.songID], (error, results, fields) => {
+      if(error) return console.error(error.message);
+    })
+  })
+})
+
+app.post("/api/favorite", (req, res) => {
+  var query = "SELECT ID FROM playlists WHERE name = 'Favorites' AND owner = (?)"
+  db.query(query, [req.body.params.user], (error, results, fields) => {
+    if (error)  return console.error(error.message);
+    query = "INSERT INTO playlist_songs VALUES (?, ?)"
+    db.query(query, [results[0].ID, req.body.params.songID], (error, results, fields) => {
+      if (error)  return console.error(error.message);
+    })
+  })
+})
+
+app.get("/api/checkfavorite", (req, res) => {
+  var query = "SELECT ID FROM playlists WHERE name = 'Favorites' AND owner = (?)"
+  db.query(query, [req.query.user], (error, results, fields) => {
+    if (error)  return console.error(error.message);
+    query = "SELECT * FROM playlist_songs WHERE playlist_id = (?) AND song_id = (?)"
+    db.query(query, [results[0].ID, req.query.songID], (error, results, fields) => {
+      if (error)  return console.error(error.message);
+      res.send(!(results[0] === undefined));
+    })
+  })
 })
 
 app.get("/api/metadata", (req, res) => {

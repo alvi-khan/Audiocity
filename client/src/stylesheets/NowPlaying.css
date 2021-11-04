@@ -35,3 +35,29 @@
   max-width: 100%;
   max-height: 100%;
 }
+
+.actions {
+  height: fit-content;
+  margin: auto;
+  padding: 10px;
+  background-color: transparent;
+}
+
+.actions .icon {
+  background: none;
+  margin: auto;
+  font-size: 14px;
+}
+
+.actions .favorite {
+  padding: 0;
+  height: fit-content;
+}
+
+.actions .favorite:hover {
+  transform: scale(1.1);
+}
+
+.actions .favorite:active {
+  transform: scale(1.2);
+}

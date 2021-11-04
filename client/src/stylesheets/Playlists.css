@@ -1,0 +1,26 @@
+.playlists {
+  display: flex;
+  flex-direction: column;
+}
+
+.playlists .link {
+  padding: 50px;
+  display: flex;
+}
+
+.playlists .button {
+  border: 2px solid white;
+  border-radius: 10px;
+  margin: 20px 50px;
+  background-color: #151515;
+  transition: 0.25s;
+  text-align: left;
+}
+
+.playlists .button:hover {
+  /* background-color: #333333; */
+}
+
+.playlists .button h2 {
+  background: transparent;
+}

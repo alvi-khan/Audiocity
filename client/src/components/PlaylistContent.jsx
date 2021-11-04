@@ -1,36 +1,26 @@
 import React, { useState, useEffect, Component } from "react";
 import Axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
-import "../stylesheets/Table.css";
+import "../stylesheets/PlaylistContent.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Link } from "react-router-dom";
 
-class Table extends React.Component {
+class Content extends React.Component {
   state = {
     data: [],
   };
 
-  getSearchTerm() {
-    var url = window.location.href;
-    var searchTerm = url.substring("http://localhost:3000/search?".length);
-    return decodeURI(searchTerm);
-  }
-
-  getData(searchTerm) {
+  getData() {
     this.setState({ data: [] });
-    Axios.get("http://localhost:3001/api/query", {
-      params: { searchTerm: searchTerm },
+    Axios.get("http://localhost:3001/api/playlistcontent", {
+      params: { playlistID: this.props.id },
     }).then((response) => {
       this.setState({ data: response.data });
     });
   }
 
   componentDidMount() {
-    this.getData(this.getSearchTerm());
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.getData(nextProps.searchTerm);
+    this.getData();
   }
 
   getImage(item) {
@@ -52,7 +42,7 @@ class Table extends React.Component {
 
   render() {
     return (
-      <div className="table">
+      <div className="playlistContent" hidden={this.props.visibility}>
         <table>
           <thead>
             <tr>
@@ -61,7 +51,7 @@ class Table extends React.Component {
               <th style={{ width: 250 + "px" }}>Title</th>
               <th style={{ width: 250 + "px" }}>Artist</th>
               <th style={{ width: 250 + "px" }}>Album</th>
-              <th style={{ width: 100 + "px" }}>Uploader</th>
+              <th style={{ width: 150 + "px" }}>Uploader</th>
             </tr>
           </thead>
           <tbody overflow>
@@ -105,7 +95,8 @@ class Table extends React.Component {
                   </td>
                   <td
                     onClick={(event) =>
-                      this.props.onSearch(event.target.textContent)
+                      //this.props.onSearch(event.target.textContent)
+                      console.log(event.target.textContent)
                     }
                     style={{ width: 150 + "px" }}
                   >
@@ -123,4 +114,4 @@ class Table extends React.Component {
   }
 }
 
-export default Table;
+export default Content;
