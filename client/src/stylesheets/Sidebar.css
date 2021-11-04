@@ -35,3 +35,11 @@ h3 {
   font-weight: 700;
   text-align: center;
 }
+
+.sidebarButtons .optional {
+  background-color: transparent;
+}
+
+.sidebarButtons .hidden {
+  display: none;
+}

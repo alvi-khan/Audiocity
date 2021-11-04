@@ -12,17 +12,17 @@ function App() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [songID, setSongID] = useState(0);
-  const [user, setUser] = useState("admin");
+  const [user, setUser] = useState(localStorage.getItem("user"));
   const [queue, setQueue] = useState([]);
 
   return (
   <Router>
     <div className="App">
       <div className="sidebar">
-        <Sidebar onSearch={(text) => setSearchTerm(text)} searchTerm={searchTerm}/>
+        <Sidebar onSearch={(text) => setSearchTerm(text)} searchTerm={searchTerm} user={user}/>
       </div>
       <div className="header">
-        <Header onSearch={(text) => setSearchTerm(text)} searchTerm={searchTerm}/>
+        <Header onSearch={(text) => setSearchTerm(text)} searchTerm={searchTerm} updateUser={(newUser) => setUser(newUser)} user={user}/>
       </div>
       <div className="body">
         <Switch>

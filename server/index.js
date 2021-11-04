@@ -41,6 +41,14 @@ app.get("/api/playlists", (req, res) => {
   })
 })
 
+app.post("/api/createplaylist", (req, res) => {
+  const query = "INSERT INTO playlists (name, owner) VALUES (?, ?)"
+  db.query(query, [req.body.params.playlist, req.body.params.username], (error, results, fields) => {
+    if (error)  return console.error(error.message);
+    res.send(results);
+  })
+})
+
 app.get("/api/checkuser", (req, res) => {
   const query = "SELECT email FROM users WHERE email=(?)"
   db.query(query, [req.query.userEmail], (error, results, fields) => {

@@ -95,8 +95,7 @@ class Content extends React.Component {
                   </td>
                   <td
                     onClick={(event) =>
-                      //this.props.onSearch(event.target.textContent)
-                      console.log(event.target.textContent)
+                      this.props.onSearch(event.target.textContent)
                     }
                     style={{ width: 150 + "px" }}
                   >

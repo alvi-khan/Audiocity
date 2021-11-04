@@ -8,6 +8,12 @@ class Sidebar extends React.Component {
   state = {
     uploadDialogShown: false,
   };
+
+  optionalDivStyle = () => {
+    if (this.props.user === "" || this.props.user === null) return "hidden";
+    else return "";
+  };
+
   render() {
     return (
       <div class="sidebarButtons">
@@ -25,27 +31,30 @@ class Sidebar extends React.Component {
             <i class="icon bi bi-search"></i>Search
           </button>
         </Link>
-        <Link class="link" to="/playlist">
-          <button>
-            <i class="icon bi bi-file-earmark-music"></i>Playlists
+        <div class={"optional " + this.optionalDivStyle()}>
+          <Link class="link" to="/playlist">
+            <button>
+              <i class="icon bi bi-file-earmark-music"></i>Playlists
+            </button>
+          </Link>
+          <button
+            onClick={() => {
+              this.setState({ uploadDialogShown: true });
+            }}
+          >
+            <i class="icon bi bi-cloud-upload"></i>
+            Upload
           </button>
-        </Link>
-        <button
-          onClick={() => {
-            this.setState({ uploadDialogShown: true });
-          }}
-        >
-          <i class="icon bi bi-cloud-upload"></i>
-          Upload
-        </button>
-        <UploadDialog
-          onSearch={this.props.onSearch}
-          searchTerm={this.props.searchTerm}
-          show={this.state.uploadDialogShown}
-          onHide={() => {
-            this.setState({ uploadDialogShown: false });
-          }}
-        />
+          <UploadDialog
+            onSearch={this.props.onSearch}
+            searchTerm={this.props.searchTerm}
+            show={this.state.uploadDialogShown}
+            user={this.props.user}
+            onHide={() => {
+              this.setState({ uploadDialogShown: false });
+            }}
+          />
+        </div>
       </div>
     );
   }

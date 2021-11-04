@@ -21,7 +21,10 @@ class Header extends React.Component {
       <div class="headerContent">
         <div class="searchBar">{this.getSearchBar()}</div>
         <div class="profileDiv">
-          <ProfileBar />
+          <ProfileBar
+            updateUser={(newUser) => this.props.updateUser(newUser)}
+            user={this.props.user}
+          />
         </div>
       </div>
     );

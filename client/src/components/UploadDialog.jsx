@@ -15,7 +15,6 @@ class UploadDialog extends React.Component {
     imageUrl: "",
     song: null,
     filename: "",
-    uploader: "Admin",
     overlay: "hidden",
     titleError: "",
     artistError: "",
@@ -71,7 +70,7 @@ class UploadDialog extends React.Component {
     data.append("title", this.state.title);
     data.append("artist", this.state.artist);
     data.append("album", this.state.album);
-    data.append("uploader", this.state.uploader);
+    data.append("uploader", this.props.user);
     axios
       .post("http://localhost:3001/api/upload", data, {
         onUploadProgress: (ProgressEvent) => {

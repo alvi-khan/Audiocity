@@ -21,6 +21,12 @@ class ProfileDialog extends React.Component {
     this.props.onHide();
   };
 
+  createFavoritesPlaylist() {
+    axios.post("http://localhost:3001/api/createplaylist", {
+      params: { username: this.state.loggedInUser, playlist: "Favorites" },
+    });
+  }
+
   handleDialogSwitch() {
     this.setState({ emailError: "", passwordError: "" });
     if (this.state.showLogIn == false) {
@@ -64,6 +70,9 @@ class ProfileDialog extends React.Component {
             })
             .then((response, error) => {
               this.setState({ loggedInUser: this.state.userEmail });
+              localStorage.setItem("user", this.state.loggedInUser);
+              this.props.updateUser(this.state.loggedInUser);
+              this.createFavoritesPlaylist();
               this.handleClose();
             });
         } else {
@@ -91,6 +100,7 @@ class ProfileDialog extends React.Component {
                 this.setState({ loggedInUser: this.state.userEmail });
                 this.handleClose();
                 localStorage.setItem("user", this.state.loggedInUser);
+                this.props.updateUser(this.state.loggedInUser);
               } else {
                 this.setState({ passwordError: "Invalid password." });
               }
@@ -119,8 +129,7 @@ class ProfileDialog extends React.Component {
   };
 
   componentDidMount() {
-    var user = localStorage.getItem("user");
-    this.setState({ loggedInUser: user });
+    this.setState({ loggedInUser: this.props.loggedInUser });
   }
 
   render() {

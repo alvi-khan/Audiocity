@@ -22,6 +22,8 @@ class Profile extends React.Component {
         </button>
         <ProfileDialog
           show={this.state.profileDialogShow}
+          loggedInUser={this.props.user}
+          updateUser={(newUser) => this.props.updateUser(newUser)}
           onHide={() => {
             this.setState({ profileDialogShow: false });
           }}
