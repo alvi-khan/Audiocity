@@ -42,7 +42,7 @@ class Sidebar extends React.Component {
               this.setState({ uploadDialogShown: true });
             }}
           >
-            <i class="icon bi bi-cloud-upload"></i>
+            <i class="icon bi bi-cloud-arrow-up"></i>
             Upload
           </button>
           <UploadDialog

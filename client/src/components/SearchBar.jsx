@@ -30,7 +30,7 @@ class SearchBar extends React.Component {
         }}
         value={this.state.searchTerm}
         onChange={(e) => this.inputChange(e.target.value)}
-        placeholder="Search..."
+        placeholder="Search songs, artists, or albums"
       />
     );
   }

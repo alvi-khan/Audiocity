@@ -1,5 +1,16 @@
 .headerContent {
-  padding: 10px;
+  padding: 13px;
   display: flex;
   justify-content: space-between;
+  background-color: #1f252d;
+  border: 1px solid green;
+}
+
+.profileDiv {
+  background-color: #1f252d;
+  text-align: center;
+}
+
+.searchBar {
+  background-color: #1f252d;
 }

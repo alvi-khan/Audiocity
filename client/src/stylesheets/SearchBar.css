@@ -2,10 +2,14 @@ input {
   background-color: #ffffff;
   color: #1e1e1e;
   border-style: hidden;
-  height: 40px;
-  width: 300px;
+  height: 38px;
+  width: 350px;
   border-radius: 20px;
   padding-left: 20px;
+  margin-left: 10px;
+  padding: 20px;
+  font-size: 13px;
+  font-weight: 500;
 }
 
 input:focus {

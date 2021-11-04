@@ -23,8 +23,8 @@ class Profile extends React.Component {
             this.logout();
           }}
         >
-          <i class="icon bi bi-person"></i>
-          Log Out
+          <i class="icon bi bi-person-circle"></i>
+          Log out
         </button>
       );
     } else {
@@ -35,7 +35,7 @@ class Profile extends React.Component {
             this.setState({ profileDialogShow: true });
           }}
         >
-          <i class="icon bi bi-person"></i>
+          <i class="icon bi bi-person-circle"></i>
           Profile
         </button>
       );
