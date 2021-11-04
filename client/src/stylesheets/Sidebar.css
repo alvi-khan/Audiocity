@@ -3,7 +3,6 @@
 }
 .sidebarButtons button {
   background: none;
-  /* border-radius: 10px; */
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 12px;
@@ -25,7 +24,6 @@
 .sidebarButtons {
   background: none;
   padding: 0px;
-  /* border: 1px solid green; */
 }
 
 .sidebarButtons .icon {
@@ -37,8 +35,6 @@
 h3 {
   padding: 30px;
   background: #000006;
-  /* background: #151515; */
-
   font-weight: 700;
   text-align: center;
   font-size: 25px;
