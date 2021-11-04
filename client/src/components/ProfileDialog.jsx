@@ -143,7 +143,6 @@ class ProfileDialog extends React.Component {
       >
         <div class="profileDialogContainer">
           <h1 class="appTitle">Music Player</h1>
-          <p>{this.state.loggedInUser}</p>
           <form onSubmit={(event) => this.handleSubmit(event)}>
             <div>
               <label class="profileFormLabel">
