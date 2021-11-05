@@ -25,6 +25,14 @@ app.listen(3001, () => {
     console.log("running on port 3001");
 })
 
+app.post("/api/removefromplaylist", (req, res) => {
+  const query = "DELETE FROM playlist_songs WHERE playlist_id=(?) AND song_id=(?)";
+  db.query(query, [req.body.params.playlistID, req.body.params.songID], (error, results, fields) => {
+    if (error)  return console.error(error.message);
+    res.send(results);
+  })
+})
+
 app.post("/api/addtoplaylist", (req, res) => {
   const query = "INSERT INTO playlist_songs VALUES (?, ?)"
     db.query(query, [req.body.params.playlistID, req.body.params.songID], (error, results, fields) => {
