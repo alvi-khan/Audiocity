@@ -46,7 +46,7 @@
 }
 
 .volumeSlider input[type="range"]::-moz-range-progress {
-  background: #0f4271;
+  background: #0e384e;
   height: 5px;
   border-radius: 3px;
 }
@@ -57,17 +57,17 @@
   height: 10px;
   width: 15px;
   border-radius: 5px;
-  background: #0f4271;
+  background: #0e384e;
   margin: -2.5px;
 }
 
 .volumeSlider input[type="range"]::-moz-range-thumb {
   -webkit-appearance: none;
   border: none;
-  height: 10px;
+  height: 15px;
   width: 15px;
-  border-radius: 5px;
-  background: #0f4271;
+  border-radius: 15px;
+  background: #0e384e;
   margin: -2.5px;
 }
 

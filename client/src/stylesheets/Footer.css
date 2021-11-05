@@ -1,13 +1,12 @@
 .nowPlayingContainer {
-  margin: auto 0px;
-  margin-top: 5px;
+  margin: 0px;
   float: left;
   background: none;
 }
 
 .volumeContainer {
   margin: auto 0px;
-  margin-top: 20px;
+  margin-top: 15px;
   float: right;
   background: none;
 }
@@ -16,4 +15,5 @@
   margin: auto;
   width: fit-content;
   background: none;
+  margin-bottom: 0px;
 }
