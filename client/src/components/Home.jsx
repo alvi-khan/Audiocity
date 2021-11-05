@@ -53,6 +53,7 @@ class Home extends React.Component {
           return (
             <Link class="link" to={"/search?" + artist}>
               <div
+                onClick={() => this.props.onArtistSelect(artist)}
                 style={{
                   backgroundImage: this.state.backgrounds[index],
                 }}

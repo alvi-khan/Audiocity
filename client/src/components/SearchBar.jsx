@@ -16,6 +16,10 @@ class SearchBar extends React.Component {
     this.setState({ searchTerm: text });
   };
 
+  componentDidMount() {
+    this.setState({ searchTerm: this.props.searchTerm });
+  }
+
   componentWillReceiveProps(nextProps) {
     this.setState({ searchTerm: nextProps.searchTerm });
   }
