@@ -12,6 +12,7 @@ class Table extends React.Component {
     playlists: [],
     favoritePlaylistID: 0,
     hideNewPlaylistInput: true,
+    previousSearchTerm: "",
   };
 
   getPlaylists() {
@@ -33,7 +34,7 @@ class Table extends React.Component {
   }
 
   getData(searchTerm) {
-    this.setState({ data: [] });
+    this.setState({ data: [], previousSearchTerm: searchTerm });
     Axios.get("http://localhost:3001/api/query", {
       params: { searchTerm: searchTerm },
     }).then((response) => {
@@ -47,7 +48,8 @@ class Table extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.getData(nextProps.searchTerm);
+    if (this.state.previousSearchTerm != nextProps.searchTerm)
+      this.getData(nextProps.searchTerm);
   }
 
   getImage(item) {
