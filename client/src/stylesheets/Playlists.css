@@ -24,3 +24,7 @@
 .playlists .button h2 {
   background: transparent;
 }
+
+.playlists .button .header {
+  background-color: transparent;
+}

@@ -8,6 +8,7 @@ class Playlist extends React.Component {
   state = {
     shown: true,
     playlists: [],
+    currentLocation: "",
   };
 
   getPlaylists() {
@@ -20,22 +21,21 @@ class Playlist extends React.Component {
 
   componentDidMount() {
     this.getPlaylists();
+    this.setState({ currentLocation: "/playlist" });
   }
 
-  Playlist(name, id) {
-    return (
-      <button class="button">
-        <Link class="link" to={"/playlist/" + id}>
-          <h2>{name}</h2>
-        </Link>
-        <Route path={"/playlist/" + id} exact={true}>
-          <PlaylistContent
-            onSearch={(text) => this.props.onSearch(text)}
-            onPlay={(songID) => this.props.onPlay(songID)}
-          />
-        </Route>
-      </button>
+  updateLocation = (playlistID) => {
+    var location = window.location;
+    var currentPath = location.href.replace(
+      location.protocol + "//" + location.host,
+      ""
     );
+    this.setState({ currentLocation: currentPath });
+  };
+
+  getPlaylistLink(playlistID) {
+    if (this.state.currentLocation.endsWith(playlistID)) return "/playlist/";
+    return "/playlist/" + playlistID;
   }
 
   render() {
@@ -43,10 +43,15 @@ class Playlist extends React.Component {
       <div class="playlists">
         {this.state.playlists.map((playlist) => {
           return (
-            <button class="button">
-              <Link class="link" to={"/playlist/" + playlist.ID}>
-                <h2>{playlist.name}</h2>
-              </Link>
+            <button
+              onClick={() => this.updateLocation(playlist.ID)}
+              class="button"
+            >
+              <div class="header">
+                <Link class="link" to={this.getPlaylistLink(playlist.ID)}>
+                  <h2>{playlist.name}</h2>
+                </Link>
+              </div>
               <Route path={"/playlist/" + playlist.ID} exact={true}>
                 <PlaylistContent
                   onSearch={(text) => this.props.onSearch(text)}
