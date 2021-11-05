@@ -5,6 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../stylesheets/UploadDialog.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import * as musicMetadata from "music-metadata-browser";
 
 class UploadDialog extends React.Component {
   state = {
@@ -129,6 +130,15 @@ class UploadDialog extends React.Component {
     if (event.target.value) this.setState({ [field]: event.target.value });
   };
 
+  readAudio(file) {
+    musicMetadata.parseBlob(file).then((metadata) => {
+      var data = metadata.common;
+      if (data.artist) this.setState({ artist: data.artist });
+      if (data.album) this.setState({ album: data.album });
+      if (data.title) this.setState({ title: data.title });
+    });
+  }
+
   saveFile(file) {
     if (file.type.startsWith("image/"))
       this.setState({
@@ -136,8 +146,10 @@ class UploadDialog extends React.Component {
         image: file,
         imageError: "",
       });
-    else if (file.type.startsWith("audio/"))
+    else if (file.type.startsWith("audio/")) {
       this.setState({ filename: file.name, song: file, fileError: "" });
+      this.readAudio(file);
+    }
   }
 
   fileUpload = (event) => {
@@ -244,6 +256,7 @@ class UploadDialog extends React.Component {
                     name="title"
                     onChange={this.textChanged}
                     type="text"
+                    value={this.state.title}
                     autocomplete="off"
                   />
                   <p class="error">{this.state.titleError}</p>
@@ -254,6 +267,7 @@ class UploadDialog extends React.Component {
                     name="artist"
                     onChange={this.textChanged}
                     type="text"
+                    value={this.state.artist}
                     autocomplete="off"
                   />
                   <p class="error">{this.state.artistError}</p>
@@ -264,6 +278,7 @@ class UploadDialog extends React.Component {
                     name="album"
                     onChange={this.textChanged}
                     type="text"
+                    value={this.state.album}
                     autocomplete="off"
                   />
                 </label>
