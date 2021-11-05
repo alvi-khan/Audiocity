@@ -55,84 +55,88 @@ class Content extends React.Component {
 
   render() {
     var items = this.state.data;
-    return (
-      <div className="playlistContent" hidden={this.props.visibility}>
-        <table>
-          <thead>
-            <tr>
-              <th style={{ width: 43 + "px" }}></th>
-              <th style={{ width: 70 + "px" }}></th>
-              <th style={{ width: 250 + "px" }}>Title</th>
-              <th style={{ width: 250 + "px" }}>Artist</th>
-              <th style={{ width: 250 + "px" }}>Album</th>
-              <th style={{ width: 100 + "px" }}>Uploader</th>
-              <th style={{ width: 60 + "px" }}></th>
-            </tr>
-          </thead>
-          <tbody overflow>
-            {items.map((item) => {
-              return (
-                <tr key={item.title}>
-                  <td style={{ width: 40 + "px" }}>
-                    <i
-                      data-id={item.ID}
-                      onClick={(e) =>
-                        this.play(e.target.getAttribute("data-id"))
+    if (items.length === 0) {
+      return <p class="emptymessage">Playlist empty.</p>;
+    } else {
+      return (
+        <div className="playlistContent" hidden={this.props.visibility}>
+          <table>
+            <thead>
+              <tr>
+                <th style={{ width: 43 + "px" }}></th>
+                <th style={{ width: 70 + "px" }}></th>
+                <th style={{ width: 250 + "px" }}>Title</th>
+                <th style={{ width: 250 + "px" }}>Artist</th>
+                <th style={{ width: 250 + "px" }}>Album</th>
+                <th style={{ width: 100 + "px" }}>Uploader</th>
+                <th style={{ width: 60 + "px" }}></th>
+              </tr>
+            </thead>
+            <tbody overflow>
+              {items.map((item) => {
+                return (
+                  <tr key={item.title}>
+                    <td style={{ width: 40 + "px" }}>
+                      <i
+                        data-id={item.ID}
+                        onClick={(e) =>
+                          this.play(e.target.getAttribute("data-id"))
+                        }
+                        class="icon bi bi-play-fill"
+                      ></i>
+                    </td>
+                    <td style={{ width: 70 + "px" }} class="img">
+                      <img src={this.getImage(item)} />
+                    </td>
+                    <td style={{ width: 250 + "px" }} class="title">
+                      {item.title}
+                    </td>
+                    <td
+                      onClick={(event) =>
+                        this.props.onSearch(event.target.textContent)
                       }
-                      class="icon bi bi-play-fill"
-                    ></i>
-                  </td>
-                  <td style={{ width: 70 + "px" }} class="img">
-                    <img src={this.getImage(item)} />
-                  </td>
-                  <td style={{ width: 250 + "px" }} class="title">
-                    {item.title}
-                  </td>
-                  <td
-                    onClick={(event) =>
-                      this.props.onSearch(event.target.textContent)
-                    }
-                    style={{ width: 250 + "px" }}
-                  >
-                    <Link class="link" to={"/search?" + item.artist}>
-                      {item.artist}
-                    </Link>
-                  </td>
-                  <td
-                    onClick={(event) =>
-                      this.props.onSearch(event.target.textContent)
-                    }
-                    style={{ width: 250 + "px" }}
-                  >
-                    <Link class="link" to={"/search?" + item.album}>
-                      {item.album}
-                    </Link>
-                  </td>
-                  <td
-                    onClick={(event) =>
-                      this.props.onSearch(event.target.textContent)
-                    }
-                    style={{ width: 100 + "px" }}
-                  >
-                    <Link class="link" to={"/search?" + item.uploader}>
-                      {item.uploader}
-                    </Link>
-                  </td>
-                  <td style={{ width: 60 + "px" }}>
-                    <i
-                      onClick={(e) => {
-                        this.remove(item.ID);
-                      }}
-                      class="icon bi bi-x"
-                    ></i>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    );
+                      style={{ width: 250 + "px" }}
+                    >
+                      <Link class="link" to={"/search?" + item.artist}>
+                        {item.artist}
+                      </Link>
+                    </td>
+                    <td
+                      onClick={(event) =>
+                        this.props.onSearch(event.target.textContent)
+                      }
+                      style={{ width: 250 + "px" }}
+                    >
+                      <Link class="link" to={"/search?" + item.album}>
+                        {item.album}
+                      </Link>
+                    </td>
+                    <td
+                      onClick={(event) =>
+                        this.props.onSearch(event.target.textContent)
+                      }
+                      style={{ width: 100 + "px" }}
+                    >
+                      <Link class="link" to={"/search?" + item.uploader}>
+                        {item.uploader}
+                      </Link>
+                    </td>
+                    <td style={{ width: 60 + "px" }}>
+                      <i
+                        onClick={(e) => {
+                          this.remove(item.ID);
+                        }}
+                        class="icon bi bi-x"
+                      ></i>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      );
+    }
   }
 }
 

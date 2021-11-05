@@ -87,3 +87,9 @@
 .playlistContent .link:hover {
   color: #ffffff;
 }
+
+.emptymessage {
+  background-color: transparent;
+  text-align: center;
+  margin-top: 20px;
+}

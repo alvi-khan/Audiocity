@@ -73,116 +73,120 @@ class Table extends React.Component {
   };
 
   render() {
-    return (
-      <div className="table">
-        <table>
-          <thead>
-            <tr>
-              <th style={{ width: 40 + "px" }}></th>
-              <th style={{ width: 70 + "px" }}></th>
-              <th style={{ width: 250 + "px" }}>TITLE</th>
-              <th style={{ width: 250 + "px" }}>ARTIST</th>
-              <th style={{ width: 250 + "px" }}>ALBUM</th>
-              <th style={{ width: 100 + "px" }}>UPLOADER</th>
-              <th style={{ width: 40 + "px" }}></th>
-            </tr>
-          </thead>
-          <tbody overflow>
-            {this.state.data.map((item) => {
-              return (
-                <tr key={item.title}>
-                  <td style={{ width: 40 + "px" }}>
-                    <i
-                      data-id={item.ID}
-                      onClick={(e) =>
-                        this.play(e.target.getAttribute("data-id"))
+    if (this.state.data.length === 0) {
+      return <p class="emptymessage">No results found!</p>;
+    } else {
+      return (
+        <div className="table">
+          <table>
+            <thead>
+              <tr>
+                <th style={{ width: 40 + "px" }}></th>
+                <th style={{ width: 70 + "px" }}></th>
+                <th style={{ width: 250 + "px" }}>TITLE</th>
+                <th style={{ width: 250 + "px" }}>ARTIST</th>
+                <th style={{ width: 250 + "px" }}>ALBUM</th>
+                <th style={{ width: 100 + "px" }}>UPLOADER</th>
+                <th style={{ width: 40 + "px" }}></th>
+              </tr>
+            </thead>
+            <tbody overflow>
+              {this.state.data.map((item) => {
+                return (
+                  <tr key={item.title}>
+                    <td style={{ width: 40 + "px" }}>
+                      <i
+                        data-id={item.ID}
+                        onClick={(e) =>
+                          this.play(e.target.getAttribute("data-id"))
+                        }
+                        class="icon bi bi-play-fill"
+                      ></i>
+                    </td>
+                    <td style={{ width: 70 + "px" }} class="img">
+                      <img src={this.getImage(item)} />
+                    </td>
+                    <td style={{ width: 250 + "px" }} class="title">
+                      {item.title}
+                    </td>
+                    <td
+                      onClick={(event) =>
+                        this.props.onSearch(event.target.textContent)
                       }
-                      class="icon bi bi-play-fill"
-                    ></i>
-                  </td>
-                  <td style={{ width: 70 + "px" }} class="img">
-                    <img src={this.getImage(item)} />
-                  </td>
-                  <td style={{ width: 250 + "px" }} class="title">
-                    {item.title}
-                  </td>
-                  <td
-                    onClick={(event) =>
-                      this.props.onSearch(event.target.textContent)
-                    }
-                    style={{ width: 250 + "px" }}
-                  >
-                    <Link class="link" to={"/search?" + item.artist}>
-                      {item.artist}
-                    </Link>
-                  </td>
-                  <td
-                    onClick={(event) =>
-                      this.props.onSearch(event.target.textContent)
-                    }
-                    style={{ width: 250 + "px" }}
-                  >
-                    <Link class="link" to={"/search?" + item.album}>
-                      {item.album}
-                    </Link>
-                  </td>
-                  <td
-                    onClick={(event) =>
-                      this.props.onSearch(event.target.textContent)
-                    }
-                    style={{ width: 120 + "px" }}
-                  >
-                    <Link class="link" to={"/search?" + item.uploader}>
-                      {item.uploader}
-                    </Link>
-                  </td>
-                  <td style={{ width: 40 + "px" }}>
-                    <Dropdown>
-                      <Dropdown.Toggle className="dropdown">
-                        <i class="icon bi bi-three-dots"></i>
-                      </Dropdown.Toggle>
+                      style={{ width: 250 + "px" }}
+                    >
+                      <Link class="link" to={"/search?" + item.artist}>
+                        {item.artist}
+                      </Link>
+                    </td>
+                    <td
+                      onClick={(event) =>
+                        this.props.onSearch(event.target.textContent)
+                      }
+                      style={{ width: 250 + "px" }}
+                    >
+                      <Link class="link" to={"/search?" + item.album}>
+                        {item.album}
+                      </Link>
+                    </td>
+                    <td
+                      onClick={(event) =>
+                        this.props.onSearch(event.target.textContent)
+                      }
+                      style={{ width: 120 + "px" }}
+                    >
+                      <Link class="link" to={"/search?" + item.uploader}>
+                        {item.uploader}
+                      </Link>
+                    </td>
+                    <td style={{ width: 40 + "px" }}>
+                      <Dropdown>
+                        <Dropdown.Toggle className="dropdown">
+                          <i class="icon bi bi-three-dots"></i>
+                        </Dropdown.Toggle>
 
-                      <Dropdown.Menu className="dropdown-menu">
-                        <Dropdown.Item
-                          className="dropdown-item"
-                          onClick={() =>
-                            this.addToPlaylist(
-                              item.ID,
-                              this.state.favoritePlaylistID
-                            )
-                          }
-                        >
-                          <i class="icon bi bi-heart"></i>
-                          Add to Favorites
-                        </Dropdown.Item>
-                        <Dropdown.Divider className="dropdown-divider" />
-                        <Dropdown.Item className="dropdown-item">
-                          <i class="icon bi bi-plus-circle"></i>
-                          Create Playlist
-                        </Dropdown.Item>
-                        {this.state.playlists.map((playlist) => {
-                          if (playlist.ID != this.state.favoritePlaylistID)
-                            return (
-                              <Dropdown.Item
-                                className="dropdown-item playlist"
-                                onClick={() =>
-                                  this.addToPlaylist(item.ID, playlist.ID)
-                                }
-                              >
-                                {"Add to " + playlist.name}
-                              </Dropdown.Item>
-                            );
-                        })}
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-    );
+                        <Dropdown.Menu className="dropdown-menu">
+                          <Dropdown.Item
+                            className="dropdown-item"
+                            onClick={() =>
+                              this.addToPlaylist(
+                                item.ID,
+                                this.state.favoritePlaylistID
+                              )
+                            }
+                          >
+                            <i class="icon bi bi-heart"></i>
+                            Add to Favorites
+                          </Dropdown.Item>
+                          <Dropdown.Divider className="dropdown-divider" />
+                          <Dropdown.Item className="dropdown-item">
+                            <i class="icon bi bi-plus-circle"></i>
+                            Create Playlist
+                          </Dropdown.Item>
+                          {this.state.playlists.map((playlist) => {
+                            if (playlist.ID != this.state.favoritePlaylistID)
+                              return (
+                                <Dropdown.Item
+                                  className="dropdown-item playlist"
+                                  onClick={() =>
+                                    this.addToPlaylist(item.ID, playlist.ID)
+                                  }
+                                >
+                                  {"Add to " + playlist.name}
+                                </Dropdown.Item>
+                              );
+                          })}
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      );
+    }
   }
 }
 
