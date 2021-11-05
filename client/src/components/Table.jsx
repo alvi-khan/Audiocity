@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "../stylesheets/Table.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { Link } from "react-router-dom";
+import { Dropdown } from "react-bootstrap";
 
 class Table extends React.Component {
   state = {
@@ -62,6 +63,7 @@ class Table extends React.Component {
               <th style={{ width: 250 + "px" }}>ARTIST</th>
               <th style={{ width: 250 + "px" }}>ALBUM</th>
               <th style={{ width: 100 + "px" }}>UPLOADER</th>
+              <th style={{ width: 40 + "px" }}></th>
             </tr>
           </thead>
           <tbody overflow>
@@ -108,11 +110,28 @@ class Table extends React.Component {
                     onClick={(event) =>
                       this.props.onSearch(event.target.textContent)
                     }
-                    style={{ width: 150 + "px" }}
+                    style={{ width: 120 + "px" }}
                   >
                     <Link class="link" to={"/search?" + item.uploader}>
                       {item.uploader}
                     </Link>
+                  </td>
+                  <td style={{ width: 40 + "px" }}>
+                    <Dropdown>
+                      <Dropdown.Toggle className="dropdown">
+                        <i class="icon bi bi-three-dots"></i>
+                      </Dropdown.Toggle>
+
+                      <Dropdown.Menu>
+                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                        <Dropdown.Item href="#/action-2">
+                          Another action
+                        </Dropdown.Item>
+                        <Dropdown.Item href="#/action-3">
+                          Something else
+                        </Dropdown.Item>
+                      </Dropdown.Menu>
+                    </Dropdown>
                   </td>
                 </tr>
               );
