@@ -56,6 +56,17 @@ app.get("/api/playlists", (req, res) => {
   })
 })
 
+app.post("/api/deleteplaylist", (req, res) => {
+  var query = "DELETE FROM playlist_songs WHERE playlist_id=(?)";
+  db.query(query, [req.body.params.playlistID] , (error, results, fields) => {
+    if (error)  return console.error(error.message);
+    query = "DELETE FROM playlists WHERE id=(?)";
+    db.query(query, [req.body.params.playlistID], (error, results, fields) => {
+      res.send(results);
+    })
+  })
+})
+
 app.post("/api/createplaylist", (req, res) => {
   const query = "INSERT INTO playlists (name, owner) VALUES (?, ?)"
   db.query(query, [req.body.params.playlist, req.body.params.username], (error, results, fields) => {

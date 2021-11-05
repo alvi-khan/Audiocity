@@ -38,6 +38,28 @@ class Playlist extends React.Component {
     return "/playlist/" + playlistID;
   }
 
+  deletePlaylist(event, playlistID) {
+    event.preventDefault();
+    event.stopPropagation();
+    Axios.post("http://localhost:3001/api/deleteplaylist", {
+      params: { playlistID: playlistID },
+    }).then(() => {
+      this.getPlaylists();
+    });
+  }
+
+  getTrashIcon(playlist) {
+    if (playlist.name != "Favorites")
+      return (
+        <i
+          onClick={(e) => {
+            this.deletePlaylist(e, playlist.ID);
+          }}
+          class="icon bi bi-trash"
+        ></i>
+      );
+  }
+
   render() {
     return (
       <div class="playlists">
@@ -47,11 +69,10 @@ class Playlist extends React.Component {
               onClick={() => this.updateLocation(playlist.ID)}
               class="button"
             >
-              <div class="header">
-                <Link class="link" to={this.getPlaylistLink(playlist.ID)}>
-                  <h2>{playlist.name}</h2>
-                </Link>
-              </div>
+              <Link class="link" to={this.getPlaylistLink(playlist.ID)}>
+                <h2>{playlist.name}</h2>
+                {this.getTrashIcon(playlist)}
+              </Link>
               <Route path={"/playlist/" + playlist.ID} exact={true}>
                 <PlaylistContent
                   onSearch={(text) => this.props.onSearch(text)}
