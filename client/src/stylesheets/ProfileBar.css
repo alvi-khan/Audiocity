@@ -30,10 +30,10 @@
 .profileOptions .dropdown-menu {
   background-color: #252525;
   height: fit-content;
-  min-width: 120px;
-  max-width: 120px;
+  min-width: 100px;
+  max-width: 100px;
   max-height: 200px;
-  padding: 10px;
+  padding: 5px;
   margin-left: 5px;
 }
 
@@ -41,7 +41,7 @@
   font-size: 14px;
   color: #ffffff;
   border-radius: 5px;
-  padding: 10px;
+  padding: 5px;
 }
 
 .profileOptions .dropdown-item .icon {
