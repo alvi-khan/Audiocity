@@ -45,8 +45,8 @@
 
 .Modal .upload {
   display: grid;
-  width: 600px;
-  height: 400px;
+  width: 550px;
+  height: 420px;
   grid-template-columns: 300px auto;
   grid-template-rows: auto 50px;
 }
@@ -62,7 +62,7 @@
 
 .uploadContainer .overlay .icon {
   font-size: 60px;
-  margin: 150px auto 20px auto;
+  margin: 200px auto 20px auto;
   background-color: transparent;
   color: #fff;
 }
@@ -109,6 +109,8 @@
   visibility: hidden;
   height: 0px;
   width: 0px;
+  padding: 0px;
+  margin: 0px;
 }
 
 .upload .image {
@@ -165,22 +167,22 @@
 /* Form Elements */
 
 .upload .form .text {
-  margin: 5px auto;
+  margin: 0px auto;
   font-size: 14px;
 }
 
 .upload .form .text input {
   padding: 5px;
   height: 40px;
+  width: 240px;
   margin: 5px 0px;
   border: 2px solid white;
   border-radius: 5px;
-  background-color: #151515;
 }
 
 .upload .form .text input:focus {
   border: none;
-  outline: 4px solid #4433ff;
+  outline: 3px solid #1496d1;
 }
 
 /* Audio Upload Field */
@@ -190,30 +192,32 @@
   margin-top: 25px;
   border-radius: 5px;
   height: fit-content;
+  width: 240px;
   cursor: pointer;
   display: flex;
 }
 
 .upload .form .button:hover {
-  outline: 2px solid #4433ff;
-  border: 2px solid #4433ff;
+  outline: 1px solid #1496d1;
+  border: 2px solid #1496d1;
 }
 
 .upload .form .button input {
   visibility: hidden;
-  height: 0px;
-  width: 0px;
+  padding: 0px;
+  margin: 0px;
   flex: 0 1 0px;
 }
 
 .upload .form .button::before {
   content: "Select Audio";
   height: 40px;
+  width: 110px;
   color: white;
   background: #151515;
   border-radius: 3px 0px 0px 3px;
-  padding: 10px 8px 5px 8px;
-  font-size: 11pt;
+  padding: 10px 0px 5px 8px;
+  font-size: 10pt;
   flex: 0 1 auto;
 }
 
@@ -223,10 +227,12 @@
 
 .upload .form .button::after {
   content: attr(filename);
+  overflow: hidden;
   height: 40px;
+  width: 180px;
   color: black;
   padding: 10px 8px 5px 8px;
-  font-size: 11pt;
+  font-size: 10pt;
   flex: 1 1 auto;
 }
 
@@ -237,7 +243,7 @@
 /* Main Action Buttons */
 
 .upload .buttons .button {
-  width: 120px;
+  width: 100px;
   background-color: #3e3e3e;
   border-radius: 5px;
   padding: 10px;
