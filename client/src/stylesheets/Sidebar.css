@@ -17,6 +17,11 @@
   margin: 0px;
 }
 
+.sidebarButtons button.selected {
+  background-color: #202122;
+  color: white;
+}
+
 .sidebarButtons button:hover {
   background-color: #202122;
   color: white;
