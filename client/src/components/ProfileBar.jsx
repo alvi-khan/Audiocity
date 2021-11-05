@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../stylesheets/ProfileBar.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import ProfileDialog from "./ProfileDialog";
+import { Dropdown } from "react-bootstrap";
 
 class Profile extends React.Component {
   state = {
@@ -17,15 +18,26 @@ class Profile extends React.Component {
     var button;
     if (this.props.user != "" && this.props.user != null) {
       button = (
-        <button
-          class="profileBar"
-          onClick={() => {
-            this.logout();
-          }}
-        >
-          <i class="icon bi bi-person-circle"></i>
-          Log out
-        </button>
+        <Dropdown className="profileOptions">
+          <Dropdown.Toggle className="dropdown">
+            <button class="profileBar">
+              <i class="icon bi bi-person-circle"></i>
+              {this.props.user}
+            </button>
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu className="dropdown-menu">
+            <Dropdown.Item
+              className="dropdown-item"
+              onClick={() => {
+                this.logout();
+              }}
+            >
+              <i class="icon bi bi-person-circle"></i>
+              Log out
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
       );
     } else {
       button = (

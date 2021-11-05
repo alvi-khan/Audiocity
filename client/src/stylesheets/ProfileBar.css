@@ -21,3 +21,31 @@
   margin-right: 10px;
   font-size: 20px;
 }
+
+.profileOptions .dropdown-menu {
+  background-color: #252525;
+  height: fit-content;
+  min-width: 120px;
+  max-width: 120px;
+  max-height: 200px;
+  padding: 10px;
+  margin-left: 5px;
+}
+
+.profileOptions .dropdown-item {
+  font-size: 14px;
+  color: #ffffff;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.profileOptions .dropdown-item .icon {
+  font-size: 14px;
+  margin-right: 10px;
+  background-color: transparent;
+}
+
+.profileOptions .dropdown-item:hover {
+  background-color: #151515;
+  color: #ffffff;
+}

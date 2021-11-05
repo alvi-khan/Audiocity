@@ -127,7 +127,7 @@ img {
   border: none;
 }
 
-.dropdown-menu {
+.favoritesList .dropdown-menu {
   background-color: #252525;
   height: fit-content;
   max-height: 200px;
@@ -136,32 +136,34 @@ img {
   padding: 15px;
 }
 
-.dropdown-item {
+.favoritesList .dropdown-item {
   font-size: 12px;
   color: #ffffff;
+  border-radius: 5px;
+  padding: 5px;
+  padding-right: 10px;
 }
 
-.dropdown-item.playlist {
+.favoritesList .dropdown-item.playlist {
   padding-left: 30px;
 }
 
-.dropdown-item .icon {
+.favoritesList .dropdown-item .icon {
   font-size: 12px;
-  margin-left: -10px;
   margin-right: 10px;
   visibility: visible;
 }
 
-.dropdown-item:hover {
+.favoritesList .dropdown-item:hover {
   background-color: #151515;
   color: #ffffff;
 }
 
-.dropdown-divider {
+.favoritesList .dropdown-divider {
   color: #ffffff;
 }
 
-.dropdown-menu input {
+.favoritesList .dropdown-menu input {
   width: 100px;
   height: 20px;
   border-radius: 2px;
