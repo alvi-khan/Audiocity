@@ -44,12 +44,7 @@ class Content extends React.Component {
     Axios.post("http://localhost:3001/api/removefromplaylist", {
       params: { songID: songID, playlistID: this.props.id },
     }).then(() => {
-      var queue = [];
-      this.state.data.map((item) => {
-        if (item.ID != songID) queue.push(item.ID);
-      });
-      this.props.onQueueChange(queue);
-      this.setState({ data: queue });
+      this.getData();
     });
   };
 
@@ -91,33 +86,36 @@ class Content extends React.Component {
                     <td style={{ width: 250 + "px" }} class="title">
                       {item.title}
                     </td>
-                    <td
-                      onClick={(event) =>
-                        this.props.onSearch(event.target.textContent)
-                      }
-                      style={{ width: 250 + "px" }}
-                    >
-                      <Link class="link" to={"/search?" + item.artist}>
+                    <td style={{ width: 250 + "px" }}>
+                      <Link
+                        onClick={(event) =>
+                          this.props.onSearch(event.target.textContent)
+                        }
+                        class="link"
+                        to={"/search?" + item.artist}
+                      >
                         {item.artist}
                       </Link>
                     </td>
-                    <td
-                      onClick={(event) =>
-                        this.props.onSearch(event.target.textContent)
-                      }
-                      style={{ width: 250 + "px" }}
-                    >
-                      <Link class="link" to={"/search?" + item.album}>
+                    <td style={{ width: 250 + "px" }}>
+                      <Link
+                        onClick={(event) =>
+                          this.props.onSearch(event.target.textContent)
+                        }
+                        class="link"
+                        to={"/search?" + item.album}
+                      >
                         {item.album}
                       </Link>
                     </td>
-                    <td
-                      onClick={(event) =>
-                        this.props.onSearch(event.target.textContent)
-                      }
-                      style={{ width: 100 + "px" }}
-                    >
-                      <Link class="link" to={"/search?" + item.uploader}>
+                    <td style={{ width: 100 + "px" }}>
+                      <Link
+                        onClick={(event) =>
+                          this.props.onSearch(event.target.textContent)
+                        }
+                        class="link"
+                        to={"/search?" + item.uploader}
+                      >
                         {item.uploader}
                       </Link>
                     </td>

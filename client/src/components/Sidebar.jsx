@@ -7,12 +7,25 @@ import { Link } from "react-router-dom";
 class Sidebar extends React.Component {
   state = {
     uploadDialogShown: false,
+    selectedButton: "Home",
   };
+
+  constructor() {
+    super();
+    this.state.selectedButton = window.location.href
+      .replace(window.location.origin, "")
+      .split("/")[1];
+  }
 
   optionalDivStyle = () => {
     if (this.props.user === "" || this.props.user === null) return "hidden";
     else return "";
   };
+
+  checkSelected(button) {
+    if (button.toUpperCase() === this.state.selectedButton.toUpperCase())
+      return "selected";
+  }
 
   render() {
     return (
@@ -21,19 +34,35 @@ class Sidebar extends React.Component {
           <h3>Audiocity</h3>
         </div>
         <Link class="link" to="/">
-          <button>
+          <button
+            onClick={() => {
+              this.setState({ selectedButton: "Home" });
+            }}
+            class={this.checkSelected("Home")}
+          >
             <i class="icon bi bi-house"></i>Home
           </button>
         </Link>
 
         <Link class="link" to="/search?">
-          <button onClick={() => this.props.onSearch("")}>
+          <button
+            class={this.checkSelected("Search")}
+            onClick={() => {
+              this.props.onSearch("");
+              this.setState({ selectedButton: "Search" });
+            }}
+          >
             <i class="icon bi bi-search"></i>Search
           </button>
         </Link>
         <div class={"optional " + this.optionalDivStyle()}>
           <Link class="link" to="/playlist">
-            <button>
+            <button
+              class={this.checkSelected("Playlist")}
+              onClick={() => {
+                this.setState({ selectedButton: "Playlist" });
+              }}
+            >
               <i class="icon bi bi-music-note-list"></i>Playlists
             </button>
           </Link>
