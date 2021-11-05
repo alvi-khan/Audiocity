@@ -64,10 +64,10 @@
 .volumeSlider input[type="range"]::-moz-range-thumb {
   -webkit-appearance: none;
   border: none;
-  height: 15px;
-  width: 15px;
-  border-radius: 15px;
-  background: #0e384e;
+  height: 13px;
+  width: 13px;
+  border-radius: 13px;
+  background: #ffffff;
   margin: -2.5px;
 }
 
