@@ -191,7 +191,7 @@ class UploadDialog extends React.Component {
     } else {
       return (
         <React.Fragment>
-          <div>
+          <div class="iconContainerUpload">
             <i class="icon bi bi-image"></i>
           </div>
           <header>{"Drag & Drop"}</header>

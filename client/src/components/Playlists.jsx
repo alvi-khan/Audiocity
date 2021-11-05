@@ -55,7 +55,7 @@ class Playlist extends React.Component {
           onClick={(e) => {
             this.deletePlaylist(e, playlist.ID);
           }}
-          class="icon bi bi-trash"
+          class="icon bi bi-trash-fill trashIcon"
         ></i>
       );
   }
@@ -70,6 +70,7 @@ class Playlist extends React.Component {
               class="button"
             >
               <Link class="link" to={this.getPlaylistLink(playlist.ID)}>
+                <i class="icon bi bi-caret-down-fill"></i>
                 <h2>{playlist.name}</h2>
                 {this.getTrashIcon(playlist)}
               </Link>
