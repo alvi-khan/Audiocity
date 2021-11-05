@@ -33,7 +33,7 @@ class Profile extends React.Component {
                 this.logout();
               }}
             >
-              <i class="icon bi bi-person-circle"></i>
+              <i class="icon bi bi-box-arrow-left"></i>
               Log out
             </Dropdown.Item>
           </Dropdown.Menu>
