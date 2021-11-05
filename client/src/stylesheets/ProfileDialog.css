@@ -8,7 +8,7 @@
   width: fit-content;
   height: fit-content;
 
-  border: 2px solid #4c5259;
+  border: 2px solid #1f252d;
   border-radius: 10px;
 }
 
@@ -23,9 +23,9 @@
 
 .profileDialogContainer {
   width: 350px;
-  height: 425px;
+  height: 460px;
   margin: auto;
-  padding: 30px;
+  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -35,39 +35,50 @@
 
 .appTitle {
   text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  font-size: 35px;
+  margin-top: 25px;
+  margin-bottom: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
 .profileFormLabel {
   margin-left: 20px;
   margin-right: 20px;
-  margin-top: 10px;
-  font-size: 12px;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #ebebec;
+  font-size: 13px;
+  color: #bbbbbc;
+  display: block;
+  font-weight: 600;
 }
 
 .inputProfileInfo {
   width: 250px;
-  height: 33px;
+  height: 6px;
   border-radius: 3px;
-  margin-top: 5px;
+  margin-top: 3px;
   background-color: #f1f1f6;
+  display: block;
+  margin-left: 0px;
+  padding: 18px;
+}
+
+.inputProfileInfo:focus {
+  outline: 3px solid #1496d1;
 }
 
 .submitButton {
   width: 250px;
-  height: 33px;
-  background-color: #4c5259;
+  height: 36px;
+  background-color: #222f3c;
   color: #f2f2f3;
   margin-left: 20px;
   margin-right: 20px;
-  font-weight: bold;
+  font-weight: 800;
   border-radius: 3px;
-  font-size: 13px;
-  margin-bottom: 20px;
-  margin-top: 25px;
-  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  margin-bottom: 50px;
+  margin-top: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -75,7 +86,7 @@
 }
 
 .submitButton:hover {
-  background-color: #5d636b;
+  background-color: #45515c;
 }
 
 .dialogSwitchButtonContainer {
@@ -86,7 +97,7 @@
 .promptText {
   font-size: 13px;
   display: inline-block;
-  color: #ebebec;
+  color: #bbbbbc;
 }
 
 .dialogSwitchButton {
@@ -98,7 +109,7 @@
 }
 
 .dialogSwitchButton:hover {
-  transform: scale(1.15);
+  transform: scale(1.2);
 }
 
 .profileDialogContainer .error {

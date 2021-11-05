@@ -6,10 +6,11 @@ input {
   width: 350px;
   border-radius: 20px;
   padding-left: 20px;
-  margin-left: 10px;
+  margin-left: 50px;
   padding: 20px;
   font-size: 13px;
   font-weight: 500;
+  margin-top: 5px;
 }
 
 input:focus {
