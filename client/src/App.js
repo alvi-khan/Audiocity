@@ -27,7 +27,7 @@ function App() {
       <div className="body">
         <Switch>
           <Route path="/search">
-            <Table onSearch={(text) => setSearchTerm(text)} songID={songID} searchTerm={searchTerm} onPlay={(songID) => setSongID(songID)} onQueueChange={(queue) => setQueue(queue)}/>
+            <Table onSearch={(text) => setSearchTerm(text)} songID={songID} searchTerm={searchTerm} onPlay={(songID) => setSongID(songID)} onQueueChange={(queue) => setQueue(queue)} user={user}/>
           </Route>
           <Route path="/playlist">
             <Playlists onSearch={(text) => setSearchTerm(text)} onPlay={(songID) => setSongID(songID)} user={user} onQueueChange={(queue) => setQueue(queue)}/>

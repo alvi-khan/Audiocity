@@ -9,7 +9,21 @@ import { Dropdown } from "react-bootstrap";
 class Table extends React.Component {
   state = {
     data: [],
+    playlists: [],
+    favoritePlaylistID: 0,
   };
+
+  getPlaylists() {
+    Axios.get("http://localhost:3001/api/playlists", {
+      params: { owner: this.props.user },
+    }).then((response) => {
+      this.setState({ playlists: response.data });
+      this.state.playlists.forEach((playlist) => {
+        if (playlist.name === "Favorites")
+          this.setState({ favoritePlaylistID: playlist.ID });
+      });
+    });
+  }
 
   getSearchTerm() {
     var url = window.location.href;
@@ -28,6 +42,7 @@ class Table extends React.Component {
 
   componentDidMount() {
     this.getData(this.getSearchTerm());
+    this.getPlaylists();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -49,6 +64,12 @@ class Table extends React.Component {
     this.props.onQueueChange(queue);
     if (this.props.songID === songID) this.props.onPlay(0);
     else this.props.onPlay(songID);
+  };
+
+  addToPlaylist = (songID, playlistID) => {
+    Axios.post("http://localhost:3001/api/addtoplaylist", {
+      params: { songID: songID, playlistID: playlistID },
+    });
   };
 
   render() {
@@ -90,7 +111,6 @@ class Table extends React.Component {
                       this.props.onSearch(event.target.textContent)
                     }
                     style={{ width: 250 + "px" }}
-                    // class="artist"
                   >
                     <Link class="link" to={"/search?" + item.artist}>
                       {item.artist}
@@ -122,14 +142,37 @@ class Table extends React.Component {
                         <i class="icon bi bi-three-dots"></i>
                       </Dropdown.Toggle>
 
-                      <Dropdown.Menu>
-                        <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                        <Dropdown.Item href="#/action-2">
-                          Another action
+                      <Dropdown.Menu className="dropdown-menu">
+                        <Dropdown.Item
+                          className="dropdown-item"
+                          onClick={() =>
+                            this.addToPlaylist(
+                              item.ID,
+                              this.state.favoritePlaylistID
+                            )
+                          }
+                        >
+                          <i class="icon bi bi-heart"></i>
+                          Add to Favorites
                         </Dropdown.Item>
-                        <Dropdown.Item href="#/action-3">
-                          Something else
+                        <Dropdown.Divider className="dropdown-divider" />
+                        <Dropdown.Item className="dropdown-item">
+                          <i class="icon bi bi-plus-circle"></i>
+                          Create Playlist
                         </Dropdown.Item>
+                        {this.state.playlists.map((playlist) => {
+                          if (playlist.ID != this.state.favoritePlaylistID)
+                            return (
+                              <Dropdown.Item
+                                className="dropdown-item playlist"
+                                onClick={() =>
+                                  this.addToPlaylist(item.ID, playlist.ID)
+                                }
+                              >
+                                {"Add to " + playlist.name}
+                              </Dropdown.Item>
+                            );
+                        })}
                       </Dropdown.Menu>
                     </Dropdown>
                   </td>

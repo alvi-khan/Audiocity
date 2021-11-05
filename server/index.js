@@ -25,6 +25,13 @@ app.listen(3001, () => {
     console.log("running on port 3001");
 })
 
+app.post("/api/addtoplaylist", (req, res) => {
+  const query = "INSERT INTO playlist_songs VALUES (?, ?)"
+    db.query(query, [req.body.params.playlistID, req.body.params.songID], (error, results, fields) => {
+      if (error)  return console.error(error.message);
+    })
+})
+
 app.get("/api/validateuser", (req, res) => {
   const query = "SELECT email FROM users WHERE email=(?) AND password=(?)"
   db.query(query, [req.query.userEmail, req.query.userPassword], (error, results, fields) => {

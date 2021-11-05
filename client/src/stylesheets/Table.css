@@ -126,3 +126,36 @@ img {
   background-color: transparent;
   border: none;
 }
+
+.dropdown-menu {
+  background-color: #252525;
+  height: fit-content;
+  max-height: 100px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+.dropdown-item {
+  font-size: 12px;
+  color: #ffffff;
+}
+
+.dropdown-item.playlist {
+  padding-left: 30px;
+}
+
+.dropdown-item .icon {
+  font-size: 12px;
+  margin-left: -10px;
+  margin-right: 10px;
+  visibility: visible;
+}
+
+.dropdown-item:hover {
+  background-color: #151515;
+  color: #ffffff;
+}
+
+.dropdown-divider {
+  color: #ffffff;
+}
