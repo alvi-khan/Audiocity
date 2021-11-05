@@ -44,7 +44,7 @@ class Player extends React.Component {
       if (this.audio.currentTime === this.audio.duration) this.nextSong();
     });
     this.audio.addEventListener("canplay", () => {
-      this.audio.play();
+      if (this.state.playing) this.audio.play();
     });
   }
 
