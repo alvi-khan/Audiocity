@@ -13,6 +13,7 @@ class Table extends React.Component {
     favoritePlaylistID: 0,
     hideNewPlaylistInput: true,
     previousSearchTerm: "",
+    user: "",
   };
 
   getPlaylists() {
@@ -43,6 +44,7 @@ class Table extends React.Component {
   }
 
   componentDidMount() {
+    this.setState({ user: this.props.user });
     this.getData(this.getSearchTerm());
     this.getPlaylists();
   }
@@ -50,6 +52,7 @@ class Table extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.state.previousSearchTerm != nextProps.searchTerm)
       this.getData(nextProps.searchTerm);
+    this.setState({ user: nextProps.user });
   }
 
   getImage(item) {
@@ -107,6 +110,11 @@ class Table extends React.Component {
           }
         ></input>
       );
+  }
+
+  checkVisibility() {
+    if (this.state.user === "" || this.state.user === null) return false;
+    else return true;
   }
 
   render() {
@@ -178,8 +186,11 @@ class Table extends React.Component {
                       </Link>
                     </td>
                     <td style={{ width: 40 + "px" }}>
-                      <Dropdown>
-                        <Dropdown.Toggle className="dropdown">
+                      <Dropdown className="favoritesList">
+                        <Dropdown.Toggle
+                          className="dropdown"
+                          hidden={!this.checkVisibility()}
+                        >
                           <i class="icon bi bi-three-dots"></i>
                         </Dropdown.Toggle>
 

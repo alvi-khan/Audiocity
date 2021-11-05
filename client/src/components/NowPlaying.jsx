@@ -9,6 +9,7 @@ class NowPlaying extends React.Component {
     artistName: "",
     albumArt: "",
     favorite: false,
+    user: "",
   };
 
   retrieveData(songID) {
@@ -49,6 +50,7 @@ class NowPlaying extends React.Component {
       this.getAlbumArt(nextProps.songID);
       this.getFavoriteStatus(nextProps.songID, nextProps.user);
     }
+    this.setState({ user: nextProps.user });
   }
 
   getFavoriteIcon() {
@@ -76,7 +78,12 @@ class NowPlaying extends React.Component {
   };
 
   checkVisibility() {
-    if (this.state.songName === "") return false;
+    if (
+      this.state.songName === "" ||
+      this.state.user === "" ||
+      this.state.user === null
+    )
+      return false;
     else return true;
   }
 
