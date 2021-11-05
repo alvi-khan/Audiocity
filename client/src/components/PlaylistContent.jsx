@@ -44,12 +44,7 @@ class Content extends React.Component {
     Axios.post("http://localhost:3001/api/removefromplaylist", {
       params: { songID: songID, playlistID: this.props.id },
     }).then(() => {
-      var queue = [];
-      this.state.data.map((item) => {
-        if (item.ID != songID) queue.push(item.ID);
-      });
-      this.props.onQueueChange(queue);
-      this.setState({ data: queue });
+      this.getData();
     });
   };
 
