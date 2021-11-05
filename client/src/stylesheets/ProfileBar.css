@@ -22,6 +22,11 @@
   font-size: 20px;
 }
 
+.profileOptions .dropdown {
+  margin: 0px;
+  padding: 0px;
+}
+
 .profileOptions .dropdown-menu {
   background-color: #252525;
   height: fit-content;
