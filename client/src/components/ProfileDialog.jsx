@@ -142,7 +142,7 @@ class ProfileDialog extends React.Component {
         overlayClassName="profileOverlay"
       >
         <div class="profileDialogContainer">
-          <h1 class="appTitle">Music Player</h1>
+          <h1 class="appTitle">Audiocity</h1>
           <form onSubmit={(event) => this.handleSubmit(event)}>
             <div>
               <label class="profileFormLabel">

@@ -2,15 +2,14 @@
   padding: 13px;
   display: flex;
   justify-content: space-between;
-  background-color: #1f252d;
-  border: 1px solid green;
+  background-color: #0c0c0d;
 }
 
 .profileDiv {
-  background-color: #1f252d;
+  background-color: #0c0c0d;
   text-align: center;
 }
 
 .searchBar {
-  background-color: #1f252d;
+  background-color: #0c0c0d;
 }
