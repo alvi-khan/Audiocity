@@ -31,6 +31,7 @@ class Player extends React.Component {
     this.audio.src = "http://localhost:3001/api/song?songID=" + songID;
     this.audio.volume = this.props.volume / 100;
     this.audio.muted = this.props.muted;
+    this.audio.currentTime = 0;
     this.setState({
       playing: true,
       length: this.audio.duration,
@@ -40,7 +41,7 @@ class Player extends React.Component {
       this.startAudioSlider();
     });
     this.audio.addEventListener("ended", () => {
-      this.nextSong();
+      if (this.audio.currentTime === this.audio.duration) this.nextSong();
     });
     this.audio.addEventListener("canplay", () => {
       this.audio.play();
