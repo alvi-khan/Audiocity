@@ -11,6 +11,7 @@ class Table extends React.Component {
     data: [],
     playlists: [],
     favoritePlaylistID: 0,
+    hideNewPlaylistInput: true,
   };
 
   getPlaylists() {
@@ -72,10 +73,45 @@ class Table extends React.Component {
     });
   };
 
+  revealPlaylistInput = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    this.setState({ hideNewPlaylistInput: false });
+  };
+
+  createNewPlaylist = (inputField) => {
+    this.setState({ hideNewPlaylistInput: true });
+    Axios.post("http://localhost:3001/api/createplaylist", {
+      params: { username: this.props.user, playlist: inputField.value },
+    }).then(() => {
+      this.getPlaylists();
+    });
+  };
+
+  playlistInput() {
+    if (!this.state.hideNewPlaylistInput)
+      return (
+        <input
+          type="text"
+          placeholder="New Playlist"
+          autoFocus="autofocus"
+          onKeyPress={(event) => {
+            event.key === "Enter" && this.createNewPlaylist(event.target);
+          }}
+          onBlur={() =>
+            this.setState({
+              hideNewPlaylistInput: true,
+            })
+          }
+        ></input>
+      );
+  }
+
   render() {
     if (this.state.data.length === 0) {
       return <p class="emptymessage">No results found!</p>;
     } else {
+      var playlists = [...this.state.playlists];
       return (
         <div className="table">
           <table>
@@ -159,11 +195,15 @@ class Table extends React.Component {
                             Add to Favorites
                           </Dropdown.Item>
                           <Dropdown.Divider className="dropdown-divider" />
-                          <Dropdown.Item className="dropdown-item">
+                          <Dropdown.Item
+                            className="dropdown-item"
+                            onClick={(event) => this.revealPlaylistInput(event)}
+                          >
                             <i class="icon bi bi-plus-circle"></i>
                             Create Playlist
                           </Dropdown.Item>
-                          {this.state.playlists.map((playlist) => {
+                          {this.playlistInput()}
+                          {playlists.reverse().map((playlist) => {
                             if (playlist.ID != this.state.favoritePlaylistID)
                               return (
                                 <Dropdown.Item

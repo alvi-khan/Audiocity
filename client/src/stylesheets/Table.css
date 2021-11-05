@@ -130,9 +130,10 @@ img {
 .dropdown-menu {
   background-color: #252525;
   height: fit-content;
-  max-height: 100px;
+  max-height: 200px;
   overflow-y: scroll;
   scrollbar-width: thin;
+  padding: 15px;
 }
 
 .dropdown-item {
@@ -158,4 +159,15 @@ img {
 
 .dropdown-divider {
   color: #ffffff;
+}
+
+.dropdown-menu input {
+  width: 100px;
+  height: 20px;
+  border-radius: 2px;
+  font-weight: 100;
+  padding: 2px;
+  margin: 0px;
+  margin-left: 30px;
+  font-size: 12px;
 }
