@@ -42,7 +42,9 @@ class Player extends React.Component {
     this.audio.addEventListener("ended", () => {
       this.nextSong();
     });
-    this.audio.play();
+    this.audio.addEventListener("canplay", () => {
+      this.audio.play();
+    });
   }
 
   pause() {
