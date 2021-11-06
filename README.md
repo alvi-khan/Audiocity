@@ -1,4 +1,4 @@
-# Music Streaming Service
+# Audiocity
 
 This project attempts to create a music streaming website using React, Node.js and MySQL.
 
