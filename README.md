@@ -4,12 +4,12 @@ This project attempts to create a music streaming website using React, Node.js a
 
 ## Features
 
-- [ ] Music Player:
-  - [ ] Volume Controls
-  - [ ] Next and Previous Buttons
-- [ ] User Profile
-- [ ] Playlists:
-  - [ ] Favorites List
+- [x] Music Player:
+  - [x] Volume Controls
+  - [x] Next and Previous Buttons
+- [x] User Profile
+- [x] Playlists:
+  - [x] Favorites List
 
 ## Installation
 
