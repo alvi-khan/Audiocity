@@ -130,12 +130,23 @@ class UploadDialog extends React.Component {
     if (event.target.value) this.setState({ [field]: event.target.value });
   };
 
+  // extracts image from audio file metadata
+  extractImage = (image) => {
+    let blob = new Blob([image.data.buffer], { type: image.format });
+    this.setState({
+      imageUrl: URL.createObjectURL(blob),
+      image: blob,
+      imageError: "",
+    });
+  }
+
   readAudio(file) {
     musicMetadata.parseBlob(file).then((metadata) => {
       var data = metadata.common;
       if (data.artist) this.setState({ artist: data.artist });
       if (data.album) this.setState({ album: data.album });
       if (data.title) this.setState({ title: data.title });
+      if (data.picture[0])  this.extractImage(data.picture[0])
     });
   }
 
