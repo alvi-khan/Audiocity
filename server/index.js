@@ -1,12 +1,13 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const mysql = require('mysql');
-const { nanoid } = require('nanoid');
-const multer = require('multer');
-const fs = require('fs');
-const app = express();
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import mysql from 'mysql';
+import {retrieveArtists, getAlbumArt, getMetadata, streamSong, query} from './general.js';
+import {removeFromPlaylist, addToPlaylist, getPlaylists, deletePlaylist, createPlaylist, retrievePlaylistContent, checkFavorite} from './playlists.js';
+import {validatelogin, checkUser, register} from "./users.js";
+import {uploadSong} from "./upload.js";
 
+const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cors());
@@ -21,226 +22,32 @@ const db = mysql.createPool({
 var albumArt = "Album Art";
 app.use(express.static(albumArt));
 
-app.listen(3001, () => {
-    console.log("running on port 3001");
-})
+app.listen(3001, () => { console.log("running on port 3001"); })
 
-app.post("/api/removefromplaylist", (req, res) => {
-  const query = "DELETE FROM playlist_songs WHERE playlist_id=(?) AND song_id=(?)";
-  db.query(query, [req.body.params.playlistID, req.body.params.songID], (error, results, fields) => {
-    if (error)  return console.error(error.message);
-    res.send(results);
-  })
-})
+// playlists
+app.post("/api/removefromplaylist",
+    (req, res) => { removeFromPlaylist(db, res, req.body.params.playlistID, req.body.params.songID) })
+app.post("/api/addtoplaylist",
+    (req, res) => { addToPlaylist(db, res, req.body.params.playlistID, req.body.params.songID) });
+app.get("/api/playlists", (req, res) => { getPlaylists(db, res); })
+app.post("/api/deleteplaylist", (req, res) => { deletePlaylist(db, res, req.body.params.playlistID); })
+app.post("/api/createplaylist", (req, res) => { createPlaylist(db, res, req.body.params.playlist); })
+app.get("/api/playlistcontent", (req, res) => { retrievePlaylistContent(db, res, req.query.playlistID); })
 
-app.post("/api/addtoplaylist", (req, res) => {
-  const query = "INSERT INTO playlist_songs VALUES (?, ?)"
-    db.query(query, [req.body.params.playlistID, req.body.params.songID], (error, results, fields) => {
-      if (error)  return console.error(error.message);
-    })
-})
+// favorites
+app.post("/api/unfavorite", (req, res) => { removeFromPlaylist(db, res, 0, req.body.params.songID); })
+app.post("/api/favorite", (req, res) => { addToPlaylist(db, res, 0, req.body.params.songID); })
+app.get("/api/checkfavorite", (req, res) => { checkFavorite(db, res, req.query.songID); })
 
-app.get("/api/validateuser", (req, res) => {
-  const query = "SELECT email FROM users WHERE email=(?) AND password=(?)"
-  db.query(query, [req.query.userEmail, req.query.userPassword], (error, results, fields) => {
-    if (error)  return console.error(error.message);
-    res.send(results);
-  })
-})
+// users
+app.get("/api/validateuser", (req, res) => { validatelogin(db, res, req.query.userEmail, req.query.userPassword); })
+app.get("/api/checkuser", (req, res) => { checkUser(db, res, req.query.userEmail); })
+app.post("/api/register", (req, res) => { register(db, res, req.body.params.userEmail, req.body.params.userPassword); })
 
-app.get("/api/playlists", (req, res) => {
-  const query = "SELECT ID, name FROM playlists WHERE owner = (?)";
-  db.query(query, [req.query.owner], (error, results, fields) => {
-    if (error)  return console.error(error.message);
-    res.send(results);
-  })
-})
-
-app.post("/api/deleteplaylist", (req, res) => {
-  var query = "DELETE FROM playlist_songs WHERE playlist_id=(?)";
-  db.query(query, [req.body.params.playlistID] , (error, results, fields) => {
-    if (error)  return console.error(error.message);
-    query = "DELETE FROM playlists WHERE id=(?)";
-    db.query(query, [req.body.params.playlistID], (error, results, fields) => {
-      res.send(results);
-    })
-  })
-})
-
-app.post("/api/createplaylist", (req, res) => {
-  const query = "INSERT INTO playlists (name, owner) VALUES (?, ?)"
-  db.query(query, [req.body.params.playlist, req.body.params.username], (error, results, fields) => {
-    if (error)  return console.error(error.message);
-    res.send(results);
-  })
-})
-
-app.get("/api/checkuser", (req, res) => {
-  const query = "SELECT email FROM users WHERE email=(?)"
-  db.query(query, [req.query.userEmail], (error, results, fields) => {
-    if (error)  return console.error(error.message);
-    res.send(results);
-  })
-})
-
-app.get("/api/playlistcontent", (req, res) => {
-  var query = "SELECT song_id FROM playlist_songs WHERE playlist_id = (?)";
-  var songs = [];
-  db.query(query, [req.query.playlistID], (error, results, fields) => {
-    if (error)  return console.error(error.message);
-    results.forEach(element => {
-      songs.push('"' + element.song_id + '"');
-    });
-    query = "SELECT ID, title, artist, album, uploader, coverpath FROM music_files WHERE ID IN (" + songs + ")";
-    db.query(query, [songs], (error, results, fields) => {
-      if (error)  return console.error(error.message);
-      res.send(results);
-    })
-  })
-})
-  
-app.post("/api/register", (req, res) => {
-  const query = "INSERT INTO users VALUES (?, ?)";
-  db.query(query, [req.body.params.userEmail, req.body.params.userPassword], (error, results, fields) => {
-    if (error)  return console.error(error.message);
-    res.send("Done");
-  })
-})
-
-app.get("/api/query", (req, res) => {
-    const searchTerm = "%" + (req.query.searchTerm) + "%";
-
-    const query = "SELECT ID, title, artist, album, uploader, coverpath FROM music_files WHERE ((title LIKE (?)) OR (artist LIKE (?)) OR (album LIKE (?)) OR (uploader LIKE (?)))"
-
-    db.query(query, [searchTerm, searchTerm, searchTerm, searchTerm], (error, results, fields) => {
-        if (error) {
-            return console.error(error.message);
-        }
-        res.send(results);
-    })
-})
-
-app.get("/api/song", (req, res) => {
-    const query = "SELECT filepath FROM music_files WHERE ID = (?)";
-    db.query(query, [req.query.songID], (error, results, fields) => {
-        if (error) {
-            return console.error(error.message);
-        }
-        const filePath = results[0].filepath;
-        res.setHeader("content-type", "audio/mpeg");
-        fs.createReadStream(filePath).pipe(res);
-    })
-})
-
-app.post("/api/unfavorite", (req, res) => {
-  var query = "SELECT ID FROM playlists WHERE name = 'Favorites' AND owner = (?)"
-  db.query(query, [req.body.params.user], (error, results, fields) => {
-    if(error) return console.error(error.message);
-    query = "DELETE FROM playlist_songs WHERE playlist_id = (?) AND song_id = (?)"
-    db.query(query, [results[0].ID, req.body.params.songID], (error, results, fields) => {
-      if(error) return console.error(error.message);
-    })
-  })
-})
-
-app.post("/api/favorite", (req, res) => {
-  var query = "SELECT ID FROM playlists WHERE name = 'Favorites' AND owner = (?)"
-  db.query(query, [req.body.params.user], (error, results, fields) => {
-    if (error)  return console.error(error.message);
-    query = "INSERT INTO playlist_songs VALUES (?, ?)"
-    db.query(query, [results[0].ID, req.body.params.songID], (error, results, fields) => {
-      if (error)  return console.error(error.message);
-    })
-  })
-})
-
-app.get("/api/checkfavorite", (req, res) => {
-  var query = "SELECT ID FROM playlists WHERE name = 'Favorites' AND owner = (?)"
-  db.query(query, [req.query.user], (error, results, fields) => {
-    if (error)  return console.error(error.message);
-    if (results.length === 0) return;
-    query = "SELECT * FROM playlist_songs WHERE playlist_id = (?) AND song_id = (?)"
-    db.query(query, [results[0].ID, req.query.songID], (error, results, fields) => {
-      if (error)  return console.error(error.message);
-      res.send(!(results[0] === undefined));
-    })
-  })
-})
-
-app.get("/api/metadata", (req, res) => {
-    const query = "SELECT title, artist FROM music_files WHERE ID = (?)";
-    db.query(query, [req.query.songID], (error, results, fields) => {
-        if (error)  return console.error(error.message);
-        res.send(results);
-    })
-})
-
-app.get("/api/albumart", (req, res) => {
-    const query = "SELECT coverpath FROM music_files WHERE ID = (?)";
-    db.query(query, [req.query.songID], (error, results, fields) => {
-        if (error)  return  console.error(error.message);
-        res.send(results)
-    })
-})
-
-app.get("/api/artists", (req, res) => {
-  const query = "SELECT artist, coverpath FROM music_files WHERE coverpath != '' GROUP BY artist";
-  db.query(query, (error, results, fields) => {
-    if (error)  return console.error(error.message);
-    res.send(results);
-  })
-})
-
-var fileName = "";
-var extensions = [];
-
-function generateFileName() {
-  var newName = nanoid();
-  while (fs.existsSync('./Music Files/' + newName + '.mp3') || fs.existsSync('./MusicFiles/' + newName + '.flac'))  newName = nanoid();
-  fileName = newName;
-}
-
-function getDestination(file) {
-  var extension = file.originalname.split('.');
-  extension = extension[extension.length - 1];
-  extensions[file.fieldname] = extension;
-  if (extension === "jpg" || extension === "png") return "Album Art";
-  else                                            return "Music Files";
-}
-
-var storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, getDestination(file))
-      },
-      filename: function (req, file, cb) {
-        cb(null, fileName + "." + extensions[file.fieldname]);
-      }
-});
-
-var upload = multer({ storage: storage }).fields([{ name: 'song', maxCount: 1 }, {name: 'image', maxCount: 1 }]);
-
-app.post("/api/upload", function (req, res) {
-  generateFileName();
-  extensions = [];
-  var title, artist, album, uploader, filePath, coverpath = "";
-  upload(req, res, function (err) {
-    if (err)  return res.status(500).json(err);
-    title = req.body.title;
-    artist = req.body.artist;
-    album = req.body.album;
-    uploader = req.body.uploader;
-    filePath = "./Music Files/" + fileName + "." + extensions["song"];
-    if (extensions["image"])  coverpath = fileName + "." + extensions["image"];
-    const query = "INSERT INTO music_files (title, artist, album, uploader, filepath, coverpath) VALUES (?, ?, ?, ?, ?, ?)";
-    db.query(
-      query,
-      [title, artist, album, uploader, filePath, coverpath],
-      (error, results, fields) => {
-        if (error) {
-          return console.error(error.message);
-        }
-        res.send(results);
-      }
-    );
-  })
-});
+// general
+app.get("/api/metadata", (req, res) => { getMetadata(db, res, req.query.songID); })
+app.get("/api/albumart", (req, res) => { getAlbumArt(db, res, req.query.songID); })
+app.get("/api/artists", (req, res) => { retrieveArtists(db, res); })
+app.get("/api/song", (req, res) => { streamSong(db, res, req.query.songID); })
+app.get("/api/query", (req, res) => { query(db, res, req.query.searchTerm); })
+app.post("/api/upload", function (req, res) { uploadSong(db, req, res); });
