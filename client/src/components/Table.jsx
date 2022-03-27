@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React from "react";
 import Axios from "axios";
 import "bootstrap/dist/css/bootstrap.css";
 import "../stylesheets/Table.css";

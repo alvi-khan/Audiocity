@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import axios from "axios";
 import ReactModal from "react-modal";
 import { ToastContainer, toast } from "react-toastify";

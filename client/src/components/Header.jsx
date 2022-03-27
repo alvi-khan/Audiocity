@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import SearchBar from "./SearchBar";
 import ProfileBar from "./ProfileBar";
 import "../stylesheets/Header.css";

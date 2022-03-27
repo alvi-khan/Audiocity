@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "../stylesheets/VolumeControl.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 

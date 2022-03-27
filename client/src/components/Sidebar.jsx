@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "../stylesheets/Sidebar.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import UploadDialog from "./UploadDialog";

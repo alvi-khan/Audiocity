@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import Axios from "axios";
 import "../stylesheets/Playlists.css";
 import PlaylistContent from "./PlaylistContent";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 
 class Playlist extends React.Component {
   state = {

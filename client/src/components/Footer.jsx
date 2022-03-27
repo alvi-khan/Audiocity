@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Player from "./Player";
 import "../stylesheets/Footer.css";
 import NowPlaying from "./NowPlaying";

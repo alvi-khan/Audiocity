@@ -1,8 +1,8 @@
-import React, { Component } from "react";
+import React from "react";
 import Axios from "axios";
 import "../stylesheets/Home.css";
 import { Link } from "react-router-dom";
-import { prominent, average } from "color.js";
+import { average } from "color.js";
 
 class Home extends React.Component {
   state = {

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "../stylesheets/Player.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
