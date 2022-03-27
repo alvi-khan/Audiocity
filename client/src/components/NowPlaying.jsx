@@ -45,7 +45,7 @@ class NowPlaying extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.songID != 0) {
+    if (nextProps.songID !== 0) {
       this.retrieveData(nextProps.songID);
       this.getAlbumArt(nextProps.songID);
       this.getFavoriteStatus(nextProps.songID, nextProps.user);
@@ -91,7 +91,7 @@ class NowPlaying extends React.Component {
     return (
       <div class="nowPlaying">
         <div class="image">
-          <img src={this.state.albumArt} />
+          <img alt="" src={this.state.albumArt} />
         </div>
         <div class="details">
           <text class="songName">{this.state.songName}</text>

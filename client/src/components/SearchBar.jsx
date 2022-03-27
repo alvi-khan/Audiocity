@@ -28,7 +28,7 @@ class SearchBar extends React.Component {
     return (
       <input
         onKeyUp={(e) => {
-          if (e.key == "Enter") {
+          if (e.key === "Enter") {
             this.search();
           }
         }}

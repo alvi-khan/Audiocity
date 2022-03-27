@@ -49,7 +49,7 @@ class Playlist extends React.Component {
   }
 
   getTrashIcon(playlist) {
-    if (playlist.name != "Favorites")
+    if (playlist.name !== "Favorites")
       return (
         <i
           onClick={(e) => {

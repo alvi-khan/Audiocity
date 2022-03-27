@@ -16,7 +16,7 @@ class Profile extends React.Component {
 
   render() {
     var button;
-    if (this.props.user != "" && this.props.user != null) {
+    if (this.props.user !== "" && this.props.user !== null) {
       button = (
         <Dropdown className="profileOptions">
           <Dropdown.Toggle className="dropdown">

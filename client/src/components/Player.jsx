@@ -16,9 +16,10 @@ class Player extends React.Component {
 
   startAudioSlider() {
     clearInterval(this.state.interval);
-    this.state.interval = setInterval(() => {
+    let newInterval = setInterval(() => {
       this.setState({ currentPosition: this.state.currentPosition + 1 });
     }, this.state.audioSliderUpdateInterval);
+    this.setState({interval: newInterval});
   }
 
   stopAudioSlider() {
@@ -66,7 +67,7 @@ class Player extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.songID != this.state.currentSong) {
+    if (nextProps.songID !== this.state.currentSong) {
       this.setState({ currentSong: Number(nextProps.songID) });
       this.play(nextProps.songID);
     }

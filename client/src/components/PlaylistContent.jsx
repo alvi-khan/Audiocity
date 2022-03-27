@@ -32,7 +32,7 @@ class Content extends React.Component {
 
   play = (songID) => {
     var queue = [];
-    this.state.data.map((item) => {
+    this.state.data.forEach((item) => {
       queue.push(item.ID);
     });
     this.props.onQueueChange(queue);
@@ -81,7 +81,7 @@ class Content extends React.Component {
                       ></i>
                     </td>
                     <td style={{ width: 70 + "px" }} class="img">
-                      <img src={this.getImage(item)} />
+                      <img alt="" src={this.getImage(item)} />
                     </td>
                     <td style={{ width: 250 + "px" }} class="title">
                       {item.title}

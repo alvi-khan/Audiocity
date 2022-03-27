@@ -30,7 +30,7 @@ class ProfileDialog extends React.Component {
 
   handleDialogSwitch() {
     this.setState({ emailError: "", passwordError: "" });
-    if (this.state.showLogIn == false) {
+    if (this.state.showLogIn === false) {
       this.setState({
         showLogIn: true,
         submitButtonText: "Log In",
@@ -89,7 +89,7 @@ class ProfileDialog extends React.Component {
         params: { userEmail: this.state.userEmail },
       })
       .then((response) => {
-        if (response.data.length != 0) {
+        if (response.data.length !== 0) {
           axios
             .get("http://localhost:3001/api/validateuser", {
               params: {
@@ -98,7 +98,7 @@ class ProfileDialog extends React.Component {
               },
             })
             .then((response) => {
-              if (response.data.length != 0) {
+              if (response.data.length !== 0) {
                 this.setState({ loggedInUser: this.state.userEmail });
                 this.handleClose();
                 localStorage.setItem("user", this.state.loggedInUser);
@@ -116,11 +116,11 @@ class ProfileDialog extends React.Component {
   handleSubmit = (event) => {
     event.preventDefault();
 
-    if (this.state.userEmail == "") {
+    if (this.state.userEmail === "") {
       this.setState({ emailError: "Please enter a username." });
       return;
     }
-    if (this.state.userPassword == "") {
+    if (this.state.userPassword === "") {
       this.setState({ passwordError: "Please enter a password." });
       return;
     }

@@ -45,11 +45,11 @@ class UploadDialog extends React.Component {
   };
 
   checkErrors() {
-    if (this.state.title == "") {
+    if (this.state.title === "") {
       this.setState({ titleError: "Please enter song title." });
       return false;
     } else this.setState({ titleError: "" });
-    if (this.state.artist == "") {
+    if (this.state.artist === "") {
       this.setState({ artistError: "Please enter artist name." });
       return false;
     } else this.setState({ artistError: "" });
@@ -209,8 +209,8 @@ class UploadDialog extends React.Component {
   }
 
   getImageContent() {
-    if (this.state.imageUrl != "") {
-      return <img src={this.state.imageUrl} />;
+    if (this.state.imageUrl !== "") {
+      return <img alt="" src={this.state.imageUrl} />;
     } else {
       return (
         <React.Fragment>

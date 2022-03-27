@@ -15,7 +15,7 @@ class Home extends React.Component {
     Axios.get("http://localhost:3001/api/artists").then((response) => {
       var artists = [];
       var covers = [];
-      response.data.map((element, index) => {
+      response.data.forEach((element, index) => {
         artists.push(element.artist);
         covers.push("http://localhost:3001/" + element.coverpath);
         this.getBackgroundImage(covers[index], index);
