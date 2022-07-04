@@ -13,9 +13,9 @@ export function addToPlaylist(db, res, playlistID, songID) {
     })
 }
 
-export function getPlaylists(db, res) {
-    const query = "SELECT id, name FROM playlists";
-    db.query(query, (error, results, fields) => {
+export function getPlaylists(db, res, owner) {
+    const query = "SELECT id, name FROM playlists WHERE owner = $1";
+    db.query(query, [owner], (error, results, fields) => {
         if (error)  return console.error(error.message);
         res.send(results);
     })
