@@ -4,7 +4,7 @@ import cors from 'cors';
 import pg from 'pg'
 const { Pool } = pg
 import {retrieveArtists, getAlbumArt, getMetadata, streamSong, query} from './general.js';
-import {removeFromPlaylist, addToPlaylist, getPlaylists, deletePlaylist, createPlaylist, retrievePlaylistContent, checkFavorite} from './playlists.js';
+import {removeFromPlaylist, addToPlaylist, getPlaylists, deletePlaylist, createPlaylist, retrievePlaylistContent, checkFavorite, addToFavorites, removeFromFavorites} from './playlists.js';
 import {validatelogin, checkUser, register} from "./users.js";
 import {uploadSong} from "./upload.js";
 
@@ -39,9 +39,9 @@ app.post("/api/createplaylist", (req, res) => { createPlaylist(db, res, req.body
 app.get("/api/playlistcontent", (req, res) => { retrievePlaylistContent(db, res, req.query.playlistID); })
 
 // favorites
-app.post("/api/unfavorite", (req, res) => { removeFromPlaylist(db, res, 0, req.body.params.songID); })
-app.post("/api/favorite", (req, res) => { addToPlaylist(db, res, 0, req.body.params.songID); })
-app.get("/api/checkfavorite", (req, res) => { checkFavorite(db, res, req.query.songID); })
+app.post("/api/unfavorite", (req, res) => { removeFromFavorites(db, res, req.body.params.user, req.body.params.songID); })
+app.post("/api/favorite", (req, res) => { addToFavorites(db, res, req.body.params.user, req.body.params.songID); })
+app.get("/api/checkfavorite", (req, res) => { checkFavorite(db, res, req.query.user, req.query.songID); })
 
 // users
 app.get("/api/validateuser", (req, res) => { validatelogin(db, res, req.query.userEmail, req.query.userPassword); })

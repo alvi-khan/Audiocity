@@ -52,10 +52,29 @@ export function retrievePlaylistContent(db, res, playlistID) {
     })
 }
 
-export function checkFavorite(db, res, songID) {
-    const query = "SELECT * FROM playlist_songs WHERE playlist_id = $1 AND song_id = $2"
-    db.query(query, [0, songID], (error, results, fields) => {
+export function checkFavorite(db, res, user, songID) {
+    const query = "SELECT * FROM playlists AS pl, playlist_songs AS ps " +
+        "WHERE pl.id = ps.playlist_id AND pl.name = 'Favorites' AND pl.owner = $1 AND ps.song_id = $2";
+    db.query(query, [user, songID], (error, results, fields) => {
         if (error)  return console.error(error.message);
         res.send(!(results.rows[0] === undefined));
+    })
+}
+
+export function addToFavorites(db, res, user, songID) {
+    const query = "SELECT id FROM playlists WHERE name = $1 AND owner = $2";
+    db.query(query, ['Favorites', user], (error, results) => {
+        if (error)  return console.error(error.message);
+        let playlist_id = results.rows[0].id;
+        addToPlaylist(db, res, playlist_id, songID);
+    })
+}
+
+export function removeFromFavorites(db, res, user, songID) {
+    const query = "SELECT id FROM playlists WHERE name = $1 AND owner = $2";
+    db.query(query, ['Favorites', user], (error, results) => {
+        if (error)  return console.error(error.message);
+        let playlist_id = results.rows[0].id;
+        removeFromPlaylist(db, res, playlist_id, songID);
     })
 }
