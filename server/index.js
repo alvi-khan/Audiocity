@@ -35,7 +35,7 @@ app.post("/api/addtoplaylist",
     (req, res) => { addToPlaylist(db, res, req.body.params.playlistID, req.body.params.songID) });
 app.get("/api/playlists", (req, res) => { getPlaylists(db, res); })
 app.post("/api/deleteplaylist", (req, res) => { deletePlaylist(db, res, req.body.params.playlistID); })
-app.post("/api/createplaylist", (req, res) => { createPlaylist(db, res, req.body.params.playlist); })
+app.post("/api/createplaylist", (req, res) => { createPlaylist(db, res, req.body.params.username, req.body.params.playlist); })
 app.get("/api/playlistcontent", (req, res) => { retrievePlaylistContent(db, res, req.query.playlistID); })
 
 // favorites

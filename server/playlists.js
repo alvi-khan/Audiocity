@@ -30,9 +30,9 @@ export function deletePlaylist(db, res, playlistID) {
     })
 }
 
-export function createPlaylist(db, res, playlistName) {
-    const query = "INSERT INTO playlists (name) VALUES ($1)"
-    db.query(query, [playlistName], (error, results, fields) => {
+export function createPlaylist(db, res, owner, playlistName) {
+    const query = "INSERT INTO playlists (name, owner) VALUES ($1, $2)"
+    db.query(query, [playlistName, owner], (error, results, fields) => {
         if (error)  return console.error(error.message);
         res.send(results);
     })
