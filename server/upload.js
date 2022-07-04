@@ -15,7 +15,7 @@ function getDestination(file) {
     var extension = file.originalname.split('.');
     extension = extension[extension.length - 1];
     extensions[file.fieldname] = extension;
-    if (extension === "jpg" || extension === "png") return "Album Art";
+    if (extension === "jpg" || extension === "jpeg" || extension === "png") return "Album Art";
     else                                            return "Music Files";
 }
 
