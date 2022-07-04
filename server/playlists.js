@@ -1,5 +1,5 @@
 export function removeFromPlaylist(db, res, playlistID, songID) {
-    const query = "DELETE FROM playlist_songs WHERE playlist_id=(?) AND song_id=(?)";
+    const query = "DELETE FROM playlist_songs WHERE playlist_id=$1 AND song_id=$2";
     db.query(query, [playlistID, songID], (error, results, fields) => {
         if (error)  return console.error(error.message);
         res.send(results);
@@ -7,14 +7,14 @@ export function removeFromPlaylist(db, res, playlistID, songID) {
 }
 
 export function addToPlaylist(db, res, playlistID, songID) {
-    const query = "INSERT INTO playlist_songs VALUES (?, ?)"
+    const query = "INSERT INTO playlist_songs VALUES ($1, $2)"
     db.query(query, [playlistID, songID], (error, results, fields) => {
         if (error)  return console.error(error.message);
     })
 }
 
 export function getPlaylists(db, res) {
-    const query = "SELECT ID, name FROM playlists";
+    const query = "SELECT id, name FROM playlists";
     db.query(query, (error, results, fields) => {
         if (error)  return console.error(error.message);
         res.send(results);
@@ -22,16 +22,16 @@ export function getPlaylists(db, res) {
 }
 
 export function deletePlaylist(db, res, playlistID) {
-    var query = "DELETE FROM playlist_songs WHERE playlist_id=(?)";
+    var query = "DELETE FROM playlist_songs WHERE playlist_id=$1";
     db.query(query, [playlistID] , (error, results, fields) => {
         if (error)  return console.error(error.message);
-        query = "DELETE FROM playlists WHERE id=(?)";
+        query = "DELETE FROM playlists WHERE id=$1";
         db.query(query, [playlistID], (error, results, fields) => { res.send(results); })
     })
 }
 
 export function createPlaylist(db, res, playlistName) {
-    const query = "INSERT INTO playlists (name) VALUES (?)"
+    const query = "INSERT INTO playlists (name) VALUES ($1)"
     db.query(query, [playlistName], (error, results, fields) => {
         if (error)  return console.error(error.message);
         res.send(results);
@@ -39,13 +39,13 @@ export function createPlaylist(db, res, playlistName) {
 }
 
 export function retrievePlaylistContent(db, res, playlistID) {
-    var query = "SELECT song_id FROM playlist_songs WHERE playlist_id = (?)";
+    var query = "SELECT song_id FROM playlist_songs WHERE playlist_id = $1";
     var songs = [];
     db.query(query, [playlistID], (error, results, fields) => {
         if (error)  return console.error(error.message);
-        results.forEach(element => { songs.push('"' + element.song_id + '"'); });
-        query = "SELECT ID, title, artist, album, coverpath FROM music_files WHERE ID IN (" + songs + ")";
-        db.query(query, [songs], (error, results, fields) => {
+        results.rows.forEach(element => { songs.push(element.song_id); });
+        query = "SELECT id, title, artist, album, coverpath FROM music_files WHERE id IN ($1)";
+        db.query(query, [songs.toString()], (error, results, fields) => {
             if (error)  return console.error(error.message);
             res.send(results);
         })
@@ -53,9 +53,9 @@ export function retrievePlaylistContent(db, res, playlistID) {
 }
 
 export function checkFavorite(db, res, songID) {
-    const query = "SELECT * FROM playlist_songs WHERE playlist_id = (?) AND song_id = (?)"
+    const query = "SELECT * FROM playlist_songs WHERE playlist_id = $1 AND song_id = $2"
     db.query(query, [0, songID], (error, results, fields) => {
         if (error)  return console.error(error.message);
-        res.send(!(results[0] === undefined));
+        res.send(!(results.rows[0] === undefined));
     })
 }

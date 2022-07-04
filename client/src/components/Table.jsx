@@ -20,10 +20,10 @@ class Table extends React.Component {
     Axios.get("http://localhost:3001/api/playlists", {
       params: { owner: this.props.user },
     }).then((response) => {
-      this.setState({ playlists: response.data });
+      this.setState({ playlists: response.data.rows });
       this.state.playlists.forEach((playlist) => {
         if (playlist.name === "Favorites")
-          this.setState({ favoritePlaylistID: playlist.ID });
+          this.setState({ favoritePlaylistID: playlist.id });
       });
     });
   }
@@ -39,7 +39,7 @@ class Table extends React.Component {
     Axios.get("http://localhost:3001/api/query", {
       params: { searchTerm: searchTerm },
     }).then((response) => {
-      this.setState({ data: response.data });
+      this.setState({ data: response.data.rows });
     });
   }
 
@@ -65,7 +65,7 @@ class Table extends React.Component {
   play = (songID) => {
     var queue = [];
     this.state.data.forEach((item) => {
-      queue.push(item.ID);
+      queue.push(item.id);
     });
     this.props.onQueueChange(queue);
     if (this.props.songID === songID) this.props.onPlay(0);
@@ -142,7 +142,7 @@ class Table extends React.Component {
                   <tr key={item.title}>
                     <td style={{ width: 40 + "px" }}>
                       <i
-                        data-id={item.ID}
+                        data-id={item.id}
                         onClick={(e) =>
                           this.play(e.target.getAttribute("data-id"))
                         }
@@ -202,7 +202,7 @@ class Table extends React.Component {
                             className="dropdown-item"
                             onClick={() =>
                               this.addToPlaylist(
-                                item.ID,
+                                item.id,
                                 this.state.favoritePlaylistID
                               )
                             }
@@ -220,12 +220,12 @@ class Table extends React.Component {
                           </Dropdown.Item>
                           {this.playlistInput()}
                           {playlists.reverse().map((playlist) => {
-                            if (playlist.ID !== this.state.favoritePlaylistID) {
+                            if (playlist.id !== this.state.favoritePlaylistID) {
                               return (
                                   <Dropdown.Item
                                       className="dropdown-item playlist"
                                       onClick={() =>
-                                          this.addToPlaylist(item.ID, playlist.ID)
+                                          this.addToPlaylist(item.id, playlist.id)
                                       }
                                   >
                                     {"Add to " + playlist.name}

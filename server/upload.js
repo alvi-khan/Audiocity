@@ -42,7 +42,7 @@ export function uploadSong(db, req, res) {
         uploader = req.body.uploader;
         filePath = "./Music Files/" + fileName + "." + extensions["song"];
         if (extensions["image"])  coverpath = fileName + "." + extensions["image"];
-        const query = "INSERT INTO music_files (title, artist, album, uploader, filepath, coverpath) VALUES (?, ?, ?, ?, ?, ?)";
+        const query = "INSERT INTO music_files (title, artist, album, uploader, filepath, coverpath) VALUES ($1, $2, $3, $4, $5, $6)";
         db.query(
             query,
             [title, artist, album, uploader, filePath, coverpath],

@@ -1,7 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-import mysql from 'mysql';
+import pg from 'pg'
+const { Pool } = pg
 import {retrieveArtists, getAlbumArt, getMetadata, streamSong, query} from './general.js';
 import {removeFromPlaylist, addToPlaylist, getPlaylists, deletePlaylist, createPlaylist, retrievePlaylistContent, checkFavorite} from './playlists.js';
 import {validatelogin, checkUser, register} from "./users.js";
@@ -12,12 +13,15 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cors());
 
-const db = mysql.createPool({
+const db = new Pool({
     host: "localhost",
-    user: "root",
-    password: "",
-    database: "music_Streaming_service"
-})
+    user: "postgres",
+    password: "admin",
+    database: "audiocity",
+    post: 5432,
+});
+
+db.connect();
 
 var albumArt = "Album Art";
 app.use(express.static(albumArt));

@@ -62,7 +62,7 @@ class ProfileDialog extends React.Component {
         params: { userEmail: this.state.userEmail },
       })
       .then((response) => {
-        if (response.data.length === 0) {
+        if (response.data.rows.length === 0) {
           axios
             .post("http://localhost:3001/api/register", {
               params: {
@@ -89,7 +89,7 @@ class ProfileDialog extends React.Component {
         params: { userEmail: this.state.userEmail },
       })
       .then((response) => {
-        if (response.data.length !== 0) {
+        if (response.data.rows.length !== 0) {
           axios
             .get("http://localhost:3001/api/validateuser", {
               params: {
@@ -98,7 +98,7 @@ class ProfileDialog extends React.Component {
               },
             })
             .then((response) => {
-              if (response.data.length !== 0) {
+              if (response.data.rows.length !== 0) {
                 this.setState({ loggedInUser: this.state.userEmail });
                 this.handleClose();
                 localStorage.setItem("user", this.state.loggedInUser);

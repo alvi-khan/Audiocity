@@ -146,7 +146,8 @@ class UploadDialog extends React.Component {
       if (data.artist) this.setState({ artist: data.artist });
       if (data.album) this.setState({ album: data.album });
       if (data.title) this.setState({ title: data.title });
-      if (data.picture[0])  this.extractImage(data.picture[0])
+      if (data.picture && data.picture[0])
+        this.extractImage(data.picture[0])
     });
   }
 

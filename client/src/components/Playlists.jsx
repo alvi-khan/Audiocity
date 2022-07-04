@@ -15,7 +15,7 @@ class Playlist extends React.Component {
     Axios.get("http://localhost:3001/api/playlists", {
       params: { owner: this.props.user },
     }).then((response) => {
-      this.setState({ playlists: response.data });
+      this.setState({ playlists: response.data.rows });
     });
   }
 
@@ -53,7 +53,7 @@ class Playlist extends React.Component {
       return (
         <i
           onClick={(e) => {
-            this.deletePlaylist(e, playlist.ID);
+            this.deletePlaylist(e, playlist.id);
           }}
           class="icon bi bi-trash-fill trashIcon"
         ></i>
@@ -66,19 +66,19 @@ class Playlist extends React.Component {
         {this.state.playlists.map((playlist) => {
           return (
             <button
-              onClick={() => this.updateLocation(playlist.ID)}
+              onClick={() => this.updateLocation(playlist.id)}
               class="button"
             >
-              <Link class="link" to={this.getPlaylistLink(playlist.ID)}>
+              <Link class="link" to={this.getPlaylistLink(playlist.id)}>
                 <i class="icon bi bi-caret-down-fill"></i>
                 <h2>{playlist.name}</h2>
                 {this.getTrashIcon(playlist)}
               </Link>
-              <Route path={"/playlist/" + playlist.ID} exact={true}>
+              <Route path={"/playlist/" + playlist.id} exact={true}>
                 <PlaylistContent
                   onSearch={(text) => this.props.onSearch(text)}
                   onPlay={(songID) => this.props.onPlay(songID)}
-                  id={playlist.ID}
+                  id={playlist.id}
                   onQueueChange={(queue) => this.props.onQueueChange(queue)}
                 />
               </Route>

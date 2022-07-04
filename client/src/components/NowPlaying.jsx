@@ -17,8 +17,8 @@ class NowPlaying extends React.Component {
       params: { songID: songID },
     }).then((response) => {
       this.setState({
-        songName: response.data[0].title,
-        artistName: response.data[0].artist,
+        songName: response.data.rows[0].title,
+        artistName: response.data.rows[0].artist,
       });
     });
   }
@@ -27,7 +27,7 @@ class NowPlaying extends React.Component {
     Axios.get("http://localhost:3001/api/albumart", {
       params: { songID: songID },
     }).then((response) => {
-      var coverpath = response.data[0].coverpath;
+      var coverpath = response.data.rows[0].coverpath;
       if (coverpath === "") coverpath = "default.jpg";
       else coverpath = "http://localhost:3001/" + coverpath;
       this.setState({

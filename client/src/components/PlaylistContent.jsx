@@ -15,7 +15,7 @@ class Content extends React.Component {
     Axios.get("http://localhost:3001/api/playlistcontent", {
       params: { playlistID: this.props.id },
     }).then((response) => {
-      this.setState({ data: response.data });
+      this.setState({ data: response.data.rows });
     });
   }
 
@@ -33,7 +33,7 @@ class Content extends React.Component {
   play = (songID) => {
     var queue = [];
     this.state.data.forEach((item) => {
-      queue.push(item.ID);
+      queue.push(item.id);
     });
     this.props.onQueueChange(queue);
     if (this.props.songID === songID) this.props.onPlay(0);
@@ -73,7 +73,7 @@ class Content extends React.Component {
                   <tr key={item.title}>
                     <td style={{ width: 40 + "px" }}>
                       <i
-                        data-id={item.ID}
+                        data-id={item.id}
                         onClick={(e) =>
                           this.play(e.target.getAttribute("data-id"))
                         }
@@ -122,7 +122,7 @@ class Content extends React.Component {
                     <td style={{ width: 60 + "px" }}>
                       <i
                         onClick={(e) => {
-                          this.remove(item.ID);
+                          this.remove(item.id);
                         }}
                         class="icon bi bi-x"
                       ></i>
