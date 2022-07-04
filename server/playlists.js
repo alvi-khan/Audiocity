@@ -44,8 +44,8 @@ export function retrievePlaylistContent(db, res, playlistID) {
     db.query(query, [playlistID], (error, results, fields) => {
         if (error)  return console.error(error.message);
         results.rows.forEach(element => { songs.push(element.song_id); });
-        query = "SELECT id, title, artist, album, coverpath FROM music_files WHERE id IN ($1)";
-        db.query(query, [songs.toString()], (error, results, fields) => {
+        query = "SELECT id, title, artist, album, coverpath FROM music_files WHERE id = ANY($1)";
+        db.query(query, [songs], (error, results, fields) => {
             if (error)  return console.error(error.message);
             res.send(results);
         })
