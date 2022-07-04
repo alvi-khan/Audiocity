@@ -36,7 +36,7 @@ export function streamSong(db, res, songID) {
 
 export function query(db, res, searchTerm) {
     searchTerm = "%" + (searchTerm) + "%";
-    const query = "SELECT id, title, artist, album, coverpath FROM music_files WHERE ((title LIKE $1) OR (artist LIKE $1) OR (album LIKE $1))"
+    const query = "SELECT id, title, artist, album, coverpath, uploader FROM music_files WHERE ((title LIKE $1) OR (artist LIKE $1) OR (album LIKE $1))"
     db.query(query, [searchTerm], (error, results, fields) => {
         if (error)  return console.error(error.message);
         res.send(results);
