@@ -15,13 +15,7 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static("public"));
 
-const db = new Pool({
-    host: "localhost",
-    user: "postgres",
-    password: "admin",
-    database: "audiocity",
-    post: 5432,
-});
+const db = new Pool({connectionString: process.env.DATABASE_URL});
 
 db.connect();
 
@@ -33,7 +27,7 @@ db.query(sql, (error, results, fields) => {
 var albumArt = "Album Art";
 app.use(express.static(albumArt));
 
-app.listen(3001, () => { console.log("running on port 3001"); })
+app.listen(process.env.PORT, () => {})
 
 // playlists
 app.post("/api/removefromplaylist",
