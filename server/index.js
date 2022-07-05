@@ -7,11 +7,13 @@ import {retrieveArtists, getAlbumArt, getMetadata, streamSong, query} from './ge
 import {removeFromPlaylist, addToPlaylist, getPlaylists, deletePlaylist, createPlaylist, retrievePlaylistContent, checkFavorite, addToFavorites, removeFromFavorites} from './playlists.js';
 import {validatelogin, checkUser, register} from "./users.js";
 import {uploadSong} from "./upload.js";
+import fs from "fs";
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cors());
+app.use(express.static("public"));
 
 const db = new Pool({
     host: "localhost",
@@ -22,6 +24,11 @@ const db = new Pool({
 });
 
 db.connect();
+
+let sql = fs.readFileSync('init_db.sql').toString();
+db.query(sql, (error, results, fields) => {
+    if (error)  return console.error(error.message);
+})
 
 var albumArt = "Album Art";
 app.use(express.static(albumArt));
