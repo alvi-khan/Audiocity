@@ -67,7 +67,7 @@ class Player extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.songID !== this.state.currentSong) {
+    if (nextProps.songID != this.state.currentSong) {
       this.setState({ currentSong: Number(nextProps.songID) });
       this.play(nextProps.songID);
     }
