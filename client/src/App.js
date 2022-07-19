@@ -4,8 +4,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
 import Home from './components/Home';
-import React, { useState } from 'react';
-import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import React, {useEffect, useState} from 'react';
+import {HashRouter as Router, Switch, Route} from "react-router-dom";
 import Playlists from './components/Playlists';
 
 function App() {
@@ -14,6 +14,16 @@ function App() {
   const [songID, setSongID] = useState(0);
   const [user, setUser] = useState(localStorage.getItem("user"));
   const [queue, setQueue] = useState([]);
+
+  function getSearchTerm() {
+    var url = window.location.href;
+    var searchTerm = url.substring("http://localhost:3000/#/search?".length);
+    setSearchTerm(decodeURI(searchTerm));
+  }
+
+  useEffect(() => {
+    getSearchTerm();
+  }, [])
 
   return (
   <Router>
@@ -26,15 +36,15 @@ function App() {
       </div>
       <div className="body">
         <Switch>
-          <Route path="/search">
-            <Table onSearch={(text) => setSearchTerm(text)} songID={songID} searchTerm={searchTerm} onPlay={(songID) => setSongID(songID)} onQueueChange={(queue) => setQueue(queue)} user={user}/>
-          </Route>
-          <Route path="/playlist">
-            <Playlists onSearch={(text) => setSearchTerm(text)} onPlay={(songID) => setSongID(songID)} user={user} onQueueChange={(queue) => setQueue(queue)}/>
-          </Route>
-          <Route path="/">
-            <Home onArtistSelect={(artist) => setSearchTerm(artist)}/>
-          </Route>
+          <Route path="/search"
+                 render={() => <Table onSearch={(text) => setSearchTerm(text)} songID={songID} searchTerm={searchTerm} onPlay={(songID) => setSongID(songID)} onQueueChange={(queue) => setQueue(queue)} user={user}/>}
+          />
+          <Route path="/playlist"
+                 render={() => <Playlists onSearch={(text) => setSearchTerm(text)} onPlay={(songID) => setSongID(songID)} user={user} onQueueChange={(queue) => setQueue(queue)}/>}
+          />
+          <Route path="/"
+                 render={() => <Home onArtistSelect={(artist) => setSearchTerm(artist)}/>}
+          />
         </Switch>
       </div>
       <div className="footer">

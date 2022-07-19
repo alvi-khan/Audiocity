@@ -28,12 +28,6 @@ class Table extends React.Component {
     });
   }
 
-  getSearchTerm() {
-    var url = window.location.href;
-    var searchTerm = url.substring("http://localhost:3000/search?".length);
-    return decodeURI(searchTerm);
-  }
-
   getData(searchTerm) {
     this.setState({ data: [], previousSearchTerm: searchTerm });
     Axios.get("http://localhost:3001/api/query", {
@@ -45,7 +39,7 @@ class Table extends React.Component {
 
   componentDidMount() {
     this.setState({ user: this.props.user });
-    this.getData(this.getSearchTerm());
+    this.getData(this.props.searchTerm);
     this.getPlaylists();
   }
 
