@@ -74,14 +74,14 @@ class Playlist extends React.Component {
                 <h2>{playlist.name}</h2>
                 {this.getTrashIcon(playlist)}
               </Link>
-              <Route path={"/playlist/" + playlist.id} exact={true}>
-                <PlaylistContent
-                  onSearch={(text) => this.props.onSearch(text)}
-                  onPlay={(songID) => this.props.onPlay(songID)}
-                  id={playlist.id}
-                  onQueueChange={(queue) => this.props.onQueueChange(queue)}
-                />
-              </Route>
+              <Route path={"/playlist/" + playlist.id} exact={true}
+                     render={() => <PlaylistContent
+                         onSearch={(text) => this.props.onSearch(text)}
+                         onPlay={(songID) => this.props.onPlay(songID)}
+                         id={playlist.id}
+                         onQueueChange={(queue) => this.props.onQueueChange(queue)}
+                     />}
+              />
             </button>
           );
         })}

@@ -18,6 +18,10 @@ tbody {
   scrollbar-width: none;
 }
 
+tbody::-webkit-scrollbar {
+  display: none;
+}
+
 th {
   padding: 10px;
   color: #bfbfbf;

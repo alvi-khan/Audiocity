@@ -2,7 +2,7 @@ import React from "react";
 import "../stylesheets/Sidebar.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import UploadDialog from "./UploadDialog";
-import { Link } from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 
 class Sidebar extends React.Component {
   state = {
@@ -10,11 +10,25 @@ class Sidebar extends React.Component {
     selectedButton: "Home",
   };
 
-  constructor() {
-    super();
-    this.state.selectedButton = window.location.href
-      .replace(window.location.origin, "")
-      .split("/")[1];
+  updateSelection() {
+      let selectedButton = window.location.href
+          .replace(window.location.origin, "")
+          .split("/")[2];
+      if (selectedButton.includes("?")) {
+          selectedButton = selectedButton.split("?")[0];  // ignore search terms
+      }
+      if (selectedButton === "") {
+          selectedButton = "Home";
+      }
+      this.setState({ selectedButton: selectedButton });
+  }
+
+  componentDidMount() {
+      this.updateSelection();
+  }
+
+  componentWillReceiveProps(nextProps) {
+      this.updateSelection();
   }
 
   optionalDivStyle = () => {
@@ -89,4 +103,4 @@ class Sidebar extends React.Component {
   }
 }
 
-export default Sidebar;
+export default withRouter(Sidebar);

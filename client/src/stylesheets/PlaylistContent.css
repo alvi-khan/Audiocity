@@ -5,6 +5,7 @@
 .playlistContent table {
   width: 100%;
   margin: auto;
+  margin-bottom: 10px;
   background-color: #1c1c1f;
 }
 
