@@ -22,7 +22,3 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-# music files folders
-*/Music Files
-*/Album Art
