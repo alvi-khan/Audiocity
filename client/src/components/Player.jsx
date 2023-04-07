@@ -29,7 +29,7 @@ class Player extends React.Component {
   play(songID) {
     if (songID === 0) return;
 
-    this.audio.src = "http://localhost:3001/api/song?songID=" + songID;
+    this.audio.src = `${process.env.REACT_APP_BASE_URL}/api/song?songID=` + songID;
     this.audio.volume = this.props.volume / 100;
     this.audio.muted = this.props.muted;
     this.audio.currentTime = 0;

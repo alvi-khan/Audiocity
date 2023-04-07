@@ -17,7 +17,7 @@ function App() {
 
   function getSearchTerm() {
     var url = window.location.href;
-    var searchTerm = url.substring("http://localhost:3000/#/search?".length);
+    var searchTerm = url.substring(`${process.env.REACT_APP_BASE_URL}/search?`.length);
     setSearchTerm(decodeURI(searchTerm));
   }
 

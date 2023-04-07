@@ -12,7 +12,7 @@ class Playlist extends React.Component {
   };
 
   getPlaylists() {
-    Axios.get("http://localhost:3001/api/playlists", {
+    Axios.get(`${process.env.REACT_APP_BASE_URL}/api/playlists`, {
       params: { owner: this.props.user },
     }).then((response) => {
       this.setState({ playlists: response.data.rows });
@@ -41,7 +41,7 @@ class Playlist extends React.Component {
   deletePlaylist(event, playlistID) {
     event.preventDefault();
     event.stopPropagation();
-    Axios.post("http://localhost:3001/api/deleteplaylist", {
+    Axios.post(`${process.env.REACT_APP_BASE_URL}/api/deleteplaylist`, {
       params: { playlistID: playlistID },
     }).then(() => {
       this.getPlaylists();

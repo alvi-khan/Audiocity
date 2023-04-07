@@ -12,12 +12,12 @@ class Home extends React.Component {
   };
 
   retrieveArtists() {
-    Axios.get("http://localhost:3001/api/artists").then((response) => {
+    Axios.get(`${process.env.REACT_APP_BASE_URL}/api/artists`).then((response) => {
       var artists = [];
       var covers = [];
       response.data.rows.forEach((element, index) => {
         artists.push(element.artist);
-        covers.push("http://localhost:3001/" + element.coverpath);
+        covers.push(`${process.env.REACT_APP_BASE_URL}/` + element.coverpath);
         this.getBackgroundImage(covers[index], index);
       });
       this.setState({

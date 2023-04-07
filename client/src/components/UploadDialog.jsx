@@ -73,7 +73,7 @@ class UploadDialog extends React.Component {
     data.append("album", this.state.album);
     data.append("uploader", this.props.user);
     axios
-      .post("http://localhost:3001/api/upload", data, {
+      .post(`${process.env.REACT_APP_BASE_URL}/api/upload`, data, {
         onUploadProgress: (ProgressEvent) => {
           var progress = ProgressEvent.loaded / ProgressEvent.total;
           if (progress === 1) progress = 0.99;

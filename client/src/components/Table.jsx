@@ -17,7 +17,7 @@ class Table extends React.Component {
   };
 
   getPlaylists() {
-    Axios.get("http://localhost:3001/api/playlists", {
+    Axios.get(`${process.env.REACT_APP_BASE_URL}/api/playlists`, {
       params: { owner: this.props.user },
     }).then((response) => {
       this.setState({ playlists: response.data.rows });
@@ -30,7 +30,7 @@ class Table extends React.Component {
 
   getData(searchTerm) {
     this.setState({ data: [], previousSearchTerm: searchTerm });
-    Axios.get("http://localhost:3001/api/query", {
+    Axios.get(`${process.env.REACT_APP_BASE_URL}/api/query`, {
       params: { searchTerm: searchTerm },
     }).then((response) => {
       this.setState({ data: response.data.rows });
@@ -52,7 +52,7 @@ class Table extends React.Component {
   getImage(item) {
     var image = item.coverpath;
     if (image === "") image = "default.jpg";
-    else image = "http://localhost:3001/" + image;
+    else image = `${process.env.REACT_APP_BASE_URL}/` + image;
     return image;
   }
 
@@ -67,7 +67,7 @@ class Table extends React.Component {
   };
 
   addToPlaylist = (songID, playlistID) => {
-    Axios.post("http://localhost:3001/api/addtoplaylist", {
+    Axios.post(`${process.env.REACT_APP_BASE_URL}/api/addtoplaylist`, {
       params: { songID: songID, playlistID: playlistID },
     });
   };
@@ -80,7 +80,7 @@ class Table extends React.Component {
 
   createNewPlaylist = (inputField) => {
     this.setState({ hideNewPlaylistInput: true });
-    Axios.post("http://localhost:3001/api/createplaylist", {
+    Axios.post(`${process.env.REACT_APP_BASE_URL}/api/createplaylist`, {
       params: { username: this.props.user, playlist: inputField.value },
     }).then(() => {
       this.getPlaylists();

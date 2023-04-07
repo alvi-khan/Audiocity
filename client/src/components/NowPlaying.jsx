@@ -13,7 +13,7 @@ class NowPlaying extends React.Component {
   };
 
   retrieveData(songID) {
-    Axios.get("http://localhost:3001/api/metadata", {
+    Axios.get(`${process.env.REACT_APP_BASE_URL}/api/metadata`, {
       params: { songID: songID },
     }).then((response) => {
       this.setState({
@@ -24,12 +24,12 @@ class NowPlaying extends React.Component {
   }
 
   getAlbumArt(songID) {
-    Axios.get("http://localhost:3001/api/albumart", {
+    Axios.get(`${process.env.REACT_APP_BASE_URL}/api/albumart`, {
       params: { songID: songID },
     }).then((response) => {
       var coverpath = response.data.rows[0].coverpath;
       if (coverpath === "") coverpath = "default.jpg";
-      else coverpath = "http://localhost:3001/" + coverpath;
+      else coverpath = `${process.env.REACT_APP_BASE_URL}/` + coverpath;
       this.setState({
         albumArt: coverpath,
       });
@@ -37,7 +37,7 @@ class NowPlaying extends React.Component {
   }
 
   getFavoriteStatus(songID, username) {
-    Axios.get("http://localhost:3001/api/checkfavorite", {
+    Axios.get(`${process.env.REACT_APP_BASE_URL}/api/checkfavorite`, {
       params: { songID: songID, user: username },
     }).then((response) => {
       this.setState({ favorite: response.data });
@@ -60,13 +60,13 @@ class NowPlaying extends React.Component {
   }
 
   unfavorite() {
-    Axios.post("http://localhost:3001/api/unfavorite", {
+    Axios.post(`${process.env.REACT_APP_BASE_URL}/api/unfavorite`, {
       params: { songID: this.props.songID, user: this.props.user },
     });
   }
 
   makeFavorite() {
-    Axios.post("http://localhost:3001/api/favorite", {
+    Axios.post(`${process.env.REACT_APP_BASE_URL}/api/favorite`, {
       params: { songID: this.props.songID, user: this.props.user },
     });
   }

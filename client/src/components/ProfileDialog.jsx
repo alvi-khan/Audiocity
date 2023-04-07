@@ -23,7 +23,7 @@ class ProfileDialog extends React.Component {
   };
 
   createFavoritesPlaylist() {
-    axios.post("http://localhost:3001/api/createplaylist", {
+    axios.post(`${process.env.REACT_APP_BASE_URL}/api/createplaylist`, {
       params: { username: this.state.loggedInUser, playlist: "Favorites" },
     });
   }
@@ -58,13 +58,13 @@ class ProfileDialog extends React.Component {
 
   register() {
     axios
-      .get("http://localhost:3001/api/checkuser", {
+      .get(`${process.env.REACT_APP_BASE_URL}/api/checkuser`, {
         params: { userEmail: this.state.userEmail },
       })
       .then((response) => {
         if (response.data.rows.length === 0) {
           axios
-            .post("http://localhost:3001/api/register", {
+            .post(`${process.env.REACT_APP_BASE_URL}/api/register`, {
               params: {
                 userEmail: this.state.userEmail,
                 userPassword: this.state.userPassword,
@@ -85,13 +85,13 @@ class ProfileDialog extends React.Component {
 
   login() {
     axios
-      .get("http://localhost:3001/api/checkuser", {
+      .get(`${process.env.REACT_APP_BASE_URL}/api/checkuser`, {
         params: { userEmail: this.state.userEmail },
       })
       .then((response) => {
         if (response.data.rows.length !== 0) {
           axios
-            .get("http://localhost:3001/api/validateuser", {
+            .get(`${process.env.REACT_APP_BASE_URL}/api/validateuser`, {
               params: {
                 userEmail: this.state.userEmail,
                 userPassword: this.state.userPassword,

@@ -12,7 +12,7 @@ class Content extends React.Component {
 
   getData() {
     this.setState({ data: [] });
-    Axios.get("http://localhost:3001/api/playlistcontent", {
+    Axios.get(`${process.env.REACT_APP_BASE_URL}/api/playlistcontent`, {
       params: { playlistID: this.props.id },
     }).then((response) => {
       this.setState({ data: response.data.rows });
@@ -26,7 +26,7 @@ class Content extends React.Component {
   getImage(item) {
     var image = item.coverpath;
     if (image === "") image = "default.jpg";
-    else image = "http://localhost:3001/" + image;
+    else image = `${process.env.REACT_APP_BASE_URL}/` + image;
     return image;
   }
 
@@ -41,7 +41,7 @@ class Content extends React.Component {
   };
 
   remove = (songID) => {
-    Axios.post("http://localhost:3001/api/removefromplaylist", {
+    Axios.post(`${process.env.REACT_APP_BASE_URL}/api/removefromplaylist`, {
       params: { songID: songID, playlistID: this.props.id },
     }).then(() => {
       this.getData();
