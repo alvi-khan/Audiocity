@@ -8,6 +8,7 @@ import {removeFromPlaylist, addToPlaylist, getPlaylists, deletePlaylist, createP
 import {validatelogin, checkUser, register} from "./users.js";
 import {uploadSong} from "./upload.js";
 import fs from "fs";
+import {startKeepAlive} from './keepAlive.js';
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: true}));
@@ -30,6 +31,7 @@ app.use(express.static(albumArt));
 let PORT = 3001
 if (process.env.NODE_ENV === 'production') {
     PORT = process.env.PORT;
+    startKeepAlive();
 }
 app.listen(PORT, () => {})
 
