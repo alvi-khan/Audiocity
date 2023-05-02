@@ -2,7 +2,7 @@
 
 This project attempts to create a music streaming website using React, Node.js and PostgreSQL.
 
-https://audiocity-production.up.railway.app
+https://audiocity.onrender.com/
 
 ## Features
 
